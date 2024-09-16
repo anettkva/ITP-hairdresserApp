@@ -1,25 +1,30 @@
 {
     "configurations": [
-    {
-        "type": "java",
-        "name": "Current File",
-        "request": "launch",
-        "mainClass": "${file}"
-    },
-    {
-        "type": "java",
-        "name": "hairdresserApp",
-        "request": "launch",
-        "mainClass": "app/app.HairdresserApp",
-        "vmArgs": [
-            "--add-opens",
-            "app/app=ALL-UNNAMED",
-            "--add-exports",
-            "javafx.graphics/com.sun.javafx.application=ALL-UNNAMED"
-        ],
-        "projectName": "gr2415"
-    }
-
-
+        {
+            "type": "java",
+            "name": "HairdresserApp",
+            "request": "launch",
+            "mainClass": "app/app.HairdresserApp",
+            "projectName": "hairdresserapp"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "hairdresserApp",
+            "request": "launch",
+            "mainClass": "app/app.HairdresserApp",
+            "vmArgs": [
+                "--add-opens",
+                "app/app=ALL-UNNAMED",
+                "--add-exports",
+                "javafx.graphics/com.sun.javafx.application=ALL-UNNAMED"
+            ],
+            "projectName": "gr2415"
+        }
     ]
 }
