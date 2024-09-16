@@ -1,0 +1,1 @@
+Vi har brukt KI-verktøyet ChatGPT. Vi brukte verktøyet som et hjelpemiddel, spesielt i startfasen, da vi skulle redegjøre oppgaven. Vi brukte det til å spørre spørsmål om oppgavebeskrivelsen, der vi følte det var nødvendig. 
