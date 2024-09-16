@@ -1,4 +1,4 @@
-package main.java.hairdresserapp;
+package app;
 
 public class PriceCalculator {
     
