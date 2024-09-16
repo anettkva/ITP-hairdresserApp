@@ -1,5 +1,6 @@
-package main.java.hairdresserapp;
+package app;
 
 public class HairdresserApp {
+
     
 }

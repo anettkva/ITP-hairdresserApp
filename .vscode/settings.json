@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/Users/julieaasen/Downloads/javafx-sdk-22.0.2/lib/**/*.jar"
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic"
+}
