@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Filehandling {
     
     public void writeToFile(Treatment t) throws IOException{
-        File myFile = new File("hairdresserapp/src/main/java/app/TreatmentsAndPrices.txt");
+        File myFile = new File("./TreatmentsAndPrices.txt");
 
         try (FileWriter myWriter = new FileWriter(myFile, true)) {
             myWriter.write(t.getName() + ": " + t.getPrice() + "kr, " + t.getduration() +"min"+ "\n");
@@ -18,7 +18,7 @@ public class Filehandling {
     }
 
     public List<Treatment> loadFromFile() throws IOException {
-        File myFile = new File("hairdresserapp/src/main/java/app/TreatmentsAndPrices.txt");
+        File myFile = new File("./TreatmentsAndPrices.txt");
         List<Treatment> list = new ArrayList<>();
 
         try (Scanner scanner = new Scanner(myFile)) {
@@ -40,7 +40,7 @@ public class Filehandling {
     }
 
     public void reset() {
-        File myFile = new File("hairdresserapp/src/main/java/app/TreatmentsAndPrices.txt");
+        File myFile = new File("./TreatmentsAndPrices.txt");
 
         try (FileWriter myWriter = new FileWriter(myFile, false)) {
 
