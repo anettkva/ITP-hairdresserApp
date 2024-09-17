@@ -25,11 +25,12 @@ public class Filehandling {
 
             while (scanner.hasNextLine()) {
                 String s = scanner.nextLine();
-                String[] stringList = s.split("[:,]");
-                String price = stringList[1].split("k")[0];
-                String duration = stringList[2].split("m")[0];
+                String[] nameList = s.split(":");
+                String[] priceAndDurationList = nameList[1].split(","); 
+                String price = priceAndDurationList[0].split("k")[0];
+                String duration = priceAndDurationList[1].split("m")[0];
                 
-                Treatment t = new Treatment(stringList[0], Integer.valueOf(price), Integer.valueOf(duration));
+                Treatment t = new Treatment(nameList[0], Integer.valueOf(price), Integer.valueOf(duration));
 
                 list.add(t);
             }
