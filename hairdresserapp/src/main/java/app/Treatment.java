@@ -3,13 +3,15 @@ package app;
 public class Treatment {
     private int price;
     private int durationMinutes;
+    private String name;
 
-    public Treatment(int price, int durationMinutes) {
+    public Treatment(String name, int price, int durationMinutes) {
         if (price < 0 || durationMinutes < 0 || durationMinutes > 420) {
             throw new IllegalArgumentException();
         }
         this.price = price;
         this.durationMinutes = durationMinutes;
+        this.name = name;
     }
 
     public int getPrice() {
@@ -33,6 +35,16 @@ public class Treatment {
         }
         this.durationMinutes = durationMinutes;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    
 
     
 
