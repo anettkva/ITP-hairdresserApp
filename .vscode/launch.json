@@ -2,7 +2,7 @@
     "configurations": [
         {
             "type": "java",
-            "name": "HairdresserApp",
+            "name": "hairdresserapp",
             "request": "launch",
             "mainClass": "app/app.HairdresserApp",
             "projectName": "hairdresserapp"
@@ -24,7 +24,7 @@
                 "--add-exports",
                 "javafx.graphics/com.sun.javafx.application=ALL-UNNAMED"
             ],
-            "projectName": "gr2415"
+            "projectName": "hairdresserapp"
         }
     ]
 }
