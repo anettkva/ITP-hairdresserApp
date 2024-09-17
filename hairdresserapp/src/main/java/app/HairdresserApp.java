@@ -19,6 +19,11 @@ public class HairdresserApp extends Application {
         Parent parent = fxmlLoader.load();
         stage.setScene(new Scene(parent));
         stage.show();
+
+        stage.setOnCloseRequest(event -> {
+            Filehandling filehandling = new Filehandling();
+            filehandling.reset();
+        });
     }
 
     public static void main(String[] args) {
