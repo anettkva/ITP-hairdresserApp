@@ -1,6 +1,6 @@
 
 package app;
-//klasse som har en kalkulator som tar inn en liste med treatments, og regner ut totalpris, og returnerer dette.
+//klasse som har en kalkulator som tar inn en liste med treatment-objekter, og regner ut totalpris, og returnerer dette.
 import java.util.List;
 
 public class PriceCalculator {
