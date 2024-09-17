@@ -145,9 +145,11 @@ public class TreatmentController {
     void handleShowOverview() throws IOException {
         List<Treatment> fileTreatments = filehandling.loadFromFile();
         for (Treatment t : fileTreatments) {
-            overViewTextArea.setText(t.getName() + ": " + t.getPrice() + " kr\\n" );
+            overViewTextArea.appendText(t.getName() + ": " + t.getPrice() + " kr \\n" );
         }
     }
+
+    
 
     
 
