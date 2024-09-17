@@ -93,29 +93,29 @@
             <Font size="18.0" />
           </font>
         </Label>
-            <CheckBox id="shortHairCut" layoutX="55.0" layoutY="71.0" mnemonicParsing="false" text="Short hair cut" />
-            <CheckBox id="longHairCut" layoutX="56.0" layoutY="102.0" mnemonicParsing="false" text="Long hair cut" />
-            <CheckBox id="stripes" layoutX="56.0" layoutY="136.0" mnemonicParsing="false" text="Stripes" />
-            <CheckBox id="color" layoutX="56.0" layoutY="168.0" mnemonicParsing="false" text="Color" />
-            <CheckBox id="styling" layoutX="56.0" layoutY="200.0" mnemonicParsing="false" text="Styling" />
+            <CheckBox id="shortHairCut" layoutX="55.0" layoutY="71.0" mnemonicParsing="false" onAction="#handleShortCut" text="Short hair cut" />
+            <CheckBox id="longHairCut" layoutX="56.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleLongCut" text="Long hair cut" />
+            <CheckBox id="stripes" layoutX="56.0" layoutY="136.0" mnemonicParsing="false" onAction="#handleStripes" text="Stripes" />
+            <CheckBox id="color" layoutX="56.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleColor" text="Color" />
+            <CheckBox id="styling" layoutX="56.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleStyling" text="Styling" />
             <Label layoutX="56.0" layoutY="38.0" text="Choose treatments ">
                <font>
                   <Font name="Arial Black" size="16.0" />
                </font>
             </Label>
-            <CheckBox id="wash" layoutX="55.0" layoutY="235.0" mnemonicParsing="false" text="Wash" />
-            <Button id="showOverview" layoutX="416.0" layoutY="37.0" mnemonicParsing="false" text="Show price overview">
+            <CheckBox id="wash" layoutX="55.0" layoutY="235.0" mnemonicParsing="false" onAction="#handleWash" text="Wash" />
+            <Button id="showOverview" layoutX="416.0" layoutY="37.0" mnemonicParsing="false" onAction="#handleShowOverview" text="Show price overview">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Button>
             <TextArea id="overviewTextArea" layoutX="406.0" layoutY="77.0" prefHeight="200.0" prefWidth="200.0" />
-            <Label layoutX="219.0" layoutY="99.0" text="Total price:">
+            <Button id="showPrice" layoutX="220.0" layoutY="98.0" mnemonicParsing="false" onAction="#handleCalculatePrice" text="Show price:">
                <font>
-                  <Font name="Arial Black" size="16.0" />
+                  <Font name="Arial Black" size="12.0" />
                </font>
-            </Label>
-            <TextField id="totalPriceField" layoutX="197.0" layoutY="132.0" />
+            </Button>
+            <TextField id="totalPriceField" layoutX="187.0" layoutY="132.0" />
       </children>
     </AnchorPane>
   </children>

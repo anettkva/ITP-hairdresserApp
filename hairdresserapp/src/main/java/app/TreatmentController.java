@@ -1,5 +1,6 @@
 package app;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +55,12 @@ public class TreatmentController {
     private void updateFile() {
         filehandling.reset();
         for (Treatment t : chosenTreatments) {
-            filehandling.writeToFile(t);
+            try {
+                filehandling.writeToFile(t);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
     }
 
@@ -136,7 +142,7 @@ public class TreatmentController {
     }
 
     @FXML
-    void handleShowOverview() {
+    void handleShowOverview() throws IOException {
         List<Treatment> fileTreatments = filehandling.loadFromFile();
         for (Treatment t : fileTreatments) {
             overViewTextArea.setText(t.getName() + ": " + t.getPrice() + " kr\\n" );
