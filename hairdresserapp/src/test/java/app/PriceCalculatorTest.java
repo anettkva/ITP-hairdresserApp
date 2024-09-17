@@ -6,9 +6,6 @@ import java.util.List;
 
 
 
-public class PriceCalculator {
-
-
 public class PriceCalculatorTest {
     @Test
     public void calculateTotalPrice(){
@@ -20,9 +17,9 @@ public class PriceCalculatorTest {
 
         PriceCalculator priceCalculator = new PriceCalculator();
 
-        double totalPrice = priceCalculator.calculateTotalPrice(treatments);
+        double totalPrice = priceCalculator.CalculateTotalPrice(treatments);
 
-        assertEquals(1600, totalPrice, "total prie should be 1000");
+        assertEquals(1600, totalPrice, "total pries should be 1000");
     }
     
 }
