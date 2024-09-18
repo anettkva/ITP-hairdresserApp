@@ -40,12 +40,8 @@ public class Filehandling {
     }
 
     public void reset() {
-        File myFile = new File("./TreatmentsAndPrices.txt");
-
-        try (FileWriter myWriter = new FileWriter(myFile, false)) {
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        File myFile = new File("./TreatmentsAndPrices.txt"); 
+        
+        myFile.delete();
     }
 }
