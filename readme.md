@@ -1,7 +1,7 @@
 
 # Hårsalong Booking App
 
-- ![Link til eclipse](https://che.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2024/gr2415/gr2415)
+  [Link til eclipse](https://che.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2024/gr2415/gr2415)
 
 Dette prosjektet er en bookingside for en frisørsalong, hvor brukere kan velge én eller flere behandlinger, få et anslag på pris, se tilgjengelige timer og booke en time. Appen vil hjelpe salongen med å digitalisere bookingprosessen og gi kundene en enkel måte å velge tjenester og planlegge sine frisørbesøk på.
 
