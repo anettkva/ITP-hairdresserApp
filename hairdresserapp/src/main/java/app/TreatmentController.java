@@ -143,6 +143,7 @@ public class TreatmentController {
 
     @FXML
     void handleShowOverview() throws IOException {
+        overViewTextArea.setText(" ");
         List<Treatment> fileTreatments = filehandling.loadFromFile();
         for (Treatment t : fileTreatments) {
             overViewTextArea.appendText(t.getName() + ": " + t.getPrice() + " kr" + "\n" );
