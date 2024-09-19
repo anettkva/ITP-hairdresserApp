@@ -83,9 +83,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>
                 <configuration>
-                    <argLine>
-                        --add-opens javafx.graphics/javafx.scene=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
-                    </argLine>
+                    <!--  -->
                 </configuration>
             </plugin>
 
@@ -99,41 +97,30 @@
                     <mainClass>app.HairdresserApp</mainClass>
                 </configuration>
             </plugin>
-
-           <!-- <plugin>
+     
+           <!-- Configure jacoco code coverage -->
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.7.201606060606</version>
+                <version>0.8.8</version>
                 <executions>
                     <execution>
+                        <id>jacoco-prepare-agent</id>
+                        <phase>process-test-classes</phase>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
+                        <id>jacoco-report</id>
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
-            </plugin> -->
-          
-    
-     
-        <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <configuration>
-                <propertyName>jaCoCoArgLine</propertyName>
-            </configuration>
-
-        </plugin>
-
-    
-
-
+            </plugin>
         </plugins>
     </build>
+
 </project>
