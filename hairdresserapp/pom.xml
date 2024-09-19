@@ -77,16 +77,17 @@
                     <release>17</release>
                 </configuration>
             </plugin>
+            <!-- Surefire plugin for running tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-        		<artifactId>maven-surefire-plugin</artifactId>
-		        <version>3.1.2</version>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
                 <configuration>
                     <argLine>
-                    --add-opens app/app=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                        --add-opens javafx.graphics/javafx.scene=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
                     </argLine>
                 </configuration>
-	        </plugin>
+            </plugin>
 
             <plugin>
                 <groupId>org.openjfx</groupId>
@@ -99,7 +100,7 @@
                 </configuration>
             </plugin>
 
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.7.7.201606060606</version>
@@ -117,7 +118,21 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
+          
+    
+     
+        <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <configuration>
+                <propertyName>jaCoCoArgLine</propertyName>
+            </configuration>
+
+        </plugin>
+
+    
+
 
         </plugins>
     </build>
