@@ -4,7 +4,7 @@
             "type": "java",
             "name": "hairdresserapp",
             "request": "launch",
-            "mainClass": "app/app.HairdresserApp",
+            "mainClass": "ui/ui.HairdresserApp",
             "projectName": "hairdresserapp"
         },
         {
@@ -17,10 +17,10 @@
             "type": "java",
             "name": "hairdresserApp",
             "request": "launch",
-            "mainClass": "app/app.HairdresserApp",
+            "mainClass": "ui/ui.HairdresserApp",
             "vmArgs": [
                 "--add-opens",
-                "app/app=ALL-UNNAMED",
+                "ui/ui=ALL-UNNAMED",
                 "--add-exports",
                 "javafx.graphics/com.sun.javafx.application=ALL-UNNAMED"
             ],
