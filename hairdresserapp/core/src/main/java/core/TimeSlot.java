@@ -1,6 +1,10 @@
 package core;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+
 import core.JsonFileHandeling;
 
 public class TimeSlot {
@@ -11,14 +15,14 @@ public class TimeSlot {
 
     public TimeSlot(LocalDateTime startTime) {
         if (startTime.isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentExeption("Starttid må være i fremtiden");
+            throw new IllegalArgumentException("Starttid må være i fremtiden");
         }
 
-        if (!(time.getMinute() == 0 && time.getSecond() == 0)) {
-            throw new IllegalArgumentExeption("Starttid må være på et helt klokkeslett");
+        if (!(startTime.getMinute() == 0 && startTime.getSecond() == 0)) {
+            throw new IllegalArgumentException("Starttid må være på et helt klokkeslett");
         }
 
-        if (startTime.isBefore(LocalTime.of(8, 0)) || startTime.isAfter(LocalTime.of(15, 0))) {
+        if (startTime.toLocalTime().isBefore(LocalTime.of(8, 0)) || startTime.toLocalTime().isAfter(LocalTime.of(15, 0))) {
             throw new IllegalArgumentException("Timer kan ikke starte før 8 eller slutte etter 16");
         }
 
@@ -28,7 +32,7 @@ public class TimeSlot {
         List<TimeSlot> bookedTimeSlots = fileHandeler.readFromFile();
         for (TimeSlot slot : bookedTimeSlots) {
             if (startTime.equals(slot.getStartTime())) {
-                throw new IllegalArgumentExeption("Starttiden er allerede tatt");
+                throw new IllegalArgumentException("Starttiden er allerede tatt");
             }
 
         }
@@ -71,19 +75,19 @@ public class TimeSlot {
 
     public void book() {
         if (this.isBooked) {
-            throw new IllegalStateExeption("Timen er allerede booket");
+            throw new IllegalStateException("Timen er allerede booket");
         }
 
         this.isBooked = true;
     }
 
     public void cancelBooking() {
-        if (Duration.between(LocalDateTime.now(), startTime) < 2) {
-            throw new IllegalStateExeption("Det er under to timer til timen, den kan ikke kanselleres");
+        if (Duration.between(LocalDateTime.now(), this.startTime).toHours() < 2) {
+            throw new IllegalStateException("Det er under to timer til timen, den kan ikke kanselleres");
         }
 
         if (!this.isBooked) {
-            throw new IllegalStateExeption("Timen er ikke booket");
+            throw new IllegalStateException("Timen er ikke booket");
         }
 
         this.isBooked = false;
