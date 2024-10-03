@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nb"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Treatment.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">modules-core</a> &gt; <a href="index.source.html" class="el_package">core</a> &gt; <span class="el_source">Treatment.java</span></div><h1>Treatment.java</h1><pre class="source lang-java linenums">package core;
+
+public class Treatment {
+    private int price;
+    private int durationMinutes;
+    private String name;
+
+<span class="fc" id="L8">    public Treatment(String name, int price, int durationMinutes) {</span>
+<span class="pc bpc" id="L9" title="3 of 6 branches missed.">        if (price &lt; 0 || durationMinutes &lt; 0 || durationMinutes &gt; 420) {</span>
+<span class="nc" id="L10">            throw new IllegalArgumentException();</span>
+        }
+<span class="fc" id="L12">        this.price = price;</span>
+<span class="fc" id="L13">        this.durationMinutes = durationMinutes;</span>
+<span class="fc" id="L14">        this.name = name;</span>
+<span class="fc" id="L15">    }</span>
+
+    public int getPrice() {
+<span class="fc" id="L18">        return price;</span>
+    }
+
+    public void setPrice(int price) {
+<span class="nc bnc" id="L22" title="All 2 branches missed.">        if (price &lt; 0) {</span>
+<span class="nc" id="L23">            throw new IllegalArgumentException(&quot;Price can't be negative&quot;);</span>
+        }
+<span class="nc" id="L25">        this.price = price;</span>
+<span class="nc" id="L26">    }</span>
+
+    public int getduration() {
+<span class="nc" id="L29">        return durationMinutes;</span>
+    }
+
+    public void setduration(int durationMinutes) {
+<span class="nc bnc" id="L33" title="All 4 branches missed.">        if (durationMinutes &lt; 0 || durationMinutes &gt; 420) {</span>
+<span class="nc" id="L34">            throw new IllegalArgumentException(&quot;duration must be between 0 and 420 minutes long&quot;);</span>
+        }
+<span class="nc" id="L36">        this.durationMinutes = durationMinutes;</span>
+<span class="nc" id="L37">    }</span>
+
+    public String getName() {
+<span class="nc" id="L40">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L44">        this.name = name;</span>
+<span class="nc" id="L45">    }</span>
+
+    
+
+    
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
