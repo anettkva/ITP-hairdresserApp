@@ -2,7 +2,7 @@ package json;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import core.TimeSlot
+import core.TimeSlot;
 
 import java.io.File;
 import java.time.LocalDateTime;

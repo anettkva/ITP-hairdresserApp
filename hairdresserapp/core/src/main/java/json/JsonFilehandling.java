@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import core.TimeSlot
+import core.TimeSlot;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
