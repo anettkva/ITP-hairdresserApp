@@ -1,6 +1,7 @@
 package core;
 
 import java.time.LocalDateTime;
+import core.JsonFileHandeling;
 
 public class TimeSlot {
     private LocalDateTime startTime;
@@ -8,23 +9,28 @@ public class TimeSlot {
     private boolean isBooked;
 
 
-    public TimeSlot(LocalDateTime startTime, LocalDateTime endTime) {
+    public TimeSlot(LocalDateTime startTime) {
         if (startTime.isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentExeption("Starttid må være i fremtiden");
         }
 
-        if (endTime.isBefore(startTime)) {
-            throw new IllegalArgumentExeption("endTime kan ikke være før startTime");
-        }
+        JsonFileHandeling fileHandeler = new JsonFileHandeling();
+        
+        
+        List<TimeSlot> bookedTimeSlots = fileHandeler.readFromFile();
+        for (TimeSlot slot : bookedTimeSlots) {
+            if (startTime.equals(slot.getStartTime())) {
+                throw new IllegalArgumentExeption("Starttiden er allerede tatt");
+            }
 
-        if (endtime - startTime < 30) {
-            throw new IllegalArgumentExeption("Timen må være minst 30 min");
+            if (!(time.getMinute() == 0 && time.getSecond() == 0)) {
+                throw new IllegalArgumentExeption("Starttid må være på et helt klokkeslett");
+            }
         }
-
         
 
         this.startTime = startTime;
-        this.endTime = endTime;
+        this.endTime = startTime.plusHours(1);
         this.isBooked = false;
     }
 
