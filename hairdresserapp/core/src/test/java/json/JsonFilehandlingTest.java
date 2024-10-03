@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import core.TimeSlot;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ import org.junit.jupiter.api.Test;
 public class JsonFilehandlingTest {
 
     @Test
-    public void testWriteToFile() {
+    public void testWriteToFile() throws IOException{
         LocalDateTime startTime = LocalDateTime.now();
         TimeSlot ts = new TimeSlot(startTime);
 

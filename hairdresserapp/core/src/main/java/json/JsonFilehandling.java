@@ -23,7 +23,7 @@ public class JsonFilehandling {
 
     }
 
-    public List<TimeSlot> readFromFile() {
+    public List<TimeSlot> readFromFile() throws IOException{
         List<TimeSlot> list = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper(); 
 
