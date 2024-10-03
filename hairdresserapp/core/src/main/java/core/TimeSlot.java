@@ -14,6 +14,14 @@ public class TimeSlot {
             throw new IllegalArgumentExeption("Starttid må være i fremtiden");
         }
 
+        if (!(time.getMinute() == 0 && time.getSecond() == 0)) {
+            throw new IllegalArgumentExeption("Starttid må være på et helt klokkeslett");
+        }
+
+        if (startTime.isBefore(LocalTime.of(8, 0)) || startTime.isAfter(LocalTime.of(15, 0))) {
+            throw new IllegalArgumentException("Timer kan ikke starte før 8 eller slutte etter 16");
+        }
+
         JsonFileHandeling fileHandeler = new JsonFileHandeling();
         
         
@@ -23,9 +31,6 @@ public class TimeSlot {
                 throw new IllegalArgumentExeption("Starttiden er allerede tatt");
             }
 
-            if (!(time.getMinute() == 0 && time.getSecond() == 0)) {
-                throw new IllegalArgumentExeption("Starttid må være på et helt klokkeslett");
-            }
         }
         
 
