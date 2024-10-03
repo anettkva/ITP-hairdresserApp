@@ -1,3 +1,7 @@
+package core;
+
+import java.time.LocalDateTime;
+
 public class TimeSlot {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -5,6 +9,20 @@ public class TimeSlot {
 
 
     public TimeSlot(LocalDateTime startTime, LocalDateTime endTime) {
+        if (startTime.isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentExeption("Starttid må være i fremtiden");
+        }
+
+        if (endTime.isBefore(startTime)) {
+            throw new IllegalArgumentExeption("endTime kan ikke være før startTime");
+        }
+
+        if (endtime - startTime < 30) {
+            throw new IllegalArgumentExeption("Timen må være minst 30 min");
+        }
+
+        
+
         this.startTime = startTime;
         this.endTime = endTime;
         this.isBooked = false;
@@ -49,7 +67,7 @@ public class TimeSlot {
     }
 
     public void cancelBooking() {
-        if (LocalDateTime.now() - startTime < 2) {
+        if (Duration.between(LocalDateTime.now(), startTime) < 2) {
             throw new IllegalStateExeption("Det er under to timer til timen, den kan ikke kanselleres");
         }
 
