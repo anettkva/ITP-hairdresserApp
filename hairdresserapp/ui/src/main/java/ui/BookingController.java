@@ -22,7 +22,7 @@ public class BookingController {
     @FXML
     public void bookTimeSLot() {
 
-        String bookingTextField = userInput.getText();
+        String bookingTextField = bookingTextField.getText();
 
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
