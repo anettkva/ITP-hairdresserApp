@@ -9,7 +9,7 @@
         <groupId>it1901</groupId>
         <artifactId>gr2415</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>hairdresserapp/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
 
@@ -52,7 +52,7 @@
             <groupId>it1901</groupId>
             <artifactId>modules-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+        </dependency> 
 
 
         <!-- test javafx with TextFX -->
