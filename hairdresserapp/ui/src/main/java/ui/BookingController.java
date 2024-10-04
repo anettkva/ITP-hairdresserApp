@@ -1,11 +1,14 @@
 package ui;
 
-import LocalDateTime;
-import json.JsonFilehandling;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import core.TimeSlot;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import json.JsonFilehandling;
 
 
 public class BookingController {
@@ -14,39 +17,38 @@ public class BookingController {
     private TextField bookingTextField;
 
     @FXML 
-    private TextArea BookingTextArea;
+    private TextArea bookingTextArea;
 
-    private JsonFilehandling = new JsonFilehandling();
+    private JsonFilehandling filehandling = new JsonFilehandling();
 
 
     @FXML
     public void bookTimeSLot() {
 
-        String bookingTextField = bookingTextField.getText();
+        String text = bookingTextField.getText();
 
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime desiredStartTime = LocalDateTime.parse(input, formatter);
+            LocalDateTime desiredStartTime = LocalDateTime.parse(text, formatter);
 
-            List<TimeSlot> bookedTimeSlots = JsonFilehandling.readFromFile();
+            List<TimeSlot> bookedTimeSlots = filehandling.readFromFile();
 
             for (TimeSlot bookedSlot : bookedTimeSlots) {
-                if (bookedTimeSlots.getStartTime().equals(desiredStartTime)) {
+                if (bookedSlot.getStartTime().equals(desiredStartTime)) {
                     StringBuilder bookedSlotsText = new StringBuilder("Timen du ønsker er ikke ledig:( Her er en oversikt over bookede timer:\n");
                     for (TimeSlot slot : bookedTimeSlots) {
-                        bookedSlotsText.append(bookedTimeSlots.getStartTime().toString());
+                        bookedSlotsText.append(bookedSlot.getStartTime().toString());
                     }
-                    BookingTextArea.setText(bookedSlotsText.toString());
+                    bookingTextArea.setText(bookedSlotsText.toString());
                     return;
                 }
             }
 
             TimeSlot newTimeSlot = new TimeSlot(desiredStartTime);
             newTimeSlot.book();
-            bookedTimeSlots.add(newTimeSlot);
-            fileHandler.writeToFile(bookedTimeSlots);
+            filehandling.writeToFile(newTimeSlot);
 
-            BookingTextArea.setText("Timen med starttid " + desiredStartTime.toString() + "er booket:)");
+            bookingTextArea.setText("Timen med starttid " + desiredStartTime.toString() + "er booket:)");
         }
         
     }
