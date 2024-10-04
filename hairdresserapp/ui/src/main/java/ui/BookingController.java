@@ -11,10 +11,10 @@ import javafx.scene.control.TextField;
 public class BookingController {
 
     @FXML 
-    private TextField userInput;
+    private TextField bookingTextField;
 
     @FXML 
-    private TextArea feedback;
+    private TextArea BookingTextArea;
 
     private JsonFilehandling = new JsonFilehandling();
 
@@ -22,7 +22,7 @@ public class BookingController {
     @FXML
     public void bookTimeSLot() {
 
-        String input = userInput.getText();
+        String bookingTextField = userInput.getText();
 
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -36,7 +36,7 @@ public class BookingController {
                     for (TimeSlot slot : bookedTimeSlots) {
                         bookedSlotsText.append(bookedTimeSlots.getStartTime().toString());
                     }
-                    feedback.setText(bookedSlotsText.toString());
+                    BookingTextArea.setText(bookedSlotsText.toString());
                     return;
                 }
             }
@@ -46,10 +46,8 @@ public class BookingController {
             bookedTimeSlots.add(newTimeSlot);
             fileHandler.writeToFile(bookedTimeSlots);
 
-            feedbackTextArea.setText("Timen med starttid " + desiredStartTime.toString() + "er booket:)");
+            BookingTextArea.setText("Timen med starttid " + desiredStartTime.toString() + "er booket:)");
         }
-        catch (Exception e) {
-            feedbackTextArea.setText("Ugyldig format. Bruk formatet 'yyyy-MM-dd HH:mm'");
-        }
+        
     }
 }
