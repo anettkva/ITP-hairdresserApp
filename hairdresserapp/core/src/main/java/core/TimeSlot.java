@@ -13,7 +13,7 @@ public class TimeSlot {
     private boolean isBooked;
 
 
-    public TimeSlot(LocalDateTime startTime) {
+    public TimeSlot(LocalDateTime startTime) throws IOException{
         if (startTime.isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("Starttid må være i fremtiden");
         }
