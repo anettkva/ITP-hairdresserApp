@@ -1,9 +1,9 @@
 package core;
-import org.junit.jupiter.api.Test;
-import java.time.LocalDateTime;
-import core.TimeSlot;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
 
 public class TimeSlotTest {
     
@@ -13,7 +13,7 @@ public class TimeSlotTest {
         LocalDateTime endTime = LocalDateTime.now().plusHours(1);
         
         assertThrows(IllegalArgumentException.class, 
-            () -> new TimeSlot(startTime, endTime),
+            () -> new TimeSlot(startTime),
             "Starttid må være i fremtiden"
         );
 
@@ -25,28 +25,19 @@ public class TimeSlotTest {
         LocalDateTime endTime = startTime.minusMinutes(30);
 
         assertThrows(IllegalArgumentException.class, 
-            () -> new TimeSlot(startTime, endTime),
+            () -> new TimeSlot(startTime),
             "endTime kan ikke være før startTime"
         );
     }
 
-    @Test
-    void testDurationLessThan30MinutesThrowsException() {
-        LocalDateTime startTime = LocalDateTime.now().plusHours(1);
-        LocalDateTime endTime = startTime.plusMinutes(20);
-
-        assertThrows(IllegalArgumentException.class, 
-            () -> new TimeSlot(startTime, endTime),
-            "Timen må være minst 30 min"
-        );
-    }
+  
 
     @Test
     void testValidTimeSlot() {
         LocalDateTime startTime = LocalDateTime.now().plusHours(1);
         LocalDateTime endTime = startTime.plusMinutes(45);
 
-        assertDoesNotThrow(() -> new TimeSlot(startTime, endTime));
+        assertDoesNotThrow(() -> new TimeSlot(startTime));
     }
 
     @Test
@@ -54,7 +45,7 @@ public class TimeSlotTest {
         
         LocalDateTime startTime = LocalDateTime.now().plusHours(1);
         LocalDateTime endTime = startTime.plusMinutes(45);
-        TimeSlot timeSlot = new TimeSlot(startTime, endTime);
+        TimeSlot timeSlot = new TimeSlot(startTime);
 
         
         assertDoesNotThrow(timeSlot::book);
@@ -68,7 +59,7 @@ public class TimeSlotTest {
         
         LocalDateTime startTime = LocalDateTime.now().plusHours(1);
         LocalDateTime endTime = startTime.plusMinutes(45);
-        TimeSlot timeSlot = new TimeSlot(startTime, endTime);
+        TimeSlot timeSlot = new TimeSlot(startTime);
 
         
         timeSlot.book();
