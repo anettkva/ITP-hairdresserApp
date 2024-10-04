@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
-import core.JsonFileHandeling;
+import json.JsonFilehandling;
 
 public class TimeSlot {
     private LocalDateTime startTime;
@@ -26,10 +26,10 @@ public class TimeSlot {
             throw new IllegalArgumentException("Timer kan ikke starte før 8 eller slutte etter 16");
         }
 
-        JsonFileHandeling fileHandeler = new JsonFileHandeling();
+        JsonFilehandling fileHandler = new JsonFilehandling();
         
         
-        List<TimeSlot> bookedTimeSlots = fileHandeler.readFromFile();
+        List<TimeSlot> bookedTimeSlots = fileHandler.readFromFile();
         for (TimeSlot slot : bookedTimeSlots) {
             if (startTime.equals(slot.getStartTime())) {
                 throw new IllegalArgumentException("Starttiden er allerede tatt");
