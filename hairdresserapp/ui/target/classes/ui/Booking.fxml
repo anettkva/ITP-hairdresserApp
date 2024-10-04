@@ -86,7 +86,7 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #b6e7eb;" VBox.vgrow="ALWAYS">
          <children>
-            <TextField layoutX="52.0" layoutY="136.0" promptText="yyyy-MM-dd HH:mm" style="-fx-border-color: #348ceb;" />
+            <TextField id="bookingTextField" layoutX="52.0" layoutY="136.0" promptText="yyyy-MM-dd HH:mm" style="-fx-border-color: #348ceb;" />
             <TextArea id="bookingTextArea" layoutX="292.0" layoutY="86.0" opacity="0.15" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #348ceb;" />
             <Label layoutX="33.0" layoutY="94.0" text="Velg ønsket dato og tidspunkt">
                <font>
