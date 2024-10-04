@@ -5,12 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import core.PriceCalculator;
 import core.Filehandling;
 import core.Treatment;
+
+import javafx.stage.Stage;
+
 
 
 
@@ -154,6 +160,15 @@ public class TreatmentController {
         for (Treatment t : fileTreatments) {
             overViewTextArea.appendText(t.getName() + ": " + t.getPrice() + " kr" + "\n" );
         }
+    }
+
+    @FXML 
+    void handleBookingButton() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("Booking.fxml"));
+        Parent parent = fxmlLoader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
     }
 
     
