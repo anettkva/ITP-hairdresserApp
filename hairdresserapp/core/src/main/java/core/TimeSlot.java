@@ -1,5 +1,6 @@
 package core;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -13,7 +14,7 @@ public class TimeSlot {
     private boolean isBooked;
 
 
-    public TimeSlot(LocalDateTime startTime) {
+    public TimeSlot(LocalDateTime startTime) throws IOException {
         if (startTime.isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("Starttid må være i fremtiden");
         }
