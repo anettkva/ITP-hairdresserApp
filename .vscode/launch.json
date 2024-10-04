@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "HairdresserApp",
+            "request": "launch",
+            "mainClass": "ui.HairdresserApp",
+            "projectName": "modules-ui"
+        },
+        {
+            "type": "java",
             "name": "JsonFilehandling",
             "request": "launch",
             "mainClass": "core/core.JsonFilehandling",
