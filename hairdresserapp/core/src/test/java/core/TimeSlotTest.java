@@ -1,6 +1,7 @@
 package core;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
@@ -41,7 +42,7 @@ public class TimeSlotTest {
     }
 
     @Test
-    void testBookingSuccess() {
+    void testBookingSuccess() throws IOException {
         
         LocalDateTime startTime = LocalDateTime.now().plusHours(1);
         LocalDateTime endTime = startTime.plusMinutes(45);
@@ -55,7 +56,7 @@ public class TimeSlotTest {
     }
 
     @Test
-    void testAlreadyBookedThrowsException() {
+    void testAlreadyBookedThrowsException() throws IOException {
         
         LocalDateTime startTime = LocalDateTime.now().plusHours(1);
         LocalDateTime endTime = startTime.plusMinutes(45);
