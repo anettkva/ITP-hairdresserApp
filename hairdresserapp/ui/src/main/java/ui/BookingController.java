@@ -37,7 +37,7 @@ public class BookingController {
                 if (bookedSlot.getStartTime().equals(desiredStartTime)) {
                     StringBuilder bookedSlotsText = new StringBuilder("Timen du ønsker er ikke ledig:( Her er en oversikt over bookede timer:\n");
                     for (TimeSlot slot : bookedTimeSlots) {
-                        bookedSlotsText.append(bookedSlot.getStartTime().toString());
+                        bookedSlotsText.append(slot.getStartTime().toString());
                     }
                     bookingTextArea.setText(bookedSlotsText.toString());
                     return;
@@ -49,7 +49,15 @@ public class BookingController {
             filehandling.writeToFile(newTimeSlot);
 
             bookingTextArea.setText("Timen med starttid " + desiredStartTime.toString() + "er booket:)");
+
         }
+
+            catch (IllegalArgumentException e) {
+                bookingTextArea.setText("Ugyldig starttid: " + e.getMessage());
+            } catch (Exception e) {
+                bookingTextArea.setText("En feil oppstod: " + e.getMessage());
+            }
         
     }
 }
+
