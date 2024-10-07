@@ -4,14 +4,12 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
-
-import json.JsonFilehandling;
 
 public class TimeSlot {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private boolean isBooked;
+    private TimeSlotManager manager;
 
 
     public TimeSlot(LocalDateTime startTime) throws IOException{
@@ -27,21 +25,22 @@ public class TimeSlot {
             throw new IllegalArgumentException("Timer kan ikke starte før 8 eller slutte etter 16");
         }
 
-        JsonFilehandling fileHandler = new JsonFilehandling();
+        // JsonFilehandling fileHandler = new JsonFilehandling();
         
         
-        List<TimeSlot> bookedTimeSlots = fileHandler.readFromFile();
-        for (TimeSlot slot : bookedTimeSlots) {
-            if (startTime.equals(slot.getStartTime())) {
-                throw new IllegalArgumentException("Starttiden er allerede tatt");
-            }
+        // List<TimeSlot> bookedTimeSlots = fileHandler.readFromFile();
+        // for (TimeSlot slot : bookedTimeSlots) {
+        //     if (startTime.equals(slot.getStartTime())) {
+        //         throw new IllegalArgumentException("Starttiden er allerede tatt");
+        //     }
 
-        }
+        // }
         
 
         this.startTime = startTime;
         this.endTime = startTime.plusHours(1);
         this.isBooked = false;
+        this.manager = new TimeSlotManager();
     }
 
 
