@@ -3,6 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>it1901</groupId>
     <artifactId>modules-core</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
     <parent>
         <groupId>it1901</groupId>
