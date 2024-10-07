@@ -10,9 +10,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import core.TimeSlot;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import core.TimeSlot;
 
 public class JsonFilehandling {
 
@@ -20,7 +20,7 @@ public class JsonFilehandling {
     public void writeToFile(TimeSlot time) throws IOException{
         ObjectMapper objectMapper = new ObjectMapper();
 
-        objectMapper.writeValue(new File("hairdresserapp./TimeSlotOverveiw.json"), time + "\n"); 
+        objectMapper.writeValue(new File("hairdresserapp/TimeSlotOverveiw.json"), time + "\n"); 
 
     }
 
