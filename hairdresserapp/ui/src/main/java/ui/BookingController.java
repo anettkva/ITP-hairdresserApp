@@ -13,17 +13,18 @@ import json.JsonFilehandling;
 
 public class BookingController {
 
+    private JsonFilehandling filehandling = new JsonFilehandling();;
+
     @FXML 
     private TextField bookingTextField;
 
     @FXML 
     private TextArea bookingTextArea;
 
-    private JsonFilehandling filehandling = new JsonFilehandling();
-
+    
 
     @FXML
-    public void bookTimeSLot() {
+    public void bookTimeSlot() {
 
         String text = bookingTextField.getText();
 

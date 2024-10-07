@@ -1,0 +1,37 @@
+-------------------------------------------------------------------------------
+Test set: core.TimeSlotTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 1, Errors: 2, Skipped: 0, Time elapsed: 0.196 s <<< FAILURE! -- in core.TimeSlotTest
+core.TimeSlotTest.testValidTimeSlot -- Time elapsed: 0.138 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception thrown: java.lang.IllegalArgumentException: Starttid må være på et helt klokkeslett
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
+	at org.junit.jupiter.api.AssertDoesNotThrow.createAssertionFailedError(AssertDoesNotThrow.java:84)
+	at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:75)
+	at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:58)
+	at org.junit.jupiter.api.Assertions.assertDoesNotThrow(Assertions.java:3224)
+	at core@0.0.1-SNAPSHOT/core.TimeSlotTest.testValidTimeSlot(TimeSlotTest.java:54)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+Caused by: java.lang.IllegalArgumentException: Starttid må være på et helt klokkeslett
+	at core@0.0.1-SNAPSHOT/core.TimeSlot.<init>(TimeSlot.java:23)
+	at core@0.0.1-SNAPSHOT/core.TimeSlotTest.lambda$testValidTimeSlot$3(TimeSlotTest.java:54)
+	at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:71)
+	... 6 more
+
+core.TimeSlotTest.testBookingSuccess -- Time elapsed: 0.003 s <<< ERROR!
+java.lang.IllegalArgumentException: Starttid må være på et helt klokkeslett
+	at core@0.0.1-SNAPSHOT/core.TimeSlot.<init>(TimeSlot.java:23)
+	at core@0.0.1-SNAPSHOT/core.TimeSlotTest.testBookingSuccess(TimeSlotTest.java:62)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
+core.TimeSlotTest.testAlreadyBookedThrowsException -- Time elapsed: 0.003 s <<< ERROR!
+java.lang.IllegalArgumentException: Starttid må være på et helt klokkeslett
+	at core@0.0.1-SNAPSHOT/core.TimeSlot.<init>(TimeSlot.java:23)
+	at core@0.0.1-SNAPSHOT/core.TimeSlotTest.testAlreadyBookedThrowsException(TimeSlotTest.java:76)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
