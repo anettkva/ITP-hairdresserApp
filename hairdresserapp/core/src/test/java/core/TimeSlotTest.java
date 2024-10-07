@@ -1,9 +1,14 @@
 package core;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 import java.time.LocalDateTime;
 import core.TimeSlot;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TimeSlotTest {
     
@@ -13,7 +18,7 @@ public class TimeSlotTest {
         LocalDateTime endTime = LocalDateTime.now().plusHours(1);
         
         assertThrows(IllegalArgumentException.class, 
-            () -> new TimeSlot(startTime, endTime),
+            () -> new TimeSlot(startTime),
             "Starttid må være i fremtiden"
         );
 
@@ -25,7 +30,7 @@ public class TimeSlotTest {
         LocalDateTime endTime = startTime.minusMinutes(30);
 
         assertThrows(IllegalArgumentException.class, 
-            () -> new TimeSlot(startTime, endTime),
+            () -> new TimeSlot(startTime),
             "endTime kan ikke være før startTime"
         );
     }
@@ -36,7 +41,7 @@ public class TimeSlotTest {
         LocalDateTime endTime = startTime.plusMinutes(20);
 
         assertThrows(IllegalArgumentException.class, 
-            () -> new TimeSlot(startTime, endTime),
+            () -> new TimeSlot(startTime),
             "Timen må være minst 30 min"
         );
     }
@@ -46,15 +51,15 @@ public class TimeSlotTest {
         LocalDateTime startTime = LocalDateTime.now().plusHours(1);
         LocalDateTime endTime = startTime.plusMinutes(45);
 
-        assertDoesNotThrow(() -> new TimeSlot(startTime, endTime));
+        assertDoesNotThrow(() -> new TimeSlot(startTime));
     }
 
     @Test
-    void testBookingSuccess() {
+    void testBookingSuccess() throws IOException {
         
         LocalDateTime startTime = LocalDateTime.now().plusHours(1);
         LocalDateTime endTime = startTime.plusMinutes(45);
-        TimeSlot timeSlot = new TimeSlot(startTime, endTime);
+        TimeSlot timeSlot = new TimeSlot(startTime);
 
         
         assertDoesNotThrow(timeSlot::book);
@@ -64,11 +69,11 @@ public class TimeSlotTest {
     }
 
     @Test
-    void testAlreadyBookedThrowsException() {
+    void testAlreadyBookedThrowsException() throws IOException {
         
         LocalDateTime startTime = LocalDateTime.now().plusHours(1);
         LocalDateTime endTime = startTime.plusMinutes(45);
-        TimeSlot timeSlot = new TimeSlot(startTime, endTime);
+        TimeSlot timeSlot = new TimeSlot(startTime);
 
         
         timeSlot.book();

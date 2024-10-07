@@ -8,9 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import core.PriceCalculator;
 import core.Filehandling;
-import core.Treatment;
 
 
 /**

@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonFilehandling {
 
+
     public void writeToFile(TimeSlot time) throws IOException{
         ObjectMapper objectMapper = new ObjectMapper();
 
