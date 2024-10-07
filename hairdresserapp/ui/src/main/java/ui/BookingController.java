@@ -49,7 +49,10 @@ public class BookingController {
             newTimeSlot.book();
             filehandling.writeToFile(newTimeSlot);
 
-            bookingTextArea.setText("Timen med starttid " + desiredStartTime.toString() + "er booket:)");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm 'den' MM-dd-yyyy");
+            String formattedStartTime = desiredStartTime.format(outputFormatter);
+
+            bookingTextArea.setText("Timen med starttid " + formattedStartTime + "er booket:)");
 
         }
 
