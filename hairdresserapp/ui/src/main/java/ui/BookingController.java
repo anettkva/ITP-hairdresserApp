@@ -1,64 +1,98 @@
-package ui;
+package core;
 
+import java.io.IOException;
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
 import java.util.List;
 
-import core.TimeSlot;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import json.JsonFilehandling;
 
+public class TimeSlot {
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private boolean isBooked;
 
-public class BookingController {
 
-    private JsonFilehandling filehandling = new JsonFilehandling();;
-
-    @FXML 
-    private TextField bookingTextField;
-
-    @FXML 
-    private TextArea bookingTextArea;
-
-    
-
-    @FXML
-    public void bookTimeSlot() {
-
-        String text = bookingTextField.getText();
-
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime desiredStartTime = LocalDateTime.parse(text, formatter);
-
-            List<TimeSlot> bookedTimeSlots = filehandling.readFromFile();
-
-            for (TimeSlot bookedSlot : bookedTimeSlots) {
-                if (bookedSlot.getStartTime().equals(desiredStartTime)) {
-                    StringBuilder bookedSlotsText = new StringBuilder("Timen du ønsker er ikke ledig:( Her er en oversikt over bookede timer:\n");
-                    for (TimeSlot slot : bookedTimeSlots) {
-                        bookedSlotsText.append(slot.getStartTime().toString());
-                    }
-                    bookingTextArea.setText(bookedSlotsText.toString());
-                    return;
-                }
-            }
-
-            TimeSlot newTimeSlot = new TimeSlot(desiredStartTime);
-            newTimeSlot.book();
-            filehandling.writeToFile(newTimeSlot);
-
-            bookingTextArea.setText("Timen med starttid " + desiredStartTime.toString() + "er booket:)");
-
+    public TimeSlot(LocalDateTime startTime) throws IOException{
+        if (startTime.isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Starttid må være i fremtiden");
         }
 
-            catch (IllegalArgumentException e) {
-                bookingTextArea.setText("Ugyldig starttid: " + e.getMessage());
-            } catch (Exception e) {
-                bookingTextArea.setText("En feil oppstod: " + e.getMessage());
-            }
-        
-    }
-}
+        if (!(startTime.getMinute() == 0 && startTime.getSecond() == 0)) {
+            throw new IllegalArgumentException("Starttid må være på et helt klokkeslett");
+        }
 
+        if (startTime.toLocalTime().isBefore(LocalTime.of(8, 0)) || startTime.toLocalTime().isAfter(LocalTime.of(15, 0))) {
+            throw new IllegalArgumentException("Timer kan ikke starte før 8 eller slutte etter 16");
+        }
+
+        JsonFilehandling fileHandler = new JsonFilehandling();
+        
+        
+        List<TimeSlot> bookedTimeSlots = fileHandler.readFromFile();
+        for (TimeSlot slot : bookedTimeSlots) {
+            if (startTime.equals(slot.getStartTime())) {
+                throw new IllegalArgumentException("Starttiden er allerede tatt");
+            }
+
+        }
+        
+
+        this.startTime = startTime;
+        this.endTime = startTime.plusHours(1);
+        this.isBooked = false;
+    }
+
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+
+    public boolean isBooked() {
+        return isBooked;
+    }
+
+
+    public void setBooked(boolean isBooked) {
+        this.isBooked = isBooked;
+    }
+
+    public void book() {
+        if (this.isBooked) {
+            throw new IllegalStateException("Timen er allerede booket");
+        }
+
+        this.isBooked = true;
+    }
+
+    public void cancelBooking() {
+        if (Duration.between(LocalDateTime.now(), this.startTime).toHours() < 2) {
+            throw new IllegalStateException("Det er under to timer til timen, den kan ikke kanselleres");
+        }
+
+        if (!this.isBooked) {
+            throw new IllegalStateException("Timen er ikke booket");
+        }
+
+        this.isBooked = false;
+    }
+
+    
+}
