@@ -107,6 +107,11 @@
                   <Font name="Arial Black" size="13.0" />
                </font>
             </Button>
+            <Button layoutX="250.0" layoutY="58.0" mnemonicParsing="false" onAction="#showAllTimeSlots" text="Refresh Time Slots">
+              <font>
+                 <Font name="Arial Black" size="13.0" />
+              </font>
+           </Button>
          </children>
     </AnchorPane>
   </children>
