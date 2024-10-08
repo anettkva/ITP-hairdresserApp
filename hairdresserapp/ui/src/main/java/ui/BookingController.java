@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -36,7 +37,7 @@ public class BookingController {
 
 
     @FXML
-    public void showAllTimeSlots() {
+    public void showAllTimeSlots() throws IOException {
         loadBookedTimeSlots();
         
         List<TimeSlot> allTimeSlots = manager.getAllTimeSlots();
@@ -50,7 +51,7 @@ public class BookingController {
         bookingTextArea.setText(text.toString());
     }
 
-    public void loadBookedTimeSlots() {
+    public void loadBookedTimeSlots() throws IOException {
         List<TimeSlot> bookedSlots = filehandling.readFromFile();
         for (TimeSlot slot : bookedSlots) {
             manager.bookTimeSlot(slot.getStartTime()); 
