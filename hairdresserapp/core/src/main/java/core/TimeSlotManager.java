@@ -1,7 +1,9 @@
 package core;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,19 +13,17 @@ public class TimeSlotManager {
     public TimeSlotManager() throws IOException{
         this.AllTimeSlots = new ArrayList<>();
 
-        AllTimeSlots.add(new TimeSlot(LocalDateTime.now().plusHours(1)));
+        LocalTime startTime = LocalTime.of(9, 0);
+        LocalTime endTime = LocalTime.of(15,0);
+        LocalDate today = LocalDate.now();
 
-        // LocalTime startTime = LocalTime.of(9, 0);
-        // LocalTime endTime = LocalTime.of(15,0);
-        // LocalDate today = LocalDate.now();
+        for (int day = 1; day <8 ; day ++) {
+            LocalDate currentDay = today.plusDays(day);
 
-        // for (int day = 1; day <8 ; day ++) {
-        //     LocalDate currentDay = today.plusDays(day);
-
-        //     for (LocalTime time = startTime; !time.isAfter(endTime); time = time.plusHours(1)) {
-        //         AllTimeSlots.add(new TimeSlot(LocalDateTime.of(currentDay, time)));
-        //     }
-        // }
+            for (LocalTime time = startTime; !time.isAfter(endTime); time = time.plusHours(1)) {
+                AllTimeSlots.add(new TimeSlot(LocalDateTime.of(currentDay, time)));
+            }
+        }
     }
 
     public void addTimeSlot(TimeSlot timeSlot){
@@ -66,10 +66,18 @@ public class TimeSlotManager {
         return AllTimeSlots;
     } 
 
+    public void getAllTimeSlotsToString() {
+        for (TimeSlot slot : AllTimeSlots) {
+            System.out.println(slot.getStartTime());
+        }
+    }
+
+
+
     public static void main(String[] args) throws IOException {
         TimeSlotManager manager = new TimeSlotManager();
 
-        manager.getAllTimeSlots();
+        manager.getAllTimeSlotsToString();
     }
 }
 

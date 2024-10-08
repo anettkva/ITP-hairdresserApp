@@ -30,13 +30,15 @@ public class BookingController {
             e.printStackTrace();;
         }
 
-        showAllTimeSlots();
+        // showAllTimeSlots();
             
     }
 
 
     @FXML
     public void showAllTimeSlots() {
+        loadBookedTimeSlots();
+        
         List<TimeSlot> allTimeSlots = manager.getAllTimeSlots();
         StringBuilder text = new StringBuilder("Oversikt over timer: \n");
 
@@ -46,6 +48,14 @@ public class BookingController {
         }
 
         bookingTextArea.setText(text.toString());
+    }
+
+    public void loadBookedTimeSlots() {
+        List<TimeSlot> bookedSlots = filehandling.readFromFile();
+        for (TimeSlot slot : bookedSlots) {
+            manager.bookTimeSlot(slot.getStartTime()); 
+            slot.setBooked(true); 
+        }
     }
 
     

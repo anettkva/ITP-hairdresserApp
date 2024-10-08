@@ -5,11 +5,21 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class TimeSlot {
+    @JsonProperty("startTime")
     private LocalDateTime startTime;
+
+    @JsonProperty("endTime")
     private LocalDateTime endTime;
+
+    @JsonProperty("isBooked")
     private boolean isBooked;
-    private TimeSlotManager manager;
+
+
+    public TimeSlot() {
+    }
 
 
     public TimeSlot(LocalDateTime startTime) throws IOException{
@@ -40,7 +50,6 @@ public class TimeSlot {
         this.startTime = startTime;
         this.endTime = startTime.plusHours(1);
         this.isBooked = false;
-        this.manager = new TimeSlotManager();
     }
 
 
