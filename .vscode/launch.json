@@ -4,6 +4,20 @@
             "type": "java",
             "name": "HairdresserApp",
             "request": "launch",
+            "mainClass": "ui/ui.HairdresserApp",
+            "projectName": "modules-ui"
+        },
+        {
+            "type": "java",
+            "name": "JsonFilehandling",
+            "request": "launch",
+            "mainClass": "core/json.JsonFilehandling",
+            "projectName": "modules-core"
+        },
+        {
+            "type": "java",
+            "name": "HairdresserApp",
+            "request": "launch",
             "mainClass": "ui.HairdresserApp",
             "projectName": "modules-ui"
         },

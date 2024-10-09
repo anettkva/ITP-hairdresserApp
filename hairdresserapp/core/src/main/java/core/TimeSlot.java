@@ -6,6 +6,14 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import json.internal.BookingSerializer;
+import json.internal.BookingDeserializer;
+
+@JsonSerialize(using = BookingSerializer.class)
+@JsonDeserialize(using = BookingDeserializer.class)
 
 public class TimeSlot {
     @JsonProperty("startTime")

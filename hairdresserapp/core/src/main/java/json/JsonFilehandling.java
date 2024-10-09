@@ -1,46 +1,60 @@
 package json;
 
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import core.TimeSlot;
+import json.internal.BookingDeserializer;
+import java.util.ArrayList;
 
 public class JsonFilehandling {
 
+    private ObjectMapper objectMapper;
+    
 
-    public void writeToFile(TimeSlot time) throws IOException{
-        ObjectMapper objectMapper = new ObjectMapper();
+    public JsonFilehandling() {
+        this.objectMapper = new ObjectMapper();
+        
 
-        objectMapper.writeValue(new File("hairdresserapp/TimeSlotOverveiw.json"), time + "\n"); 
+    }
+
+
+    public void writeToFile(TimeSlot timeSlot) throws IOException{
+        List<TimeSlot> bookings;
+        File myFile = new File("hairdresserapp/core/src/main/java/json/TimeSlotOverview.json");
+        if (myFile.length() != 0) {
+            bookings = readFromFile();
+        }
+        else {
+           bookings = new ArrayList<>(); 
+        }
+        
+        timeSlot.setBooked(true);
+        bookings.add(timeSlot);
+        
+        
+        this.objectMapper.writeValue(myFile, bookings); 
+        
 
     }
 
     public List<TimeSlot> readFromFile() throws IOException{
-        List<TimeSlot> list = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper(); 
-
-        try (BufferedReader reader = new BufferedReader(new FileReader("hairdresserapp/TimeSlotOverview.json"))) {
-            String line = reader.readLine();
-            while (line != null) {
-                TimeSlot timeslot = objectMapper.readValue(line, TimeSlot.class);
-                list.add(timeslot);
-            }
-        }
-        
-        return list;
+        JsonParser parser = objectMapper.getFactory().createParser(new File("hairdresserapp/core/src/main/java/json/TimeSlotOverview.json"));
+        DeserializationContext deserContext = objectMapper.getDeserializationContext();
+        return new BookingDeserializer().deserialize(parser, deserContext); 
+    
     } 
 
     public void reset() throws IOException{
-        File file = new File(Paths.get("hairdresserapp/TimeSlotOverview.json").toString());
+        File file = new File(Paths.get("hairdresserapp/core/src/main/java/json/TimeSlotOverview.json").toString());
         file.setWritable(true);
         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(Paths.get("hairdresserapp/TimeSlotOverview.json").toString()));
         bufferedOutputStream.write("{}".getBytes());
@@ -49,10 +63,5 @@ public class JsonFilehandling {
     }
 
 
-
-    public static void main(String[] args) {
-     
-        
-    }
     
 }
