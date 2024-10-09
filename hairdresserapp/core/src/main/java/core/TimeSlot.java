@@ -4,14 +4,22 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 
-import json.JsonFilehandling;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TimeSlot {
+    @JsonProperty("startTime")
     private LocalDateTime startTime;
+
+    @JsonProperty("endTime")
     private LocalDateTime endTime;
+
+    @JsonProperty("isBooked")
     private boolean isBooked;
+
+
+    public TimeSlot() {
+    }
 
 
     public TimeSlot(LocalDateTime startTime) throws IOException{
@@ -25,17 +33,6 @@ public class TimeSlot {
 
         if (startTime.toLocalTime().isBefore(LocalTime.of(8, 0)) || startTime.toLocalTime().isAfter(LocalTime.of(15, 0))) {
             throw new IllegalArgumentException("Timer kan ikke starte før 8 eller slutte etter 16");
-        }
-
-        JsonFilehandling fileHandler = new JsonFilehandling();
-        
-        
-        List<TimeSlot> bookedTimeSlots = fileHandler.readFromFile();
-        for (TimeSlot slot : bookedTimeSlots) {
-            if (startTime.equals(slot.getStartTime())) {
-                throw new IllegalArgumentException("Starttiden er allerede tatt");
-            }
-
         }
         
 
