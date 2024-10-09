@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nb"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JsonFilehandling.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">modules-core</a> &gt; <a href="index.source.html" class="el_package">json</a> &gt; <span class="el_source">JsonFilehandling.java</span></div><h1>JsonFilehandling.java</h1><pre class="source lang-java linenums">package json;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import core.TimeSlot;
+
+<span class="nc" id="L17">public class JsonFilehandling {</span>
+
+
+    public void writeToFile(TimeSlot time) throws IOException{
+<span class="nc" id="L21">        ObjectMapper objectMapper = new ObjectMapper();</span>
+
+<span class="nc" id="L23">        objectMapper.writeValue(new File(&quot;hairdresserapp/TimeSlotOverveiw.json&quot;), time + &quot;\n&quot;); </span>
+
+<span class="nc" id="L25">    }</span>
+
+    public List&lt;TimeSlot&gt; readFromFile() throws IOException{
+<span class="nc" id="L28">        List&lt;TimeSlot&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L29">        ObjectMapper objectMapper = new ObjectMapper(); </span>
+
+<span class="nc" id="L31">        try (BufferedReader reader = new BufferedReader(new FileReader(&quot;hairdresserapp/TimeSlotOverview.json&quot;))) {</span>
+<span class="nc" id="L32">            String line = reader.readLine();</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">            while (line != null) {</span>
+<span class="nc" id="L34">                TimeSlot timeslot = objectMapper.readValue(line, TimeSlot.class);</span>
+<span class="nc" id="L35">                list.add(timeslot);</span>
+<span class="nc" id="L36">            }</span>
+        }
+        
+<span class="nc" id="L39">        return list;</span>
+    } 
+
+    public void reset() throws IOException{
+<span class="nc" id="L43">        File file = new File(Paths.get(&quot;hairdresserapp/TimeSlotOverview.json&quot;).toString());</span>
+<span class="nc" id="L44">        file.setWritable(true);</span>
+<span class="nc" id="L45">        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(Paths.get(&quot;hairdresserapp/TimeSlotOverview.json&quot;).toString()));</span>
+<span class="nc" id="L46">        bufferedOutputStream.write(&quot;{}&quot;.getBytes());</span>
+<span class="nc" id="L47">        bufferedOutputStream.flush();</span>
+<span class="nc" id="L48">        bufferedOutputStream.close();</span>
+<span class="nc" id="L49">    }</span>
+
+
+
+    public static void main(String[] args) {
+     
+        
+<span class="nc" id="L56">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
