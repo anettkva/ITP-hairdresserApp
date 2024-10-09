@@ -1,0 +1,5 @@
+json/JsonFilehandlingTest.class
+core/WeeklyTimeSlotsTest.class
+core/TimeSlotTest.class
+core/PriceCalculatorTest.class
+core/TreatmentTest.class
