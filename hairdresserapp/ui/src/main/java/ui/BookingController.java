@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import core.TimeSlot;
-import core.TimeSlotManager;
+import core.WeeklyTimeSlots;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -16,31 +16,29 @@ import json.JsonFilehandling;
 public class BookingController {
 
     private JsonFilehandling filehandling = new JsonFilehandling();
-    private TimeSlotManager manager;
+    private WeeklyTimeSlots weeklyTimeSlots;
+    private List<TimeSlot> allTimeSlots;
 
-    @FXML 
+    @FXML
     private TextField bookingTextField;
 
-    @FXML 
+    @FXML
     private TextArea bookingTextArea;
 
-    public BookingController() {
+    public BookingController() throws IOException {
         try {
-            manager = new TimeSlotManager();
+            weeklyTimeSlots = new WeeklyTimeSlots();
         } catch (Exception e) {
             e.printStackTrace();;
         }
 
-        // showAllTimeSlots();
-            
+        allTimeSlots = weeklyTimeSlots.getAllTimeSlots();
+        loadJsonFile();
     }
 
 
     @FXML
     public void showAllTimeSlots() throws IOException {
-        loadBookedTimeSlots();
-        
-        List<TimeSlot> allTimeSlots = manager.getAllTimeSlots();
         StringBuilder text = new StringBuilder("Oversikt over timer: \n");
 
         for (TimeSlot slot : allTimeSlots) {
@@ -51,14 +49,16 @@ public class BookingController {
         bookingTextArea.setText(text.toString());
     }
 
-    public void loadBookedTimeSlots() throws IOException {
+    public void loadJsonFile() throws IOException {
         List<TimeSlot> bookedSlots = filehandling.readFromFile();
-        for (TimeSlot slot : bookedSlots) {
-            manager.bookTimeSlot(slot.getStartTime()); 
-            slot.setBooked(true); 
+        for (TimeSlot bookedSlot : bookedSlots) {
+            for (TimeSlot slot : allTimeSlots) {
+                if (bookedSlot.equals(slot)) {
+                    slot.setBooked(true);
+                }
+            }
         }
     }
-
     
 
     @FXML
@@ -70,12 +70,22 @@ public class BookingController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime desiredStartTime = LocalDateTime.parse(text, formatter);
 
-            TimeSlot newTimeSlot = new TimeSlot(desiredStartTime);
+            TimeSlot matchingTimeSlot = null;
 
-            manager.bookTimeSlot(desiredStartTime);
+            for (TimeSlot slot: allTimeSlots) {
+                if (slot.getStartTime().equals(desiredStartTime)) {
+                    matchingTimeSlot = slot;
+                    break;
+                }
+            }
 
+            if (matchingTimeSlot == null) {
+                throw new IllegalArgumentException("Velg en tilgjengelig tid fra listen");
+            }
 
-            updateJsonFile(newTimeSlot);
+            matchingTimeSlot.book();
+
+            updateJsonFile(matchingTimeSlot);
 
             DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm 'den' dd-MM-yyyy");
             String formattedStartTime = desiredStartTime.format(outputFormatter);
