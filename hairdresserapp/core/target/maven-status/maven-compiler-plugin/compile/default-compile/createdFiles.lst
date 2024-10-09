@@ -1,7 +1,9 @@
 module-info.class
+json/internal/BookingSerializer.class
 json/JsonFilehandling.class
 core/Treatment.class
 core/Filehandling.class
+json/internal/BookingDeserializer.class
 core/WeeklyTimeSlots.class
 core/PriceCalculator.class
 core/TimeSlot.class

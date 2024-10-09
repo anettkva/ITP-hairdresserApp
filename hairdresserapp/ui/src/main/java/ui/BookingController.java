@@ -12,6 +12,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import json.JsonFilehandling;
 
+import java.io.File;
+import java.util.ArrayList;
+
 
 public class BookingController {
 
@@ -50,7 +53,15 @@ public class BookingController {
     }
 
     public void loadJsonFile() throws IOException {
-        List<TimeSlot> bookedSlots = filehandling.readFromFile();
+        List<TimeSlot> bookedSlots;
+        File myFile = new File("../../hairdresserapp/core/src/main/java/json/TimeSlotOverview.json");
+        if (myFile.length() != 0) {
+            bookedSlots = filehandling.readFromFile();
+        }
+        else {
+           bookedSlots = new ArrayList<>(); 
+        }
+        
         for (TimeSlot bookedSlot : bookedSlots) {
             for (TimeSlot slot : allTimeSlots) {
                 if (bookedSlot.equals(slot)) {

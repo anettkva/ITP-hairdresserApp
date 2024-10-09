@@ -1,7 +1,9 @@
-/Users/Bruker/Documents/itp gruppeprosjekt/gr2415/hairdresserapp/core/src/main/java/json/JsonFilehandling.java
-/Users/Bruker/Documents/itp gruppeprosjekt/gr2415/hairdresserapp/core/src/main/java/core/PriceCalculator.java
-/Users/Bruker/Documents/itp gruppeprosjekt/gr2415/hairdresserapp/core/src/main/java/core/Filehandling.java
-/Users/Bruker/Documents/itp gruppeprosjekt/gr2415/hairdresserapp/core/src/main/java/core/WeeklyTimeSlots.java
-/Users/Bruker/Documents/itp gruppeprosjekt/gr2415/hairdresserapp/core/src/main/java/core/Treatment.java
-/Users/Bruker/Documents/itp gruppeprosjekt/gr2415/hairdresserapp/core/src/main/java/module-info.java
-/Users/Bruker/Documents/itp gruppeprosjekt/gr2415/hairdresserapp/core/src/main/java/core/TimeSlot.java
+/Users/julieaasen/Desktop/Høst 2024/Informatikk prosjektarbeid/Prosjekt/gr2415/hairdresserapp/core/src/main/java/json/internal/BookingSerializer.java
+/Users/julieaasen/Desktop/Høst 2024/Informatikk prosjektarbeid/Prosjekt/gr2415/hairdresserapp/core/src/main/java/json/JsonFilehandling.java
+/Users/julieaasen/Desktop/Høst 2024/Informatikk prosjektarbeid/Prosjekt/gr2415/hairdresserapp/core/src/main/java/core/TimeSlot.java
+/Users/julieaasen/Desktop/Høst 2024/Informatikk prosjektarbeid/Prosjekt/gr2415/hairdresserapp/core/src/main/java/core/WeeklyTimeSlots.java
+/Users/julieaasen/Desktop/Høst 2024/Informatikk prosjektarbeid/Prosjekt/gr2415/hairdresserapp/core/src/main/java/core/PriceCalculator.java
+/Users/julieaasen/Desktop/Høst 2024/Informatikk prosjektarbeid/Prosjekt/gr2415/hairdresserapp/core/src/main/java/core/Treatment.java
+/Users/julieaasen/Desktop/Høst 2024/Informatikk prosjektarbeid/Prosjekt/gr2415/hairdresserapp/core/src/main/java/core/Filehandling.java
+/Users/julieaasen/Desktop/Høst 2024/Informatikk prosjektarbeid/Prosjekt/gr2415/hairdresserapp/core/src/main/java/json/internal/BookingDeserializer.java
+/Users/julieaasen/Desktop/Høst 2024/Informatikk prosjektarbeid/Prosjekt/gr2415/hairdresserapp/core/src/main/java/module-info.java
