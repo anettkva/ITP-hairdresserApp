@@ -64,7 +64,7 @@ public class BookingController {
         
         for (TimeSlot bookedSlot : bookedSlots) {
             for (TimeSlot slot : allTimeSlots) {
-                if (bookedSlot.equals(slot)) {
+                if (bookedSlot.getStartTime().equals(slot.getStartTime())) {
                     slot.setBooked(true);
                 }
             }
