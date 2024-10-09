@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nb"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TimeSlot.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">modules-core</a> &gt; <a href="index.source.html" class="el_package">core</a> &gt; <span class="el_source">TimeSlot.java</span></div><h1>TimeSlot.java</h1><pre class="source lang-java linenums">package core;
+
+import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class TimeSlot {
+    @JsonProperty(&quot;startTime&quot;)
+    private LocalDateTime startTime;
+
+    @JsonProperty(&quot;endTime&quot;)
+    private LocalDateTime endTime;
+
+    @JsonProperty(&quot;isBooked&quot;)
+    private boolean isBooked;
+
+
+<span class="nc" id="L21">    public TimeSlot() {</span>
+<span class="nc" id="L22">    }</span>
+
+
+<span class="nc" id="L25">    public TimeSlot(LocalDateTime startTime) throws IOException{</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        if (startTime.isBefore(LocalDateTime.now())) {</span>
+<span class="nc" id="L27">            throw new IllegalArgumentException(&quot;Starttid må være i fremtiden&quot;);</span>
+        }
+
+<span class="nc bnc" id="L30" title="All 4 branches missed.">        if (!(startTime.getMinute() == 0 &amp;&amp; startTime.getSecond() == 0)) {</span>
+<span class="nc" id="L31">            throw new IllegalArgumentException(&quot;Starttid må være på et helt klokkeslett&quot;);</span>
+        }
+
+<span class="nc bnc" id="L34" title="All 4 branches missed.">        if (startTime.toLocalTime().isBefore(LocalTime.of(8, 0)) || startTime.toLocalTime().isAfter(LocalTime.of(15, 0))) {</span>
+<span class="nc" id="L35">            throw new IllegalArgumentException(&quot;Timer kan ikke starte før 8 eller slutte etter 16&quot;);</span>
+        }
+        
+
+<span class="nc" id="L39">        this.startTime = startTime;</span>
+<span class="nc" id="L40">        this.endTime = startTime.plusHours(1);</span>
+<span class="nc" id="L41">        this.isBooked = false;</span>
+<span class="nc" id="L42">    }</span>
+
+
+    public LocalDateTime getStartTime() {
+<span class="nc" id="L46">        return startTime;</span>
+    }
+
+
+    public void setStartTime(LocalDateTime startTime) {
+<span class="nc" id="L51">        this.startTime = startTime;</span>
+<span class="nc" id="L52">    }</span>
+
+
+    public LocalDateTime getEndTime() {
+<span class="nc" id="L56">        return endTime;</span>
+    }
+
+
+    public void setEndTime(LocalDateTime endTime) {
+<span class="nc" id="L61">        this.endTime = endTime;</span>
+<span class="nc" id="L62">    }</span>
+
+
+    public boolean isBooked() {
+<span class="nc" id="L66">        return isBooked;</span>
+    }
+
+
+    public void setBooked(boolean isBooked) {
+<span class="nc" id="L71">        this.isBooked = isBooked;</span>
+<span class="nc" id="L72">    }</span>
+
+    public void book() {
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (this.isBooked) {</span>
+<span class="nc" id="L76">            throw new IllegalStateException(&quot;Timen er allerede booket&quot;);</span>
+        }
+
+<span class="nc" id="L79">        this.isBooked = true;</span>
+<span class="nc" id="L80">    }</span>
+
+    public void cancelBooking() {
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (Duration.between(LocalDateTime.now(), this.startTime).toHours() &lt; 2) {</span>
+<span class="nc" id="L84">            throw new IllegalStateException(&quot;Det er under to timer til timen, den kan ikke kanselleres&quot;);</span>
+        }
+
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (!this.isBooked) {</span>
+<span class="nc" id="L88">            throw new IllegalStateException(&quot;Timen er ikke booket&quot;);</span>
+        }
+
+<span class="nc" id="L91">        this.isBooked = false;</span>
+<span class="nc" id="L92">    }</span>
+
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

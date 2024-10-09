@@ -1,0 +1,7 @@
+module-info.class
+json/JsonFilehandling.class
+core/Treatment.class
+core/Filehandling.class
+core/WeeklyTimeSlots.class
+core/PriceCalculator.class
+core/TimeSlot.class

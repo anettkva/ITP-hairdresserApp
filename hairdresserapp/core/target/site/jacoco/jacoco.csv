@@ -1,0 +1,7 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+modules-core,core,TimeSlot,114,0,16,0,32,0,18,0,10,0
+modules-core,core,WeeklyTimeSlots,17,54,2,4,4,11,2,4,1,2
+modules-core,core,PriceCalculator,0,24,0,2,0,6,0,3,0,2
+modules-core,core,Treatment,5,56,1,11,1,19,1,12,0,7
+modules-core,core,Filehandling,99,0,2,0,21,0,5,0,4,0
+modules-core,json,JsonFilehandling,86,0,2,0,21,0,6,0,5,0
