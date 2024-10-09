@@ -1,12 +1,10 @@
 package core;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-import core.PriceCalculator;
-import core.Treatment;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 
 public class PriceCalculatorTest {
@@ -22,23 +20,14 @@ public class PriceCalculatorTest {
 
         double totalPrice = priceCalculator.CalculateTotalPrice(treatments);
 
-        assertEquals(1600, totalPrice, "totalprisen burde være 1000 kr.");
+        assertEquals(1600, totalPrice, "totalprisen skal være 1000 kr.");
     }
     @Test
-    public void calculateTotalPrice_EMptyList(){
+    public void calculateTotalPrice_EmptyList(){
         List<Treatment> emptyList = Arrays.asList();
         PriceCalculator priceCalculator = new PriceCalculator();
         double totalPrice = priceCalculator.CalculateTotalPrice(emptyList);
-        assertEquals(0.0, totalPrice, "totalprisen må være 0.0 kr");
-    }
-
-
-    @Test
-    public void caculateTotalPrice_EmptyListTest(){
-        List<Treatment> emptyList = Arrays.asList();
-        PriceCalculator priceCalculator = new PriceCalculator();
-        double totalPrice = priceCalculator.CalculateTotalPrice(emptyList);
-        assertEquals(0.0, totalPrice, "totalprisen burde være 0.0 for en tom liste");
+        assertEquals(0.0, totalPrice, "totalprisen skal være 0.0 kr");
     }
     
 }
