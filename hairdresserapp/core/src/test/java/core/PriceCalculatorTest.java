@@ -22,7 +22,14 @@ public class PriceCalculatorTest {
 
         double totalPrice = priceCalculator.CalculateTotalPrice(treatments);
 
-        assertEquals(1600, totalPrice, "total pries should be 1000");
+        assertEquals(1600, totalPrice, "totalprisen burde være 1000 kr.");
+    }
+    @Test
+    public void calculateTotalPrice_EMptyList(){
+        List<Treatment> emptyList = Arrays.asList();
+        PriceCalculator priceCalculator = new PriceCalculator();
+        double totalPrice = priceCalculator.CalculateTotalPrice(emptyList);
+        assertEquals(0.0, totalPrice, "totalprisen må være 0.0 kr");
     }
 
 
