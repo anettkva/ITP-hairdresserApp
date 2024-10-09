@@ -24,7 +24,7 @@ public class WeeklyTimeSlotsTest {
     public void testTimeSlotsListSize() throws IOException {
         List<TimeSlot> timeSlots = weeklyTimeSlots.getAllTimeSlots();
 
-        assertEquals(42, timeSlots.size(), "Det skal være 42 gyldige timer på en uke");
+        assertEquals(49, timeSlots.size(), "Det skal være 42 gyldige timer på en uke");
     }
 
     @Test
@@ -41,10 +41,10 @@ public class WeeklyTimeSlotsTest {
     public void testTimeSlotsLastSlot() throws IOException {
         List<TimeSlot> timeSlots = weeklyTimeSlots.getAllTimeSlots();
 
-        TimeSlot lastTimeSlot = timeSlots.get(0);
-        LocalDateTime expectedFirstStartTime = LocalDateTime.of(LocalDate.now().plusDays(7), LocalTime.of(15, 0));
+        TimeSlot lastTimeSlot = timeSlots.get(timeSlots.size()-1);
+        LocalDateTime expectedLastStartTime = LocalDateTime.of(LocalDate.now().plusDays(7), LocalTime.of(15, 0));
 
-        assertEquals(expectedFirstStartTime, lastTimeSlot.getStartTime(), "Siste time skal starte klokken 15:00 på den syvende dagen");
+        assertEquals(expectedLastStartTime, lastTimeSlot.getStartTime(), "Siste time skal starte klokken 15:00 på den syvende dagen");
     }
 
     @Test
@@ -57,12 +57,12 @@ public class WeeklyTimeSlotsTest {
     }
 
     @Test
-    public void testEachDayHasSixSlots() throws IOException {
+    public void testEachDayHasSevenSlots() throws IOException {
         List<TimeSlot> timeSlots = weeklyTimeSlots.getAllTimeSlots();
         
         for (int day = 0; day < 7; day++) {
-            for (int hour = 0; hour < 6; hour++) {
-                TimeSlot slot = timeSlots.get(day * 6 + hour);
+            for (int hour = 0; hour < 7; hour++) {
+                TimeSlot slot = timeSlots.get(day * 7 + hour);
                 LocalTime expectedTime = LocalTime.of(9, 0).plusHours(hour);
                 assertEquals(expectedTime, slot.getStartTime().toLocalTime(), "Tidslottet skal stemme overens med timeintervallet.");
             }
