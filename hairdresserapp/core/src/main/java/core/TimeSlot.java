@@ -34,17 +34,6 @@ public class TimeSlot {
         if (startTime.toLocalTime().isBefore(LocalTime.of(8, 0)) || startTime.toLocalTime().isAfter(LocalTime.of(15, 0))) {
             throw new IllegalArgumentException("Timer kan ikke starte før 8 eller slutte etter 16");
         }
-
-        // JsonFilehandling fileHandler = new JsonFilehandling();
-        
-        
-        // List<TimeSlot> bookedTimeSlots = fileHandler.readFromFile();
-        // for (TimeSlot slot : bookedTimeSlots) {
-        //     if (startTime.equals(slot.getStartTime())) {
-        //         throw new IllegalArgumentException("Starttiden er allerede tatt");
-        //     }
-
-        // }
         
 
         this.startTime = startTime;
