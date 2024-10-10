@@ -5,7 +5,7 @@
 
 Dette prosjektet er en bookingside for en frisørsalong, hvor brukere kan velge én eller flere behandlinger, få et anslag på pris, se tilgjengelige timer og booke en time. Appen vil hjelpe salongen med å digitalisere bookingprosessen og gi kundene en enkel måte å velge tjenester og planlegge sine frisørbesøk på.
 
-### Mål med prosjektet
+# Mål med prosjektet
 
 - **Effektiv booking:** Brukerne skal kunne se ledige timer og booke frisørbehandlinger direkte fra appen.
 - **Prisoversikt:** Systemet skal kalkulere totalpris basert på valgte behandlinger.
@@ -13,8 +13,17 @@ Dette prosjektet er en bookingside for en frisørsalong, hvor brukere kan velge 
 
 ---
 
-### Funksjonalitet
-#### Implementert i Del 1
+# Framgangsmåte - kjøring av app
+
+Prosjektet bruker maven til bygging og kjøring.
+
+For å bygge, kjør `mvn install` eller `mvn clean install` fra **hairdresserapp**-mappa Man må altså kjøre `cd ui` før man kjører `mvn clean install`. Dette vil kjøre alle tester og kvalitetssjekker.
+
+Prosjektet må kjøres fra **ui**-modulen, ved å først kjøre `cd ui` og så `mvn javafx:run`.
+Merk at man må først ha kjørt `mvn install` på modulene som **ui**-modulen er avhengig av (pr. nå **core**), for at det skal gå. Når man kjører `mvn clean install` i **hairdresserapp**-mappa er dette gjort.
+
+# Funksjonalitet Implementert i Del 1
+
 - **Behandlingsvalg:** Brukerne kan velge én eller flere behandlinger fra en liste av frisørtjenester.
 - **Prisberegning:** Totalprisen for valgte behandlinger beregnes og vises i sanntid.
 - **Brukergrensesnitt:** Et grafisk brukergrensesnitt (GUI) utviklet med FXML, hvor brukeren kan se tilgjengelige behandlinger og få prisanslag.
@@ -23,7 +32,7 @@ Dette prosjektet er en bookingside for en frisørsalong, hvor brukere kan velge 
 
 ---
 
-### Forutsetninger
+# Forutsetninger
 
 Før du kjører applikasjonen, må du sørge for at følgende er installert:
 
@@ -33,7 +42,7 @@ Før du kjører applikasjonen, må du sørge for at følgende er installert:
 
 ---
 
-### Struktur
+# Struktur
 
 Prosjektet er organisert med følgende viktige klasser:
 
@@ -57,10 +66,10 @@ Prosjektet er organisert med følgende viktige klasser:
 """
 
 # Save the updated content to a README.md file
+
 file_path_minimal = "/mnt/data/README_minimal.md"
 
 with open(file_path_minimal, "w") as readme_file:
     readme_file.write(readme_content_minimal)
 
 file_path_minimal
-
