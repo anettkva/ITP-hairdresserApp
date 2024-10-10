@@ -31,12 +31,7 @@ public class WeeklyTimeSlots {
         return AllTimeSlots;
     } 
 
-    public void getAllTimeSlotsToString() {
-        for (TimeSlot slot : AllTimeSlots) {
-            System.out.println(slot.getStartTime());
-        }
-    }
-
+    
 }
 
 
