@@ -16,4 +16,4 @@ Linea skal i en bursdagsfeiring til en venninne i helga, og i den anledning øns
 
 Dette bildet er kun en tentativ plan for hvordan den ferdige appen skal se ut. 
 Link til illustrerende bilde:
-![Screenshot av app](GR2415/docs/release1/pictures/ScreenshotOfApp.png)
+![Screenshot av app](../docs/release1/pictures/ScreenshotOfApp.png)
