@@ -1,0 +1,124 @@
+@startuml diagram
+' Package: core
+package core {
+    class Filehandling {
+        +writeToFile(Treatment t)
+        +loadFromFile(): List<Treatment>
+        +reset()
+    }
+
+    class PriceCalculator {
+        +CalculateTotalPrice(List<Treatment> treatments): double
+    }
+
+    class TimeSlot {
+        -LocalDateTime startTime
+        -LocalDateTime endTime
+        -boolean isBooked
+        +book()
+        +cancelBooking()
+        +getStartTime(): LocalDateTime
+        +getEndTime(): LocalDateTime
+        +isBooked(): boolean
+    }
+
+    class Treatment {
+        -int price
+        -int durationMinutes
+        -String name
+        +getPrice(): int
+        +getduration(): int
+        +getName(): String
+    }
+
+    class WeeklyTimeSlots {
+        -List<TimeSlot> AllTimeSlots
+        +getAllTimeSlots(): List<TimeSlot>
+    }
+}
+
+' Package: json.internal
+package json.internal {
+    class BookingDeserializer {
+        +deserialize(JsonParser p, DeserializationContext ctxt): List<TimeSlot>
+    }
+
+    class BookingSerializer {
+        +serialize(TimeSlot timeSlot, JsonGenerator gen, SerializerProvider serializers)
+    }
+}
+
+' Package: json
+package json {
+    class JsonFilehandling {
+        +writeToFile(TimeSlot timeSlot)
+        +readFromFile(): List<TimeSlot>
+        +reset()
+    }
+}
+
+' Package: ui
+package ui {
+    class BookingController {
+        -JsonFilehandling filehandling
+        -WeeklyTimeSlots weeklyTimeSlots
+        -List<TimeSlot> allTimeSlots
+        +BookingController()
+        +showAllTimeSlots()
+        +loadJsonFile()
+        +bookTimeSlot()
+        +updateJsonFile(TimeSlot bookedSlot)
+    }
+
+    class HairdresserApp {
+        +start(Stage stage)
+        +main(String[] args)
+    }
+
+    class TreatmentController {
+        -PriceCalculator calculator
+        -Filehandling filehandling
+        -List<Treatment> chosenTreatments
+        -Treatment longHairCut
+        -Treatment shortHairCut
+        -Treatment stripes
+        -Treatment color
+        -Treatment styling
+        -Treatment wash
+        +initialize()
+        +addToList(Treatment treatment)
+        +removeFromList(Treatment treatment)
+        +updateFile()
+        +handleLongCut()
+        +handleShortCut()
+        +handleStripes()
+        +handleColor()
+        +handleStyling()
+        +handleWash()
+        +handleCalculatePrice()
+        +handleShowOverview()
+        +handleBookingButton()
+    }
+}
+
+
+' Relationships
+HairdresserApp --> BookingController : creates >
+HairdresserApp --> TreatmentController : creates >
+BookingController --> TreatmentController : interacts >
+ui --> json
+ui --> core
+
+' Relationships
+Filehandling --> Treatment
+PriceCalculator --> Treatment
+WeeklyTimeSlots --> TimeSlot
+TimeSlot --> BookingSerializer
+TimeSlot --> BookingDeserializer
+JsonFilehandling --> TimeSlot
+JsonFilehandling --> BookingDeserializer
+BookingSerializer --> TimeSlot
+BookingDeserializer --> TimeSlot
+
+@enduml
+
