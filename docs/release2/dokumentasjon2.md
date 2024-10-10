@@ -23,4 +23,4 @@ Denne klassen JsonFilehandling håndterer lesing, skriving og nullstilling av JS
 TESTING
 Vi har prioritert høy dekningsgrad for testklassene TreatmentTest.java, TimeSlotTest.java, og WeeklyTimeSlotsTest.java. Disse testene dekker viktige metoder og logikk i klassene, og bidrar til å sikre at applikasjonen fungerer som forventet.
 Vi har også testdekningsgrad på filhåndtering også, både i Json og i filhåndtering i core.
-I tillegg jobber vi med tester for kontrollerne, men vi har valgt å prioritere logikk og metoder før disse testene. Dette gjør at vi kan sikre at kjernefunksjonaliteten er solid.
+I tillegg jobber vi med tester i ui, men vi har valgt å prioritere logikk og metoder før disse testene. Dette gjør at vi kan sikre at kjernefunksjonaliteten er solid. Vi har kun én enkel test i ui, men planlegger å skrive mer dekkende og grundige tester videre i prosjektet.
