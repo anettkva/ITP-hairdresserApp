@@ -10,6 +10,17 @@ BookingController er kontrollerklassen som håndterer interaksjonen mellom bruke
     2. Oppdatere oversikt: Etter booking må brukeren trykke på en "Refresh TimeSlots"-knapp for å oppdatere oversikten i TextArea. Dette viser en oppdatert liste over ledige og bookede timer, basert på informasjonen i WeeklyTimeSlots og den lagrede JSON-filen.
     3. Hente bookede timer: Ved oppstart leses tidligere bookede timer fra JSON-filen, slik at brukeren får oppdatert oversikt over både nye og gamle bookinger.
 
+BOOKINGSERIALIZER:
+BookingSerializer som brukes til å konvertere et TimeSlot-objekt til en JSON-representasjon. Klassen arver fra Jackson-bibliotekets JsonSerializer<TimeSlot>, noe som betyr at den spesifikt er ment for å serialisere TimeSlot-objekter til JSON-format.
+
+BOOKINGDESERIALIZER:
+Denne klassen, BookingDeserializer, er en egendefinert deserializer som håndterer deserialisering av JSON-data til en liste med TimeSlot-objekter. Klassen arver fra Jackson-bibliotekets JsonDeserializer, og den er ment å brukes for å konvertere JSON-representasjonen av TimeSlots tilbake til Java-objekter.
+
+JSONFILEHANDLING:
+Denne klassen JsonFilehandling håndterer lesing, skriving og nullstilling av JSON-filer som inneholder en liste over TimeSlot-objekter brukt til booking. Klassen bruker Jackson-biblioteket for å håndtere JSON-operasjoner. Formålet med klassen er å håndtere skriving til fil og lasting fra fil, ved å bruke BookingSerializer og BookingDeserializer. Nå en ny time bookes så skrives denne til fil, og filen brukes for å vise hvilke timer som kan bookes i en oversikt av timer, samt å sørge for at man ikke får booket en time som allerede er booket. 
+
+
 TESTING
 Vi har prioritert høy dekningsgrad for testklassene TreatmentTest.java, TimeSlotTest.java, og WeeklyTimeSlotsTest.java. Disse testene dekker viktige metoder og logikk i klassene, og bidrar til å sikre at applikasjonen fungerer som forventet.
-I tillegg jobber vi med tester for kontrollerne og filhåndtering, men vi har valgt å prioritere logikk og metoder før disse testene. Dette gjør at vi kan sikre at kjernefunksjonaliteten er solid.
+Vi har også testdekningsgrad på filhåndtering også, både i Json og i filhåndtering i core.
+I tillegg jobber vi med tester for kontrollerne, men vi har valgt å prioritere logikk og metoder før disse testene. Dette gjør at vi kan sikre at kjernefunksjonaliteten er solid.
