@@ -32,6 +32,16 @@ Merk at man må først ha kjørt `mvn install` på modulene som **ui**-modulen e
 
 ---
 
+# Funksjonalitet Implementert i Del 2
+
+- **Booking:** Brukerne kan booke en time ved å trykke på "Go to booking" - knappen, skrive inn dato og klokkeslett for når timen skal være, og trykke "Book" for å booke denne.
+- **Vise ledige/bookede timer:** Ledige og bookede timer vises når brukeren trykker på knappen "Show possible booking times" - knappen.
+- **Brukergrensesnitt:** Et grafisk brukergrensesnitt (GUI) utviklet med FXML, hvor brukeren kan booke time, men også se hvilke timer som er ledige og ikke.
+- **Lagring:** Data for bookede timer lagres i en json-fil. Dette brukes etterpå til å vise ledige/bookede timer i et felt. Lagrede data forblir selv om appen lukkes og åpnes igjen. 
+- **Testing:** Det er lagd tester for alle klassene i core og json, og én test som tester litt av funksjonaliteten for TreatmentController i ui.
+
+---
+
 # Forutsetninger
 
 Før du kjører applikasjonen, må du sørge for at følgende er installert:
@@ -61,9 +71,35 @@ Prosjektet er organisert med følgende viktige klasser:
 - **`FileHandling.java`:**  
   Håndterer lagring og henting av data om behandlinger og priser fra en fil.
 
+- **`TimeSlot.java`:**  
+  Representerer en time som kan bookes. Denne har et starttidspunkt, et endetidspunkt og en boolean som forteller om timen er blitt booket eller ikke.
+
+- **`WeeklyTimeSlots.java`:**  
+  Hånterer flere TimeSlots, ved å lage en liste med alle tilgjengelige TimeSlot's for en uke fram i tid.
+
+- **`BookingDeserializer.java`:**  
+  Hånterer hvordan data hentes ut fra fil med json.
+
+- **`BookingSerializer.java`:**  
+  Håndterer hvordan data skrives til fil med json.
+
+- **`JsonFileHandling.java`:**  
+  Håndterer lagring og henting av data om booking av timer fra .json fil.
+
+- **`BookingController.java`:**  
+  Kontrollerklassen som hånterer valg knyttet til booking av timer i brukergrensesnittet. Bruker kan skrive inn ønsket dato og tidspunkt, booke timen, og se ulike timer som er bookede fra før/ledige. Koblet til FXML-grensesnittet Booking.fxml via `@FXML`-annotasjoner.
+
 - **FXML-filer:**  
   Brukt for å definere layout og GUI-elementer i appen.
 """
+
+---
+
+# Diagram - arkitektur
+
+![Diagram](../docs/release2/diagram/diagram.png)
+
+---
 
 # Save the updated content to a README.md file
 
