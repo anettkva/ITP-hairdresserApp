@@ -48,12 +48,13 @@ public class TreatmentController {
 
 
     @FXML
-    private void initialize() {
+    protected void initialize() {
         calculator = new PriceCalculator();
         filehandling = new Filehandling();
         chosenTreatments = new ArrayList<>();
 
     }
+
 
     private void addToList(Treatment treatment) {
         chosenTreatments.add(treatment);
@@ -168,6 +169,18 @@ public class TreatmentController {
         Stage stage = new Stage();
         stage.setScene(new Scene(parent));
         stage.show();
+    }
+
+    public List<Treatment> getChosenTreatments() {
+        return chosenTreatments;
+    }
+    
+    public TextField getTotalPriceField() {
+        return totalPriceField;
+    }
+    
+    public TextArea getOverViewTextArea() {
+        return overViewTextArea;
     }
 
 }
