@@ -16,7 +16,7 @@ public class JsonFilehandlingTest {
 
     @Test
     public void testWriteToFile() throws IOException{
-        LocalDateTime startTime = LocalDateTime.of(2024, 10, 14, 11, 0, 0);
+        LocalDateTime startTime = LocalDateTime.now().plusDays(1).withHour(10).withMinute(0).withSecond(0).withNano(0);
         TimeSlot ts = new TimeSlot(startTime);
 
         File myFile = new File("../../hairdresserapp/core/src/main/java/json/TimeSlotOverview.json");
@@ -36,7 +36,7 @@ public class JsonFilehandlingTest {
 
     @Test
     void testLoadFromFile() throws IOException {
-        LocalDateTime startTime = LocalDateTime.of(2024, 10, 14, 11, 0, 0);
+        LocalDateTime startTime = LocalDateTime.now().plusDays(1).withHour(8).withMinute(0).withSecond(0).withNano(0);
         TimeSlot ts = new TimeSlot(startTime);
 
         File myFile = new File("../../hairdresserapp/core/src/main/java/json/TimeSlotOverview.json");
