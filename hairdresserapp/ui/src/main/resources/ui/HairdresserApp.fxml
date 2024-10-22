@@ -99,17 +99,21 @@
                </font>
             </Label>
             <CheckBox id="wash" layoutX="22.0" layoutY="220.0" mnemonicParsing="false" onAction="#handleWash" text="Wash" />
-            <Button id="showOverview" layoutX="416.0" layoutY="37.0" mnemonicParsing="false" onAction="#handleShowOverview" text="Show price overview">
-               <font>
-                  <Font name="Arial Black" size="12.0" />
+
+            <Label layoutX="416.0" layoutY="37.0" text= "Overview">
+              <font>
+                  <Font name="Arial Black" size="16.0" />
                </font>
-            </Button>
+            </Label>
+            
             <TextArea id="overviewTextArea" fx:id="overViewTextArea" layoutX="406.0" layoutY="77.0" prefHeight="200.0" prefWidth="200.0" />
-            <Button id="showPrice" layoutX="220.0" layoutY="98.0" mnemonicParsing="false" onAction="#handleCalculatePrice" text="Show price:">
-               <font>
-                  <Font name="Arial Black" size="12.0" />
+
+            <Label layoutX="220.0" layoutY="98.0" text="Total price">
+              <font>
+                  <Font name="Arial Black" size="16.0" />
                </font>
-            </Button>
+            </Label>
+            
             <TextField id="totalPriceField" fx:id="totalPriceField" layoutX="187.0" layoutY="132.0" />
             <Button id="bookingButton" fx:id="bookingButton" layoutX="230.0" layoutY="296.0" mnemonicParsing="false" onAction="#handleBookingButton" style="-fx-background-color: #348ceb;" text="Go to booking ">
                <font>
