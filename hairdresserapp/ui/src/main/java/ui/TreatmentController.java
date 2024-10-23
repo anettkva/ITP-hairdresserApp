@@ -45,6 +45,14 @@ public class TreatmentController {
     @FXML 
     TextArea overViewTextArea;
 
+    public TextField getfield() {
+        return this.totalPriceField;
+    }
+
+    public TextArea getarea() {
+        return this.overViewTextArea;
+    }
+
 
 
     @FXML
@@ -138,7 +146,7 @@ public class TreatmentController {
         overViewTextArea.setText(" ");
         List<Treatment> fileTreatments = filehandling.loadFromFile();
         for (Treatment t : fileTreatments) {
-            overViewTextArea.appendText(t.getName() + ": " + t.getPrice() + " kr, Varighet: " + t.getduration() + "\n" );
+            overViewTextArea.appendText(t.getName() + ": " + t.getPrice() + " kr, Varighet (min): " + t.getduration() + "\n" );
         }
     }
     
