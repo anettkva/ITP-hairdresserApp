@@ -10,6 +10,6 @@ module rest {
 
     requires core;
 
-    opens rest to spring.beans, spring.context, spring.web;
+    opens backend to spring.beans, spring.context, spring.web;
 
 }

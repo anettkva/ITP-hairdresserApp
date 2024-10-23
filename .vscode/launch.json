@@ -4,6 +4,13 @@
             "type": "java",
             "name": "HairdresserApplication",
             "request": "launch",
+            "mainClass": "rest/backend.HairdresserApplication",
+            "projectName": "modules-rest"
+        },
+        {
+            "type": "java",
+            "name": "HairdresserApplication",
+            "request": "launch",
             "mainClass": "rest/rest.HairdresserApplication",
             "projectName": "modules-rest"
         },

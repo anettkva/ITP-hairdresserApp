@@ -1,4 +1,4 @@
-package rest;
+package backend;
 
 import org.springframework.web.bind.annotation.RestController;
 
