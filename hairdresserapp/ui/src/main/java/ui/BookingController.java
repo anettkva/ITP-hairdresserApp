@@ -39,6 +39,18 @@ public class BookingController {
         loadJsonFile();
     }
 
+    public TextArea getarea() {
+        return this.bookingTextArea;
+    }
+
+    public TextField getfield() {
+        return this.bookingTextField;
+    }
+
+    public List<TimeSlot> getAllTimeSlots() {
+        return this.allTimeSlots;
+    }
+
 
     @FXML
     public void showAllTimeSlots() throws IOException {
