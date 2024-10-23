@@ -93,12 +93,12 @@
             <CheckBox id="stripes" layoutX="19.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleStripes" text="Stripes" />
             <CheckBox id="color" layoutX="19.0" layoutY="151.0" mnemonicParsing="false" onAction="#handleColor" text="Color" />
             <CheckBox id="styling" layoutX="20.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleStyling" text="Styling" />
-            <Label layoutX="18.0" layoutY="28.0" text="Choose treatments ">
+            <CheckBox id="wash" layoutX="22.0" layoutY="220.0" mnemonicParsing="false" onAction="#handleWash" text="Wash" /><Label layoutX="18.0" layoutY="28.0" text="Choose treatments ">
                <font>
                   <Font name="Arial Black" size="16.0" />
                </font>
             </Label>
-            <CheckBox id="wash" layoutX="22.0" layoutY="220.0" mnemonicParsing="false" onAction="#handleWash" text="Wash" />
+            
 
             <Label layoutX="416.0" layoutY="37.0" text= "Overview">
               <font>

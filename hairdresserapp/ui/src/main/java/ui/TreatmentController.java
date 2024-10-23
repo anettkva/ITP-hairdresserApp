@@ -45,6 +45,14 @@ public class TreatmentController {
     @FXML 
     TextArea overViewTextArea;
 
+    public TextField getfield() {
+        return this.totalPriceField;
+    }
+
+    public TextArea getarea() {
+        return this.overViewTextArea;
+    }
+
 
 
     @FXML
@@ -76,74 +84,54 @@ public class TreatmentController {
         }
     }
 
+    private void handleTreatment(Treatment treatment) {
+        if (!chosenTreatments.contains(treatment)) {
+            addToList(treatment);
+        } else {
+            removeFromList(treatment);
+        }
+        updateFile();
+        handleCalculatePrice();
+        try {
+            handleShowOverview();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
 
 
     @FXML
     void handleLongCut() {
-        if (!chosenTreatments.contains(longHairCut)) {
-            addToList(longHairCut);
-        }
-        else {
-            removeFromList(longHairCut);
-        }
-        updateFile();
+        handleTreatment(longHairCut);
         
     }
 
     @FXML
     void handleShortCut() {
-        if (!chosenTreatments.contains(shortHairCut)) {
-            addToList(shortHairCut);
-        }
-        else {
-            removeFromList(shortHairCut);
-        }
-        updateFile();
+        handleTreatment(shortHairCut);
     }
 
     @FXML
     void handleStripes() {
-        if (!chosenTreatments.contains(stripes)) {
-            addToList(stripes);
-        }
-        else {
-            removeFromList(stripes);
-        }
-        updateFile();
+        handleTreatment(stripes);
     }
 
     @FXML
     void handleColor() {
-        if (!chosenTreatments.contains(color)) {
-            addToList(color);
-        }
-        else {
-            removeFromList(color);
-        }
-        updateFile();
+        handleTreatment(color);
 
     }
 
     @FXML
     void handleStyling() {
-        if (!chosenTreatments.contains(styling)) {
-            addToList(styling);
-        }
-        else {
-            removeFromList(styling);
-        }
-        updateFile();
+        handleTreatment(styling);
     }
 
     @FXML
     void handleWash() {
-        if (!chosenTreatments.contains(wash)) {
-            addToList(wash);
-        }
-        else {
-            removeFromList(wash);
-        }
-        updateFile();
+        handleTreatment(wash);
     }
 
     @FXML
@@ -158,7 +146,7 @@ public class TreatmentController {
         overViewTextArea.setText(" ");
         List<Treatment> fileTreatments = filehandling.loadFromFile();
         for (Treatment t : fileTreatments) {
-            overViewTextArea.appendText(t.getName() + ": " + t.getPrice() + " kr" + "\n" );
+            overViewTextArea.appendText(t.getName() + ": " + t.getPrice() + " kr, Varighet (min): " + t.getduration() + "\n" );
         }
     }
     
