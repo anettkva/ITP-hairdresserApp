@@ -4,23 +4,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import core.Treatment;
 
 import java.util.List;
+import backend.TreatmentService;
 
 @RestController
 @RequestMapping("api/treatments")
 public class TreatmentController {
     
     @Autowired
-    private TreatmentService TreatmentService;
+    private TreatmentService treatmentService;
 
     @GetMapping
     public List<Treatment> getAllTreatments() {
-        return TreatmentService.getAllTreatments();
+        return treatmentService.getAllTreatments();
     }
 
     @GetMapping("/{id}")
-    public ResponseEnity<Treatment> getTreatmentById(@PathVariable Long id) {
+    public ResponseEntity<Treatment> getTreatmentById(@PathVariable Long id) {
         Treatment treatment = treatmentService.getTreatmentById(id);
         return treatment != null ? ResponseEntity.ok(treatment) : ResponseEntity.notFound().build();
     }
@@ -34,8 +36,8 @@ public class TreatmentController {
 
     @PutMapping ("/{id}")
     public ResponseEntity<Treatment> updateTreatment(@PathVariable Long id, @RequestBody Treatment treatmentDetails){
-        Treatment updatedTreatment = treatmentService.updatedTreatment(id, treatmentDetails);
-        return updatedTreatment != null ? ResponseEntity.ok(treatment) : ResponseEntity.notFound().build();
+        Treatment updatedTreatment = treatmentService.updateTreatment(id, treatmentDetails);
+        return updatedTreatment != null ? ResponseEntity.ok(treatmentDetails) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping ("/{id}")

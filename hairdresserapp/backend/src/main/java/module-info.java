@@ -1,4 +1,5 @@
 module backend {
+    requires core;
     requires com.fasterxml.jackson.databind;
 
     requires spring.web;
@@ -6,8 +7,8 @@ module backend {
     requires spring.boot;
     requires spring.context;
     requires spring.boot.autoconfigure;
-
-    requires core;
+    requires spring.data.jpa;
+    requires spring.core;
 
     opens backend to spring.beans, spring.context, spring.web;
 }

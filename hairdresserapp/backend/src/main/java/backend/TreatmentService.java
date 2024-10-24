@@ -4,12 +4,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+import core.Treatment;
+import backend.TreatmentRepository;
+
 
 @Service
 public class TreatmentService {
     
     @Autowired
-    private TreatmentRepository TreatmentRepository;
+    private TreatmentRepository treatmentRepository;
 
 
     public List<Treatment> getAllTreatments() {
