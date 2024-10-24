@@ -133,7 +133,7 @@
     <modules>
         <module>core</module>
         <module>ui</module>
-        <module>rest</module>
+        <module>backend</module>
     </modules>
 </project>
 

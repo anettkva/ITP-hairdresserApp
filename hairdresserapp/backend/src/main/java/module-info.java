@@ -1,5 +1,5 @@
-module rest {
-    
+module backend {
+    requires core;
     requires com.fasterxml.jackson.databind;
 
     requires spring.web;
@@ -7,9 +7,8 @@ module rest {
     requires spring.boot;
     requires spring.context;
     requires spring.boot.autoconfigure;
+    requires spring.data.jpa;
+    requires spring.core;
 
-    requires core;
-
-    opens rest to spring.beans, spring.context, spring.web;
-
+    opens backend to spring.beans, spring.context, spring.web;
 }
