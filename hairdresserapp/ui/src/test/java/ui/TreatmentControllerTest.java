@@ -50,7 +50,7 @@ public class TreatmentControllerTest extends ApplicationTest{
         treatmentController.handleLongCut();
 
         List<Treatment> chosenTreatments = treatmentController.getChosenTreatments();
-        assertFalse(chosenTreatments.contains(new Treatment("Long hair cut", 500, 90)), "Long hair cut should not be in the list after removal.");
+        assertFalse(chosenTreatments.contains(new Treatment("Long hair cut", 500)), "Long hair cut should not be in the list after removal.");
     } 
 
     @Test 
