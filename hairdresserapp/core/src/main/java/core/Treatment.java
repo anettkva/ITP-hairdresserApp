@@ -29,12 +29,7 @@ public class Treatment {
         return durationMinutes;
     }
 
-    public void setduration(int durationMinutes) {
-        if (durationMinutes < 0 || durationMinutes > 420) {
-            throw new IllegalArgumentException("duration must be between 0 and 420 minutes long");
-        }
-        this.durationMinutes = durationMinutes;
-    }
+
 
     public String getName() {
         return name;
