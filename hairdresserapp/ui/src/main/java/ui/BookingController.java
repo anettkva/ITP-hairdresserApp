@@ -1,10 +1,10 @@
 package ui;
 
-import core.TimeSlot;
-
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import core.TimeSlot;
@@ -14,9 +14,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import json.JsonFilehandling;
-
-import java.io.File;
-import java.util.ArrayList;
 
 
 public class BookingController {
@@ -129,7 +126,7 @@ public class BookingController {
             String formattedStartTime = desiredStartTime.format(outputFormatter);
             String formattedEndTime = desiredStartTime.plusHours(requiredSlots).format(outputFormatter);
 
-            bookingTextArea.setText("Timen fra " + formattedStartTime + "til " + formattedEndTime + "er booket for " + requiredSlots + "behandling(er) :)");
+            bookingTextArea.setText("Timen fra " + formattedStartTime + " til " + formattedEndTime + " er booket for " + requiredSlots + " behandling(er) :)");
 
         }
 
