@@ -2,7 +2,11 @@ package ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.security.auth.PrivateCredentialPermission;
 
 import core.Filehandling;
 import core.PriceCalculator;
@@ -11,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -27,23 +32,54 @@ public class TreatmentController {
 
     private List<Treatment> chosenTreatments; 
 
-    private Treatment longHairCut = new Treatment("Long hair cut", 500);
+   
+    @FXML
+    private CheckBox shortHairCut, longHaircut, stripes, color, styling, wash;
 
-    private Treatment shortHairCut = new Treatment("Short hair cut", 300);
+    private Map<CheckBox, Treatment> treatmentMap;
 
-    private Treatment stripes = new Treatment("Stripes", 1500);
-
-    private Treatment color = new Treatment("Color", 2000);
-
-    private Treatment styling = new Treatment("Styling", 500);
-
-    private Treatment wash = new Treatment("Wash", 500);
+    
 
     @FXML 
     TextField totalPriceField; 
 
     @FXML 
     TextArea overViewTextArea;
+
+
+    @FXML
+    protected void initialize(){
+        calculator = new PriceCalculator();
+        filehandling = new Filehandling();
+        chosenTreatments = new ArrayList<>();
+
+        treatmentMap = new HashMap<>();
+        treatmentMap.put(shortHairCut, new Treatment("short haircut", 300));
+        treatmentMap.put(longHaircut, new Treatment("Long haircut", 500));
+        treatmentMap.put(stripes, new Treatment("Stripes", 1500));
+        treatmentMap.put(color, new Treatment("Color", 2000));
+        treatmentMap.put(styling, new Treatment("Styling", 500));
+        treatmentMap.put(wash, new Treatment("Wash", 500));
+
+        for (CheckBox checkBox : treatmentMap.keySet()){
+            checkBox.setOnAction(event -> handleChecBoxAction(checkBox));
+        }
+
+    }
+
+    private void handleChecBoxAction(CheckBox checkBox){
+
+        Treatment treatment = treatmentMap.get(checkBox);
+        if (treatment != null){
+            addToList(treatment);
+            HairdresserApp.addTreatment(treatment);
+        } else {
+            removeFromList(treatment);
+            HairdresserApp.deleteTreatment(treatment);
+        }
+        updateFile();
+
+    }
 
     public TextField getfield() {
         return this.totalPriceField;
@@ -54,18 +90,11 @@ public class TreatmentController {
     }
 
 
-
-    @FXML
-    protected void initialize() {
-        calculator = new PriceCalculator();
-        filehandling = new Filehandling();
-        chosenTreatments = new ArrayList<>();
-
-    }
-
-
     private void addToList(Treatment treatment) {
-        chosenTreatments.add(treatment);
+        if (!chosenTreatments.contains(treatment)){
+            chosenTreatments.add(treatment);
+        }
+      
     }
 
     private void removeFromList(Treatment treatment) {
@@ -102,37 +131,8 @@ public class TreatmentController {
 
 
 
-    @FXML
-    void handleLongCut() {
-        handleTreatment(longHairCut);
-        
-    }
-
-    @FXML
-    void handleShortCut() {
-        handleTreatment(shortHairCut);
-    }
-
-    @FXML
-    void handleStripes() {
-        handleTreatment(stripes);
-    }
-
-    @FXML
-    void handleColor() {
-        handleTreatment(color);
-
-    }
-
-    @FXML
-    void handleStyling() {
-        handleTreatment(styling);
-    }
-
-    @FXML
-    void handleWash() {
-        handleTreatment(wash);
-    }
+   
+    
 
     @FXML
     void handleCalculatePrice() {
