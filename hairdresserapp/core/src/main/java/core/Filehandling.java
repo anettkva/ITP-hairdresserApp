@@ -30,7 +30,7 @@ public class Filehandling {
                 String price = priceAndDurationList[0].split("k")[0].strip();
                 String duration = priceAndDurationList[1].split("m")[0].strip();
                 
-                Treatment t = new Treatment(nameList[0], Integer.parseInt(price), Integer.parseInt(duration));
+                Treatment t = new Treatment(nameList[0], Integer.parseInt(price));
 
                 list.add(t);
             }
