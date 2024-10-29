@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 public class PriceCalculatorTest {
     @Test
     public void calculateTotalPriceTest(){
-        Treatment haircut = new Treatment("Haircut",500, 60);
-        Treatment coloring = new Treatment("Hair Coloring",700,90);
-        Treatment styling = new Treatment("Styling", 400,90);
+        Treatment haircut = new Treatment("Haircut",500);
+        Treatment coloring = new Treatment("Hair Coloring",700);
+        Treatment styling = new Treatment("Styling", 400);
 
         List<Treatment> treatments = Arrays.asList(haircut,coloring,styling);
 
