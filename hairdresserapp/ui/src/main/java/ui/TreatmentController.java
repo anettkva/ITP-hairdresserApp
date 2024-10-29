@@ -27,17 +27,17 @@ public class TreatmentController {
 
     private List<Treatment> chosenTreatments; 
 
-    private Treatment longHairCut = new Treatment("Long hair cut", 500, 90);
+    private Treatment longHairCut = new Treatment("Long hair cut", 500);
 
-    private Treatment shortHairCut = new Treatment("Short hair cut", 300, 60);
+    private Treatment shortHairCut = new Treatment("Short hair cut", 300);
 
-    private Treatment stripes = new Treatment("Stripes", 1500, 180);
+    private Treatment stripes = new Treatment("Stripes", 1500);
 
-    private Treatment color = new Treatment("Color", 2000, 180);
+    private Treatment color = new Treatment("Color", 2000);
 
-    private Treatment styling = new Treatment("Styling", 500, 60);
+    private Treatment styling = new Treatment("Styling", 500);
 
-    private Treatment wash = new Treatment("Wash", 500, 30);
+    private Treatment wash = new Treatment("Wash", 500);
 
     @FXML 
     TextField totalPriceField; 
