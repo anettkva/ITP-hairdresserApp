@@ -72,11 +72,11 @@ public class TreatmentController {
             if (checkBox.isSelected()) {
                 addToList(treatment);
                 HairdresserApp.addTreatment(treatment);
-                System.out.println("Added treatment: " + treatment.getName());
+
             } else {
                 removeFromList(treatment);
                 HairdresserApp.deleteTreatment(treatment);
-                System.out.println("Removed treatment: " + treatment.getName());
+
             }
             updateFile();
         } else {
