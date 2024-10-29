@@ -88,8 +88,8 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #b6e7eb;" VBox.vgrow="ALWAYS">
       <children>
-            <CheckBox fx:idid="shortHairCut" layoutX="18.0" layoutY="58.0" mnemonicParsing="false" onAction="#handleTreatment(shortHairCut)" text="Short hair cut" />
-            <CheckBox fx:idid="longHairCut" layoutX="18.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleTreatment(longHairCut)" text="Long hair cut" />
+            <CheckBox fx:id="shortHairCut" layoutX="18.0" layoutY="58.0" mnemonicParsing="false" onAction="#handleTreatment(shortHairCut)" text="Short hair cut" />
+            <CheckBox fx:id="longHairCut" layoutX="18.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleTreatment(longHairCut)" text="Long hair cut" />
             <CheckBox fx:id="stripes" layoutX="19.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleTreatment(stripes)" text="Stripes" />
             <CheckBox fx:id="color" layoutX="19.0" layoutY="151.0" mnemonicParsing="false" onAction="#handleTreatment(color)" text="Color" />
             <CheckBox fx:id="styling" layoutX="20.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleTreatment(styling)" text="Styling" />
