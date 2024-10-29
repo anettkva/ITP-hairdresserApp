@@ -45,7 +45,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.TreatmentController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="backend.TreatmentController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -88,12 +88,12 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #b6e7eb;" VBox.vgrow="ALWAYS">
       <children>
-            <CheckBox id="shortHairCut" layoutX="18.0" layoutY="58.0" mnemonicParsing="false" onAction="#handleShortCut" text="Short hair cut" />
-            <CheckBox id="longHairCut" layoutX="18.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleLongCut" text="Long hair cut" />
-            <CheckBox id="stripes" layoutX="19.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleStripes" text="Stripes" />
-            <CheckBox id="color" layoutX="19.0" layoutY="151.0" mnemonicParsing="false" onAction="#handleColor" text="Color" />
-            <CheckBox id="styling" layoutX="20.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleStyling" text="Styling" />
-            <Label layoutX="18.0" layoutY="28.0" text="Choose treatments ">
+            <CheckBox fx:id="shortHairCut" layoutX="18.0" layoutY="58.0" mnemonicParsing="false" onAction="#handleTreatment(shortHairCut)" text="Short hair cut" />
+            <CheckBox fx:id="longHairCut" layoutX="18.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleTreatment(longHairCut)" text="Long hair cut" />
+            <CheckBox fx:id="stripes" layoutX="19.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleTreatment(stripes)" text="Stripes" />
+            <CheckBox fx:id="color" layoutX="19.0" layoutY="151.0" mnemonicParsing="false" onAction="#handleTreatment(color)" text="Color" />
+            <CheckBox fx:id="styling" layoutX="20.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleTreatment(styling)" text="Styling" />
+            <CheckBox fx:id="wash" layoutX="22.0" layoutY="220.0" mnemonicParsing="false" onAction="#handleTreatment(wash)" text="Wash" /><Label layoutX="18.0" layoutY="28.0" text="Choose treatments ">
                <font>
                   <Font name="Arial Black" size="16.0" />
                </font>
