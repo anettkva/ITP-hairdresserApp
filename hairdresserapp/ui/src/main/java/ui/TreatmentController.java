@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.security.auth.PrivateCredentialPermission;
-
 import core.Filehandling;
 import core.PriceCalculator;
 import core.Treatment;
@@ -34,7 +32,7 @@ public class TreatmentController {
 
    
     @FXML
-    private CheckBox shortHairCut, longHaircut, stripes, color, styling, wash;
+    private CheckBox shortHairCut, longHairCut, stripes, color, styling, wash;
 
     private Map<CheckBox, Treatment> treatmentMap;
 
@@ -55,7 +53,7 @@ public class TreatmentController {
 
         treatmentMap = new HashMap<>();
         treatmentMap.put(shortHairCut, new Treatment("short haircut", 300));
-        treatmentMap.put(longHaircut, new Treatment("Long haircut", 500));
+        treatmentMap.put(longHairCut, new Treatment("Long haircut", 500));
         treatmentMap.put(stripes, new Treatment("Stripes", 1500));
         treatmentMap.put(color, new Treatment("Color", 2000));
         treatmentMap.put(styling, new Treatment("Styling", 500));
@@ -71,13 +69,20 @@ public class TreatmentController {
 
         Treatment treatment = treatmentMap.get(checkBox);
         if (treatment != null){
-            addToList(treatment);
-            HairdresserApp.addTreatment(treatment);
+            if (checkBox.isSelected()) {
+                addToList(treatment);
+                HairdresserApp.addTreatment(treatment);
+                System.out.println("Added treatment: " + treatment.getName());
+            } else {
+                removeFromList(treatment);
+                HairdresserApp.deleteTreatment(treatment);
+                System.out.println("Removed treatment: " + treatment.getName());
+            }
+            updateFile();
         } else {
-            removeFromList(treatment);
-            HairdresserApp.deleteTreatment(treatment);
+            System.err.println("Fant ikke treatment for" + checkBox.getText());
         }
-        updateFile();
+        
 
     }
 
@@ -139,6 +144,7 @@ public class TreatmentController {
         double price = calculator.CalculateTotalPrice(chosenTreatments);
         String priceString = String.valueOf(price);
         totalPriceField.setText(priceString);
+        System.out.println("Total price calculated: " + priceString);
     }
 
     @FXML
