@@ -7,14 +7,19 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import core.Filehandling;
+import core.Treatment;
 
 
 /**
  * JavaFX App
  */
 public class HairdresserApp extends Application {
+
+    private static final List<Treatment> selectedTreatments = new ArrayList<>();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -27,10 +32,29 @@ public class HairdresserApp extends Application {
             Filehandling filehandling = new Filehandling();
             filehandling.reset();
         });
+     
     }
+
+    public static void addTreatment(Treatment treatment){
+        if (!selectedTreatments.contains(treatment)){
+            selectedTreatments.add(treatment);
+        }
+    }
+
+    public static void deleteTreatment(Treatment treatment){
+        selectedTreatments.remove(treatment);
+    }
+
+    public static List<Treatment> getSelectedtreatments() {
+        return selectedTreatments;
+    }
+
+    
 
     public static void main(String[] args) {
         Application.launch(args);
     }
+
+    
 }
 
