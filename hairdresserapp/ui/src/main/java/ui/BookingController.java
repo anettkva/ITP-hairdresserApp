@@ -1,11 +1,14 @@
 package ui;
 
+import core.TimeSlot;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import core.TimeSlot;
+import core.Treatment;
 import core.WeeklyTimeSlots;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -21,7 +24,7 @@ public class BookingController {
     private JsonFilehandling filehandling = new JsonFilehandling();
     private WeeklyTimeSlots weeklyTimeSlots;
     private List<TimeSlot> allTimeSlots;
-
+    private List<Treatment> chosenTreatments;
     @FXML
     private TextField bookingTextField;
 
@@ -37,6 +40,8 @@ public class BookingController {
 
         allTimeSlots = weeklyTimeSlots.getAllTimeSlots();
         loadJsonFile();
+
+        chosenTreatments = HairdresserApp.getSelectedtreatments();
     }
 
     public TextArea getarea() {
@@ -93,27 +98,38 @@ public class BookingController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime desiredStartTime = LocalDateTime.parse(text, formatter);
 
-            TimeSlot matchingTimeSlot = null;
+            int requiredSlots = chosenTreatments.size();
+            List<TimeSlot> slotsToBook = new ArrayList<>();
 
-            for (TimeSlot slot: allTimeSlots) {
-                if (slot.getStartTime().equals(desiredStartTime)) {
-                    matchingTimeSlot = slot;
-                    break;
+            for (int i = 0; i < requiredSlots; i++){
+                LocalDateTime slotTime = desiredStartTime.plusHours(i);
+                TimeSlot matchingTimeSlot = null;
+
+                for (TimeSlot slot: allTimeSlots) {
+                    if (slot.getStartTime().equals(slotTime) && !slot.isBooked()) {
+                        matchingTimeSlot = slot;
+                        break;
+                    }
                 }
+
+                if (matchingTimeSlot == null) {
+                    throw new IllegalArgumentException("Velg en tilgjengelig tid fra listen");
+                }
+                slotsToBook.add(matchingTimeSlot);
             }
 
-            if (matchingTimeSlot == null) {
-                throw new IllegalArgumentException("Velg en tilgjengelig tid fra listen");
+            
+
+            for (TimeSlot slot : slotsToBook) {
+                slot.book();
+                updateJsonFile(slot);
             }
-
-            matchingTimeSlot.book();
-
-            updateJsonFile(matchingTimeSlot);
 
             DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm 'den' dd-MM-yyyy");
             String formattedStartTime = desiredStartTime.format(outputFormatter);
+            String formattedEndTime = desiredStartTime.plusHours(requiredSlots).format(outputFormatter);
 
-            bookingTextArea.setText("Timen med starttid " + formattedStartTime + " er booket:)");
+            bookingTextArea.setText("Timen fra " + formattedStartTime + "til " + formattedEndTime + "er booket for " + requiredSlots + "behandling(er) :)");
 
         }
 
