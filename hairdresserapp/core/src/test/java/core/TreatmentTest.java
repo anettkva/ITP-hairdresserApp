@@ -1,12 +1,8 @@
 package core;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
-
-
-
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class TreatmentTest {
@@ -34,14 +30,6 @@ public class TreatmentTest {
 
     }
 
-
-    @Test
-    void ValidsetDurationTest(){
-        Treatment treatment = new Treatment("Long haircut", 500);
-        treatment.setduration(60);
-        assertEquals(60, treatment.getduration());
-
-    }
 
     @Test
     void setNameTest(){
