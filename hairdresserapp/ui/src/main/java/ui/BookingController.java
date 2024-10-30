@@ -60,7 +60,7 @@ public class BookingController {
 
         for (TimeSlot slot : allTimeSlots) {
             String status = slot.isBooked() ? "Booket" : "Ledig";
-            text.append(slot.getStartTime().format(DateTimeFormatter.ofPattern("HH:mm dd-MM-yyy"))).append(" - ").append(status).append("\n");
+            text.append(slot.getStartTime().format(DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy"))).append(" - ").append(status).append("\n");
         }
 
         bookingTextArea.setText(text.toString());
@@ -92,7 +92,7 @@ public class BookingController {
         String text = bookingTextField.getText();
 
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
             LocalDateTime desiredStartTime = LocalDateTime.parse(text, formatter);
 
             int requiredSlots = chosenTreatments.size();

@@ -82,6 +82,8 @@ public class TreatmentController {
         } else {
             System.err.println("Fant ikke treatment for" + checkBox.getText());
         }
+
+        updateFile();
         
 
     }
