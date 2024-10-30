@@ -15,7 +15,7 @@ public class FileHandlingTest {
 
     @Test
     void testWriteToFile() throws IOException {
-        Treatment t = new Treatment("Hårføning", 100, 10);
+        Treatment t = new Treatment("Hårføning", 100);
         fh.writeToFile(t);
 
         File myFile = new File("./TreatmentsAndPrices.txt");
@@ -30,7 +30,7 @@ public class FileHandlingTest {
     
     @Test 
     void testLoadFromFile() throws IOException {
-        Treatment t = new Treatment("Hårføning", 100, 10);
+        Treatment t = new Treatment("Hårføning", 100);
         fh.writeToFile(t);
 
         List<Treatment> treatments = fh.loadFromFile();
@@ -42,7 +42,7 @@ public class FileHandlingTest {
 
     @Test
     void testReset() throws IOException {
-        Treatment t = new Treatment("Hårføning", 100, 10);
+        Treatment t = new Treatment("Hårføning", 100);
         fh.writeToFile(t);
 
         File myFile = new File("./TreatmentsAndPrices.txt");

@@ -5,12 +5,12 @@ public class Treatment {
     private int durationMinutes;
     private String name;
 
-    public Treatment(String name, int price, int durationMinutes) {
-        if (price < 0 || durationMinutes < 0 || durationMinutes > 420) {
+    public Treatment(String name, int price) {
+        if (price < 0) {
             throw new IllegalArgumentException();
         }
         this.price = price;
-        this.durationMinutes = durationMinutes;
+        this.durationMinutes = 60;
         this.name = name;
     }
 
@@ -29,12 +29,7 @@ public class Treatment {
         return durationMinutes;
     }
 
-    public void setduration(int durationMinutes) {
-        if (durationMinutes < 0 || durationMinutes > 420) {
-            throw new IllegalArgumentException("duration must be between 0 and 420 minutes long");
-        }
-        this.durationMinutes = durationMinutes;
-    }
+
 
     public String getName() {
         return name;

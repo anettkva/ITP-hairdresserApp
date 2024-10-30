@@ -2,7 +2,9 @@ package ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import core.Filehandling;
 import core.PriceCalculator;
@@ -11,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -27,23 +30,67 @@ public class TreatmentController {
 
     private List<Treatment> chosenTreatments; 
 
-    private Treatment longHairCut = new Treatment("Long hair cut", 500, 90);
+   
+    @FXML
+    private CheckBox shortHairCut, longHairCut, stripes, color, styling, wash;
 
-    private Treatment shortHairCut = new Treatment("Short hair cut", 300, 60);
+    private Map<CheckBox, Treatment> treatmentMap;
 
-    private Treatment stripes = new Treatment("Stripes", 1500, 180);
-
-    private Treatment color = new Treatment("Color", 2000, 180);
-
-    private Treatment styling = new Treatment("Styling", 500, 60);
-
-    private Treatment wash = new Treatment("Wash", 500, 30);
+    
 
     @FXML 
     TextField totalPriceField; 
 
     @FXML 
     TextArea overViewTextArea;
+
+
+    @FXML
+    protected void initialize(){
+        calculator = new PriceCalculator();
+        filehandling = new Filehandling();
+        chosenTreatments = new ArrayList<>();
+
+        treatmentMap = new HashMap<>();
+        treatmentMap.put(shortHairCut, new Treatment("short haircut", 300));
+        treatmentMap.put(longHairCut, new Treatment("Long haircut", 500));
+        treatmentMap.put(stripes, new Treatment("Stripes", 1500));
+        treatmentMap.put(color, new Treatment("Color", 2000));
+        treatmentMap.put(styling, new Treatment("Styling", 500));
+        treatmentMap.put(wash, new Treatment("Wash", 500));
+
+        for (CheckBox checkBox : treatmentMap.keySet()){
+            checkBox.setOnAction(event -> {
+                try {
+                    handleChecBoxAction(checkBox);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+    }
+
+    private void handleChecBoxAction(CheckBox checkBox) throws IOException{
+
+        Treatment treatment = treatmentMap.get(checkBox);
+        if (treatment != null){
+            if (checkBox.isSelected()) {
+                handleTreatment(treatment);
+                HairdresserApp.addTreatment(treatment);
+                
+
+            } else {
+                handleTreatment(treatment);
+                HairdresserApp.deleteTreatment(treatment);
+
+
+            }
+            updateFile();
+        } else {
+            System.err.println("Fant ikke treatment for" + checkBox.getText());
+        }
+    }
 
     public TextField getfield() {
         return this.totalPriceField;
@@ -54,18 +101,11 @@ public class TreatmentController {
     }
 
 
-
-    @FXML
-    protected void initialize() {
-        calculator = new PriceCalculator();
-        filehandling = new Filehandling();
-        chosenTreatments = new ArrayList<>();
-
-    }
-
-
     private void addToList(Treatment treatment) {
-        chosenTreatments.add(treatment);
+        if (!chosenTreatments.contains(treatment)){
+            chosenTreatments.add(treatment);
+        }
+      
     }
 
     private void removeFromList(Treatment treatment) {
@@ -101,44 +141,12 @@ public class TreatmentController {
     }
 
 
-
-    @FXML
-    void handleLongCut() {
-        handleTreatment(longHairCut);
-        
-    }
-
-    @FXML
-    void handleShortCut() {
-        handleTreatment(shortHairCut);
-    }
-
-    @FXML
-    void handleStripes() {
-        handleTreatment(stripes);
-    }
-
-    @FXML
-    void handleColor() {
-        handleTreatment(color);
-
-    }
-
-    @FXML
-    void handleStyling() {
-        handleTreatment(styling);
-    }
-
-    @FXML
-    void handleWash() {
-        handleTreatment(wash);
-    }
-
     @FXML
     void handleCalculatePrice() {
         double price = calculator.CalculateTotalPrice(chosenTreatments);
         String priceString = String.valueOf(price);
         totalPriceField.setText(priceString);
+        System.out.println("Total price calculated: " + priceString);
     }
 
     @FXML
@@ -150,7 +158,7 @@ public class TreatmentController {
         }
     }
     
-    @FXML 
+    @FXML
     void handleBookingButton() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("Booking.fxml"));
         Parent parent = fxmlLoader.load();
