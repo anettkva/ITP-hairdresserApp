@@ -76,22 +76,20 @@ public class TreatmentController {
         Treatment treatment = treatmentMap.get(checkBox);
         if (treatment != null){
             if (checkBox.isSelected()) {
-                addToList(treatment);
+                handleTreatment(treatment);
                 HairdresserApp.addTreatment(treatment);
+                
 
             } else {
-                removeFromList(treatment);
+                handleTreatment(treatment);
                 HairdresserApp.deleteTreatment(treatment);
+
 
             }
             updateFile();
         } else {
             System.err.println("Fant ikke treatment for" + checkBox.getText());
         }
-
-        handleCalculatePrice();
-        handleShowOverview();
-        
     }
 
     public TextField getfield() {
@@ -143,10 +141,6 @@ public class TreatmentController {
     }
 
 
-
-   
-    
-
     @FXML
     void handleCalculatePrice() {
         double price = calculator.CalculateTotalPrice(chosenTreatments);
@@ -164,7 +158,7 @@ public class TreatmentController {
         }
     }
     
-    @FXML 
+    @FXML
     void handleBookingButton() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("Booking.fxml"));
         Parent parent = fxmlLoader.load();

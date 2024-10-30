@@ -122,8 +122,10 @@ public class BookingController {
                 updateJsonFile(slot);
             }
 
+            DateTimeFormatter outputFormatterHour = DateTimeFormatter.ofPattern("HH:mm ");
+            String formattedStartTime = desiredStartTime.format(outputFormatterHour);
+
             DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm 'den' dd-MM-yyyy");
-            String formattedStartTime = desiredStartTime.format(outputFormatter);
             String formattedEndTime = desiredStartTime.plusHours(requiredSlots).format(outputFormatter);
 
             bookingTextArea.setText("Timen fra " + formattedStartTime + " til " + formattedEndTime + " er booket for " + requiredSlots + " behandling(er) :)");
