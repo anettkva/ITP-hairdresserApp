@@ -110,7 +110,7 @@ public class BookingController {
                 }
 
                 if (matchingTimeSlot == null) {
-                    throw new IllegalArgumentException("Velg en tilgjengelig tid fra listen");
+                    throw new IllegalArgumentException("Tidsintervallet er ikke tilgjengelig du må ha " + requiredSlots + "ledige timer på f.o.m valgt tidspunkt");
                 }
                 slotsToBook.add(matchingTimeSlot);
             }
