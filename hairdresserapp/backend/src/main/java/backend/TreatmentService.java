@@ -2,11 +2,9 @@ package backend;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import core.Treatment;
-import backend.TreatmentRepository;
 
 
 @Service
@@ -20,16 +18,16 @@ public class TreatmentService {
         return treatmentRepository.findAll();
     }
 
-    public Treatment getTreatmentById(Long id) {
-        return treatmentRepository.findById(id).orElse(null);
+    public Treatment getTreatmentById(String name) {
+        return treatmentRepository.findByName(name).orElse(null);
     }
 
     public Treatment createTreatment(Treatment treatment) {
         return treatmentRepository.save(treatment);
     }
 
-    public Treatment updateTreatment(Long id, Treatment treatmentDetails) {
-        return treatmentRepository.findById(id).map(treatment -> {
+    public Treatment updateTreatment(String name, Treatment treatmentDetails) {
+        return treatmentRepository.findByName(name).map(treatment -> {
             treatment.setName(treatmentDetails.getName());
             treatment.setPrice(treatmentDetails.getPrice());
 
@@ -37,8 +35,8 @@ public class TreatmentService {
         }).orElse(null);
     }
 
-    public boolean deleteTreatment(Long id) {
-        return treatmentRepository.findById(id).map(treatment -> {
+    public boolean deleteTreatment(String name) {
+        return treatmentRepository.findByName(name).map(treatment -> {
             treatmentRepository.delete(treatment);
             return true;
         }).orElse(false);
