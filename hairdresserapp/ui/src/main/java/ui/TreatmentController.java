@@ -60,12 +60,18 @@ public class TreatmentController {
         treatmentMap.put(wash, new Treatment("Wash", 500));
 
         for (CheckBox checkBox : treatmentMap.keySet()){
-            checkBox.setOnAction(event -> handleChecBoxAction(checkBox));
+            checkBox.setOnAction(event -> {
+                try {
+                    handleChecBoxAction(checkBox);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         }
 
     }
 
-    private void handleChecBoxAction(CheckBox checkBox){
+    private void handleChecBoxAction(CheckBox checkBox) throws IOException{
 
         Treatment treatment = treatmentMap.get(checkBox);
         if (treatment != null){
@@ -83,9 +89,9 @@ public class TreatmentController {
             System.err.println("Fant ikke treatment for" + checkBox.getText());
         }
 
-        updateFile();
+        handleCalculatePrice();
+        handleShowOverview();
         
-
     }
 
     public TextField getfield() {
