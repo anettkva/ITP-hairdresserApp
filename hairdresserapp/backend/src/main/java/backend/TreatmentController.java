@@ -33,17 +33,6 @@ public class TreatmentController {
     @FXML 
     TextArea overViewTextArea;
 
-    public static Treatment longHairCut = new Treatment("Long hair cut", 500, 90);
-
-    public static Treatment shortHairCut = new Treatment("Short hair cut", 300, 60);
-
-    public static Treatment stripes = new Treatment("Stripes", 1500, 180);
-
-    public static Treatment color = new Treatment("Color", 2000, 180);
-
-    public static Treatment styling = new Treatment("Styling", 500, 60);
-
-    public static Treatment wash = new Treatment("Wash", 500, 30);
     
     @Autowired
     private TreatmentService treatmentService;

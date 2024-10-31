@@ -76,12 +76,10 @@ public class TreatmentControllerTest extends ApplicationTest{
         assertNotNull(shortHairCut, "shortHairCut checkbox should be properly loaded from FXML");
 
         clickOn("#shortHairCut");
-        treatmentController.handleCalculatePrice();
 
         assertEquals("300.0", totalPriceField.getText());
 
         clickOn("#wash");
-        treatmentController.handleCalculatePrice();
 
         assertEquals("800.0", totalPriceField.getText());
 
@@ -95,8 +93,6 @@ public class TreatmentControllerTest extends ApplicationTest{
     public void testShowOverview() throws IOException {
         clickOn("#styling");
         clickOn("#stripes");
-
-        treatmentController.handleShowOverview();
 
         String stylingPrice = "500";
         String stylingDuration = "60";

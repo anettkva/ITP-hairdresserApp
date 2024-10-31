@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import core.Filehandling;
 import core.Treatment;
+import json.TreatmentFilehandling;
 
 
 /**
@@ -29,24 +29,15 @@ public class HairdresserApp extends Application {
         stage.show();
 
         stage.setOnCloseRequest(event -> {
-            Filehandling filehandling = new Filehandling();
-            filehandling.reset();
+            TreatmentFilehandling filehandling = new TreatmentFilehandling();
+            try {
+                filehandling.reset();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         });
      
-    }
-
-    public static void addTreatment(Treatment treatment){
-        if (!selectedTreatments.contains(treatment)){
-            selectedTreatments.add(treatment);
-        }
-    }
-
-    public static void deleteTreatment(Treatment treatment){
-        selectedTreatments.remove(treatment);
-    }
-
-    public static List<Treatment> getSelectedtreatments() {
-        return selectedTreatments;
     }
 
     

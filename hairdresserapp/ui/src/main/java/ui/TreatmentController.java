@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import core.Filehandling;
 import core.PriceCalculator;
 import core.Treatment;
 import javafx.fxml.FXML;
@@ -17,6 +16,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import json.TreatmentFilehandling;
 
 
 
@@ -26,7 +26,7 @@ public class TreatmentController {
 
     private PriceCalculator calculator;
 
-    private Filehandling filehandling;
+    private TreatmentFilehandling filehandling;
 
     private List<Treatment> chosenTreatments; 
 
@@ -48,7 +48,7 @@ public class TreatmentController {
     @FXML
     protected void initialize(){
         calculator = new PriceCalculator();
-        filehandling = new Filehandling();
+        filehandling = new TreatmentFilehandling();
         chosenTreatments = new ArrayList<>();
 
         treatmentMap = new HashMap<>();
@@ -72,22 +72,11 @@ public class TreatmentController {
     }
 
     private void handleChecBoxAction(CheckBox checkBox) throws IOException{
-
         Treatment treatment = treatmentMap.get(checkBox);
         if (treatment != null){
-            if (checkBox.isSelected()) {
-                handleTreatment(treatment);
-                HairdresserApp.addTreatment(treatment);
-                
-
-            } else {
-                handleTreatment(treatment);
-                HairdresserApp.deleteTreatment(treatment);
-
-
-            }
-            updateFile();
-        } else {
+            handleTreatment(treatment);
+        } 
+        else {
             System.err.println("Fant ikke treatment for" + checkBox.getText());
         }
     }
@@ -112,7 +101,7 @@ public class TreatmentController {
         chosenTreatments.remove(treatment);
     }
 
-    private void updateFile() {
+    private void updateFile() throws IOException {
         filehandling.reset();
         for (Treatment t : chosenTreatments) {
             try {
@@ -124,7 +113,7 @@ public class TreatmentController {
         }
     }
 
-    private void handleTreatment(Treatment treatment) {
+    private void handleTreatment(Treatment treatment) throws IOException {
         if (!chosenTreatments.contains(treatment)) {
             addToList(treatment);
         } else {
@@ -152,7 +141,7 @@ public class TreatmentController {
     @FXML
     void handleShowOverview() throws IOException {
         overViewTextArea.setText(" ");
-        List<Treatment> fileTreatments = filehandling.loadFromFile();
+        List<Treatment> fileTreatments = filehandling.readFromFile();
         for (Treatment t : fileTreatments) {
             overViewTextArea.appendText(t.getName() + ": " + t.getPrice() + " kr, Varighet (min): " + t.getduration() + "\n" );
         }
