@@ -18,6 +18,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import json.TreatmentFilehandling;
 
+import backend.RestTreatmentController;
+
 
 
 
@@ -29,6 +31,8 @@ public class TreatmentController {
     private TreatmentFilehandling filehandling;
 
     private List<Treatment> chosenTreatments; 
+
+    private RestTreatmentController restcontroller;
 
    
     @FXML
@@ -50,6 +54,7 @@ public class TreatmentController {
         calculator = new PriceCalculator();
         filehandling = new TreatmentFilehandling();
         chosenTreatments = new ArrayList<>();
+        restcontroller = new RestTreatmentController();
 
         treatmentMap = new HashMap<>();
         treatmentMap.put(shortHairCut, new Treatment("short haircut", 300));
@@ -90,16 +95,6 @@ public class TreatmentController {
     }
 
 
-    private void addToList(Treatment treatment) {
-        if (!chosenTreatments.contains(treatment)){
-            chosenTreatments.add(treatment);
-        }
-      
-    }
-
-    private void removeFromList(Treatment treatment) {
-        chosenTreatments.remove(treatment);
-    }
 
     private void updateFile() throws IOException {
         filehandling.reset();
@@ -114,10 +109,11 @@ public class TreatmentController {
     }
 
     private void handleTreatment(Treatment treatment) throws IOException {
-        if (!chosenTreatments.contains(treatment)) {
-            addToList(treatment);
-        } else {
-            removeFromList(treatment);
+        List<Treatment> chosenTreatments = restcontroller.getChosenTreatments();
+        if (chosenTreatments.contains(treatment)) {
+            restcontroller.deleteTreatment(treatment.getName());
+        }else {
+            restcontroller.addTreatment(treatment);
         }
         updateFile();
         handleCalculatePrice();

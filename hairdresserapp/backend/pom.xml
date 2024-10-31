@@ -5,12 +5,15 @@
     <artifactId>modules-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-     <parent>
-        <groupId>it1901</groupId>
-        <artifactId>gr2415</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.4</version>
+        <relativePath/> 
     </parent>
+
+
+
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -27,6 +30,7 @@
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency> 
+
 
         <!-- javafx -->
         <dependency>
@@ -196,7 +200,7 @@
                 <!-- Default configuration for running -->
                 <!-- Usage: mvn javafx:run -->
                 <configuration>
-                    <mainClass>ui.HairdresserApp</mainClass>
+                    <mainClass>backend.BackendApplication</mainClass>
                 </configuration>
             </plugin>
      

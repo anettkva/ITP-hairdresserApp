@@ -1,8 +1,16 @@
 package core;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Treatment {
+
+    @JsonProperty("price")
     private int price;
+
     private int durationMinutes;
+
+
+    @JsonProperty("name")
     private String name;
 
     public Treatment(String name, int price) {
