@@ -1,5 +1,6 @@
 package backend;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -13,10 +14,11 @@ import core.Treatment;
 @Service
 public class TreatmentService {
     
-    private final JsonTreatmentRepository treatmentRepository;
+    private final TreatmentRepository treatmentRepository;
 
-    public TreatmentService() {
-        this.treatmentRepository = new JsonTreatmentRepository();
+    @Autowired
+    public TreatmentService(TreatmentRepository r) {
+        this.treatmentRepository = r;
     }
 
 

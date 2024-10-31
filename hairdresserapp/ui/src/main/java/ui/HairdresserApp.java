@@ -7,10 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import core.Treatment;
 import json.TreatmentFilehandling;
 
 
@@ -19,7 +15,6 @@ import json.TreatmentFilehandling;
  */
 public class HairdresserApp extends Application {
 
-    private static final List<Treatment> selectedTreatments = new ArrayList<>();
 
     @Override
     public void start(Stage stage) throws IOException {

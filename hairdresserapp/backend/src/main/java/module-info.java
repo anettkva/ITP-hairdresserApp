@@ -13,6 +13,7 @@ module backend {
     requires javafx.controls;
     requires javafx.graphics;
     requires spring.jdbc;
+    requires org.slf4j;
 
     exports backend;
 

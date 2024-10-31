@@ -7,18 +7,20 @@ public class Treatment {
     @JsonProperty("price")
     private int price;
 
-    private int durationMinutes;
-
+    @JsonProperty("duration")
+    private int duration;
 
     @JsonProperty("name")
     private String name;
+
+    public Treatment() {}
 
     public Treatment(String name, int price) {
         if (price < 0) {
             throw new IllegalArgumentException();
         }
         this.price = price;
-        this.durationMinutes = 60;
+        this.duration = 60;
         this.name = name;
     }
 
@@ -34,7 +36,7 @@ public class Treatment {
     }
 
     public int getduration() {
-        return durationMinutes;
+        return duration;
     }
 
 

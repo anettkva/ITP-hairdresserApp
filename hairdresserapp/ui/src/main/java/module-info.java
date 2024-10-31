@@ -3,8 +3,9 @@ module ui {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
-    requires backend;
-    
+    requires java.net.http;
+    requires com.fasterxml.jackson.databind;
+
     opens ui to javafx.graphics, javafx.fxml;
 
 }

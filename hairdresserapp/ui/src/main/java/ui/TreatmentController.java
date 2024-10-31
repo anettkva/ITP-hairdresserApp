@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import core.PriceCalculator;
 import core.Treatment;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,21 +17,17 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import json.TreatmentFilehandling;
 
-import backend.RestTreatmentController;
-
 
 
 
 
 public class TreatmentController {
 
-    private PriceCalculator calculator;
-
     private TreatmentFilehandling filehandling;
 
     private List<Treatment> chosenTreatments; 
 
-    private RestTreatmentController restcontroller;
+    private FrontService frontService;
 
    
     @FXML
@@ -48,13 +43,34 @@ public class TreatmentController {
     @FXML 
     TextArea overViewTextArea;
 
+    public TreatmentController() {
+        this.frontService = new FrontService();
+    }
+
+    public TextField getfield() {
+        return this.totalPriceField;
+    }
+
+    public TextArea getarea() {
+        return this.overViewTextArea;
+    }
+
+    public List<Treatment> getChosenTreatments() {
+        return chosenTreatments;
+    }
+    
+    public TextField getTotalPriceField() {
+        return totalPriceField;
+    }
+    
+    public TextArea getOverViewTextArea() {
+        return overViewTextArea;
+    }
 
     @FXML
     protected void initialize(){
-        calculator = new PriceCalculator();
         filehandling = new TreatmentFilehandling();
         chosenTreatments = new ArrayList<>();
-        restcontroller = new RestTreatmentController();
 
         treatmentMap = new HashMap<>();
         treatmentMap.put(shortHairCut, new Treatment("short haircut", 300));
@@ -70,13 +86,16 @@ public class TreatmentController {
                     handleChecBoxAction(checkBox);
                 } catch (IOException e) {
                     e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             });
         }
 
     }
 
-    private void handleChecBoxAction(CheckBox checkBox) throws IOException{
+
+    private void handleChecBoxAction(CheckBox checkBox) throws IOException, InterruptedException{
         Treatment treatment = treatmentMap.get(checkBox);
         if (treatment != null){
             handleTreatment(treatment);
@@ -86,16 +105,7 @@ public class TreatmentController {
         }
     }
 
-    public TextField getfield() {
-        return this.totalPriceField;
-    }
-
-    public TextArea getarea() {
-        return this.overViewTextArea;
-    }
-
-
-
+/* 
     private void updateFile() throws IOException {
         filehandling.reset();
         for (Treatment t : chosenTreatments) {
@@ -106,16 +116,16 @@ public class TreatmentController {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
-    private void handleTreatment(Treatment treatment) throws IOException {
-        List<Treatment> chosenTreatments = restcontroller.getChosenTreatments();
+    private void handleTreatment(Treatment treatment) throws IOException, InterruptedException {
+        List<Treatment> chosenTreatments = frontService.getChosenTreatments();
         if (chosenTreatments.contains(treatment)) {
-            restcontroller.deleteTreatment(treatment.getName());
+            frontService.deleteTreatment(treatment.getName());
         }else {
-            restcontroller.addTreatment(treatment);
+            frontService.addTreatment(treatment);
         }
-        updateFile();
+        //updateFile();
         handleCalculatePrice();
         try {
             handleShowOverview();
@@ -127,17 +137,17 @@ public class TreatmentController {
 
 
     @FXML
-    void handleCalculatePrice() {
-        double price = calculator.CalculateTotalPrice(chosenTreatments);
+    void handleCalculatePrice() throws IOException, InterruptedException {
+        double price = frontService.calculateTotalPrice();
         String priceString = String.valueOf(price);
         totalPriceField.setText(priceString);
         System.out.println("Total price calculated: " + priceString);
     }
 
     @FXML
-    void handleShowOverview() throws IOException {
+    void handleShowOverview() throws IOException, InterruptedException {
         overViewTextArea.setText(" ");
-        List<Treatment> fileTreatments = filehandling.readFromFile();
+        List<Treatment> fileTreatments = frontService.getChosenTreatments();
         for (Treatment t : fileTreatments) {
             overViewTextArea.appendText(t.getName() + ": " + t.getPrice() + " kr, Varighet (min): " + t.getduration() + "\n" );
         }
@@ -152,16 +162,5 @@ public class TreatmentController {
         stage.show();
     }
 
-    public List<Treatment> getChosenTreatments() {
-        return chosenTreatments;
-    }
-    
-    public TextField getTotalPriceField() {
-        return totalPriceField;
-    }
-    
-    public TextArea getOverViewTextArea() {
-        return overViewTextArea;
-    }
 
 }

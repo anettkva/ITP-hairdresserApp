@@ -1,8 +1,7 @@
 package backend;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,30 +13,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import core.PriceCalculator;
 import core.Treatment;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 @RestController
 @RequestMapping("/api/treatments")
 public class RestTreatmentController {
 
-
     
+    private final TreatmentService treatmentService;
+
     @Autowired
-    private TreatmentService treatmentService;
-
-
-
-
- 
-
+    public RestTreatmentController(TreatmentService treatmentService) {
+        this.treatmentService = treatmentService;
+    }
     // @GetMapping
     // public List<Treatment> getAllTreatments() {
     //     return treatmentService.getAllTreatments();
