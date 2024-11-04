@@ -27,7 +27,9 @@ public class FrontService {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BACKEND_URL)).GET().build();
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        return objectMapper.readValue(response.body(), new TypeReference<List<Treatment>>() {});
+        List<Treatment> list = objectMapper.readValue(response.body(), new TypeReference<List<Treatment>>() {});
+        System.out.println(list);
+        return list;
     }
 
     public void addTreatment(Treatment treatment) throws IOException, InterruptedException {

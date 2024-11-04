@@ -1,9 +1,9 @@
 package backend;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,8 +29,9 @@ public class JsonTreatmentRepository implements TreatmentRepository{
     @Override
     public Optional<Treatment> findByName(String name) throws IOException {
         List<Treatment> treatments = findAll();
-        return  treatments.stream().filter(t -> t.getName().equalsIgnoreCase(name)).findFirst();
-        }
+        Optional<Treatment> treatment= treatments.stream().filter(t -> t.getName().equals(name)).findFirst();
+        return treatment;
+    }
 
     
 
@@ -42,10 +43,16 @@ public class JsonTreatmentRepository implements TreatmentRepository{
     @Override
     public void deleteByName(String name) throws IOException {
         List<Treatment> treatments = findAll();
-        treatments = treatments.stream().filter(t -> !t.getName().equalsIgnoreCase(name)).collect(Collectors.toList());
-        filehandling.reset();
+        List<Treatment> list = new ArrayList<>();
         for (Treatment t : treatments) {
-            filehandling.writeToFile(t);
+            if(!t.getName().equals(name)) {
+                list.add(t);
+            }
+        }
+    
+        filehandling.reset();
+        for (Treatment t : list) {
+            save(t);
         }
 
     }

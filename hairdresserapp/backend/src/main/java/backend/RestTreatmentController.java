@@ -1,7 +1,7 @@
 package backend;
 
+import java.io.IOException;
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +23,9 @@ public class RestTreatmentController {
     private final TreatmentService treatmentService;
 
     @Autowired
-    public RestTreatmentController(TreatmentService treatmentService) {
-        this.treatmentService = treatmentService;
+    public RestTreatmentController() {
+        this.treatmentService = new TreatmentService();
     }
-    // @GetMapping
-    // public List<Treatment> getAllTreatments() {
-    //     return treatmentService.getAllTreatments();
-    // }
 
     @GetMapping
     public List<Treatment> getChosenTreatments() {
@@ -43,12 +39,14 @@ public class RestTreatmentController {
     
 
     @DeleteMapping("/{name}")
-    public ResponseEntity<?> deleteTreatment(@PathVariable String name){
+    public ResponseEntity<?> deleteTreatment(@PathVariable("name") String name){
         Treatment treatment = treatmentService.findByName(name);
-        if (!treatment.equals(null)){
+        if (treatment != null){
             treatmentService.deleteTreatment(name);
+            System.out.println(ResponseEntity.ok().build());
             return ResponseEntity.ok().build();
         } else {
+            System.out.println(ResponseEntity.notFound().build());
             return ResponseEntity.notFound().build();
         }
 
@@ -56,7 +54,7 @@ public class RestTreatmentController {
 
 
     @PostMapping("/calculateTotalPrice")
-    public ResponseEntity<Double> calculateTotalPrice() {
+    public ResponseEntity<Double> calculateTotalPrice() throws IOException {
         double totalPrice = treatmentService.calculateTotalPrice();
         return ResponseEntity.ok(totalPrice);
     }

@@ -17,10 +17,9 @@ public class TreatmentService {
     private final TreatmentRepository treatmentRepository;
 
     @Autowired
-    public TreatmentService(TreatmentRepository r) {
-        this.treatmentRepository = r;
+    public TreatmentService() {
+        this.treatmentRepository = new JsonTreatmentRepository();
     }
-
 
     public List<Treatment> getAllTreatments() {
         try {
@@ -62,8 +61,8 @@ public class TreatmentService {
         }
     }
 
-    public double calculateTotalPrice() {
-        List<Treatment> treatments = getAllTreatments();
+    public double calculateTotalPrice() throws IOException {
+        List<Treatment> treatments = treatmentRepository.findAll();
         PriceCalculator pc = new PriceCalculator();
         return pc.CalculateTotalPrice(treatments);
     }
