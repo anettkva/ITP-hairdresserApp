@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import core.Filehandling;
-import core.PriceCalculator;
 import core.Treatment;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,11 +22,10 @@ import javafx.stage.Stage;
 
 public class TreatmentController {
 
-    private PriceCalculator calculator;
-
-    private Filehandling filehandling;
 
     private List<Treatment> chosenTreatments; 
+
+    private FrontService frontService;
 
    
     @FXML
@@ -44,52 +41,8 @@ public class TreatmentController {
     @FXML 
     TextArea overViewTextArea;
 
-
-    @FXML
-    protected void initialize(){
-        calculator = new PriceCalculator();
-        filehandling = new Filehandling();
-        chosenTreatments = new ArrayList<>();
-
-        treatmentMap = new HashMap<>();
-        treatmentMap.put(shortHairCut, new Treatment("short haircut", 300));
-        treatmentMap.put(longHairCut, new Treatment("Long haircut", 500));
-        treatmentMap.put(stripes, new Treatment("Stripes", 1500));
-        treatmentMap.put(color, new Treatment("Color", 2000));
-        treatmentMap.put(styling, new Treatment("Styling", 500));
-        treatmentMap.put(wash, new Treatment("Wash", 500));
-
-        for (CheckBox checkBox : treatmentMap.keySet()){
-            checkBox.setOnAction(event -> {
-                try {
-                    handleChecBoxAction(checkBox);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-
-    }
-
-    private void handleChecBoxAction(CheckBox checkBox) throws IOException{
-
-        Treatment treatment = treatmentMap.get(checkBox);
-        if (treatment != null){
-            if (checkBox.isSelected()) {
-                handleTreatment(treatment);
-                HairdresserApp.addTreatment(treatment);
-                
-
-            } else {
-                handleTreatment(treatment);
-                HairdresserApp.deleteTreatment(treatment);
-
-
-            }
-            updateFile();
-        } else {
-            System.err.println("Fant ikke treatment for" + checkBox.getText());
-        }
+    public TreatmentController() {
+        this.frontService = new FrontService();
     }
 
     public TextField getfield() {
@@ -100,59 +53,84 @@ public class TreatmentController {
         return this.overViewTextArea;
     }
 
-
-    private void addToList(Treatment treatment) {
-        if (!chosenTreatments.contains(treatment)){
-            chosenTreatments.add(treatment);
-        }
-      
+    public List<Treatment> getChosenTreatments() {
+        return chosenTreatments;
+    }
+    
+    public TextField getTotalPriceField() {
+        return totalPriceField;
+    }
+    
+    public TextArea getOverViewTextArea() {
+        return overViewTextArea;
     }
 
-    private void removeFromList(Treatment treatment) {
-        chosenTreatments.remove(treatment);
+    @FXML
+    protected void initialize(){
+        chosenTreatments = new ArrayList<>();
+
+        treatmentMap = new HashMap<>();
+        treatmentMap.put(shortHairCut, new Treatment("shortcut", 300));
+        treatmentMap.put(longHairCut, new Treatment("longcut", 500));
+        treatmentMap.put(stripes, new Treatment("stripes", 1500));
+        treatmentMap.put(color, new Treatment("color", 2000));
+        treatmentMap.put(styling, new Treatment("styling", 500));
+        treatmentMap.put(wash, new Treatment("wash", 500));
+
+        for (CheckBox checkBox : treatmentMap.keySet()){
+            checkBox.setOnAction(event -> {
+                try {
+                    handleChecBoxAction(checkBox);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
     }
 
-    private void updateFile() {
-        filehandling.reset();
-        for (Treatment t : chosenTreatments) {
-            try {
-                filehandling.writeToFile(t);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+
+    private void handleChecBoxAction(CheckBox checkBox) throws IOException, InterruptedException{
+        Treatment treatment = treatmentMap.get(checkBox);
+        if (checkBox.isSelected()) {
+            addTreatment(treatment);
+        }
+        else if (!checkBox.isSelected()){
+            deleteTreatment(treatment);
+        }
+        else {
+            System.err.println("Fant ikke treatment for" + checkBox.getText());
         }
     }
 
-    private void handleTreatment(Treatment treatment) {
-        if (!chosenTreatments.contains(treatment)) {
-            addToList(treatment);
-        } else {
-            removeFromList(treatment);
-        }
-        updateFile();
+
+    private void addTreatment(Treatment treatment) throws IOException, InterruptedException { 
+        frontService.addTreatment(treatment);
         handleCalculatePrice();
-        try {
-            handleShowOverview();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        handleShowOverview();
+    
+    }
+
+    private void deleteTreatment(Treatment treatment) throws IOException, InterruptedException {
+        frontService.deleteTreatment(treatment.getName());
+        handleCalculatePrice();
+        handleShowOverview();
     }
 
 
     @FXML
-    void handleCalculatePrice() {
-        double price = calculator.CalculateTotalPrice(chosenTreatments);
+    void handleCalculatePrice() throws IOException, InterruptedException {
+        double price = frontService.calculateTotalPrice();
         String priceString = String.valueOf(price);
         totalPriceField.setText(priceString);
-        System.out.println("Total price calculated: " + priceString);
     }
 
     @FXML
-    void handleShowOverview() throws IOException {
-        overViewTextArea.setText(" ");
-        List<Treatment> fileTreatments = filehandling.loadFromFile();
+    void handleShowOverview() throws IOException, InterruptedException {
+        overViewTextArea.setText("");
+        List<Treatment> fileTreatments = frontService.getChosenTreatments();
         for (Treatment t : fileTreatments) {
             overViewTextArea.appendText(t.getName() + ": " + t.getPrice() + " kr, Varighet (min): " + t.getduration() + "\n" );
         }
@@ -167,16 +145,5 @@ public class TreatmentController {
         stage.show();
     }
 
-    public List<Treatment> getChosenTreatments() {
-        return chosenTreatments;
-    }
-    
-    public TextField getTotalPriceField() {
-        return totalPriceField;
-    }
-    
-    public TextArea getOverViewTextArea() {
-        return overViewTextArea;
-    }
 
 }
