@@ -2,7 +2,9 @@ package backend;
 
 import java.io.IOException;
 import java.util.List;
+import org.slf4j.Logger;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +21,8 @@ import core.Treatment;
 @RequestMapping("/api/treatments")
 public class RestTreatmentController {
 
+    private static final Logger logger = LoggerFactory.getLogger(RestTreatmentController.class);
+
     
     private final TreatmentService treatmentService;
 
@@ -29,21 +33,25 @@ public class RestTreatmentController {
 
     @GetMapping
     public List<Treatment> getChosenTreatments() {
+        logger.info("GET request received for chosen treatments" );
         return treatmentService.getAllTreatments();
+        
     }
 
     @PostMapping
     public void addTreatment(@RequestBody Treatment treatment) {
         treatmentService.addTreatment(treatment);
+        logger.info("POST request received for added treatment");
     }
     
 
     @DeleteMapping("/{name}")
     public ResponseEntity<?> deleteTreatment(@PathVariable("name") String name){
         Treatment treatment = treatmentService.findByName(name);
+        logger.info("DELETE request received for delete treatment from chosen for api/treatments/name");
         if (treatment != null){
             treatmentService.deleteTreatment(name);
-            System.out.println(ResponseEntity.ok().build());
+            logger.info(String.valueOf(ResponseEntity.ok().build()));
             return ResponseEntity.ok().build();
         } else {
             System.out.println(ResponseEntity.notFound().build());
@@ -55,6 +63,7 @@ public class RestTreatmentController {
 
     @PostMapping("/calculateTotalPrice")
     public ResponseEntity<Double> calculateTotalPrice() throws IOException {
+        logger.info("POST request received for api/treatments/caclulateTotalPrice");
         double totalPrice = treatmentService.calculateTotalPrice();
         return ResponseEntity.ok(totalPrice);
     }
