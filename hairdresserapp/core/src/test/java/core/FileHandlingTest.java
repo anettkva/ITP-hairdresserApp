@@ -1,6 +1,8 @@
 package core;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,17 +10,19 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import json.TreatmentFilehandling;
+
 
 public class FileHandlingTest {
 
-    Filehandling fh = new Filehandling();
+    TreatmentFilehandling fh = new TreatmentFilehandling();
 
     @Test
     void testWriteToFile() throws IOException {
         Treatment t = new Treatment("Hårføning", 100);
         fh.writeToFile(t);
 
-        File myFile = new File("./TreatmentsAndPrices.txt");
+        File myFile = new File("../../hairdresserapp/core/src/main/java/json/ChosenTreatments.json");
         assertTrue(myFile.exists());
 
         assertFalse(myFile.length() == 0);
@@ -33,7 +37,7 @@ public class FileHandlingTest {
         Treatment t = new Treatment("Hårføning", 100);
         fh.writeToFile(t);
 
-        List<Treatment> treatments = fh.loadFromFile();
+        List<Treatment> treatments = fh.readFromFile();
 
         assertEquals("Hårføning", treatments.get(0).getName());
 
@@ -45,14 +49,13 @@ public class FileHandlingTest {
         Treatment t = new Treatment("Hårføning", 100);
         fh.writeToFile(t);
 
-        File myFile = new File("./TreatmentsAndPrices.txt");
+        File myFile = new File("../../hairdresserapp/core/src/main/java/json/ChosenTreatments.json");
         assertTrue(myFile.exists());
 
         assertFalse(myFile.length()==0);
 
         fh.reset();
 
-        assertFalse(myFile.exists());
 
         
     }

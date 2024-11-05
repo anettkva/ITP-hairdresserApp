@@ -1,5 +1,5 @@
 module backend {
-    requires core;
+    requires transitive core;
     requires com.fasterxml.jackson.databind;
 
     requires spring.web;
@@ -8,7 +8,13 @@ module backend {
     requires spring.context;
     requires spring.boot.autoconfigure;
     requires spring.data.jpa;
-    requires spring.core;
+    requires transitive spring.core;
+    requires javafx.fxml;
+    requires javafx.controls;
+    requires javafx.graphics;
+    requires spring.jdbc;
+    requires org.slf4j;
 
-    opens backend to spring.beans, spring.context, spring.web;
+    exports backend;
+    opens backend to spring.core, spring.context, spring.boot, spring.beans;
 }

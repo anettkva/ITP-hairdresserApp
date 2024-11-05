@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import json.JsonFilehandling;
+import json.TreatmentFilehandling;
 
 
 public class BookingController {
@@ -22,6 +23,8 @@ public class BookingController {
     private WeeklyTimeSlots weeklyTimeSlots;
     private List<TimeSlot> allTimeSlots;
     private List<Treatment> chosenTreatments;
+    private TreatmentFilehandling treatmentFilehandling = new TreatmentFilehandling();
+
     @FXML
     private TextField bookingTextField;
 
@@ -38,7 +41,7 @@ public class BookingController {
         allTimeSlots = weeklyTimeSlots.getAllTimeSlots();
         loadJsonFile();
 
-        chosenTreatments = HairdresserApp.getSelectedtreatments();
+        this.chosenTreatments = treatmentFilehandling.readFromFile();
     }
 
     public TextArea getarea() {

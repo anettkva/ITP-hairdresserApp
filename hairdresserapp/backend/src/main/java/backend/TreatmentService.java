@@ -1,46 +1,72 @@
 package backend;
 
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
-
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import core.PriceCalculator;
 import core.Treatment;
-import backend.TreatmentRepository;
 
 
 @Service
 public class TreatmentService {
     
     @Autowired
-    private TreatmentRepository treatmentRepository;
+    private final TreatmentRepository treatmentRepository;
+
+    @Autowired
+    public TreatmentService() {
+        this.treatmentRepository = new JsonTreatmentRepository();
+    }
 
 
     public List<Treatment> getAllTreatments() {
-        return treatmentRepository.findAll();
+        try {
+            return treatmentRepository.findAll();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public Treatment getTreatmentById(Long id) {
-        return treatmentRepository.findById(id).orElse(null);
+    public Treatment findByName(String name) {
+        try {
+            return treatmentRepository.findByName(name).orElse(null);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public Treatment createTreatment(Treatment treatment) {
-        return treatmentRepository.save(treatment);
+    
+    public void addTreatment(Treatment treatment) {
+        try {
+            treatmentRepository.save(treatment);
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public Treatment updateTreatment(Long id, Treatment treatmentDetails) {
-        return treatmentRepository.findById(id).map(treatment -> {
-            treatment.setName(treatmentDetails.getName());
-            treatment.setPrice(treatmentDetails.getPrice());
 
-            return treatmentRepository.save(treatment);
-        }).orElse(null);
+    public void deleteTreatment(String name) {
+        try{
+            treatmentRepository.deleteByName(name);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public boolean deleteTreatment(Long id) {
-        return treatmentRepository.findById(id).map(treatment -> {
-            treatmentRepository.delete(treatment);
-            return true;
-        }).orElse(false);
+    public double calculateTotalPrice() throws IOException {
+        List<Treatment> treatments = treatmentRepository.findAll();
+        PriceCalculator pc = new PriceCalculator();
+        return pc.CalculateTotalPrice(treatments);
     }
+
+    
 }

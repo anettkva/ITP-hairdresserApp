@@ -71,7 +71,7 @@ public class TreatmentControllerTest extends ApplicationTest{
     } 
 
     @Test 
-    public void testCalculatePrice() {
+    public void testCalculatePrice() throws IOException, InterruptedException {
 
         assertNotNull(shortHairCut, "shortHairCut checkbox should be properly loaded from FXML");
 
@@ -92,7 +92,7 @@ public class TreatmentControllerTest extends ApplicationTest{
     }
 
     @Test
-    public void testShowOverview() throws IOException {
+    public void testShowOverview() throws IOException, InterruptedException {
         clickOn("#styling");
         clickOn("#stripes");
 

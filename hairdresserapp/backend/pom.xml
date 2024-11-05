@@ -13,6 +13,13 @@
     </parent>
 
 
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <argLine>--add-opens backend/backend=spring.core</argLine>
+    </properties>
+
+
     <dependencies>
 
         <dependency>
@@ -101,7 +108,7 @@
          <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>3.3.4</version>
+            <version>3.3.5</version>
         </dependency>
 
         <dependency>
@@ -139,6 +146,12 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.33</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -150,6 +163,7 @@
                 <version>3.11.0</version>
                 <configuration>
                     <release>17</release>
+                    <compilerArgs>-parameters</compilerArgs>
                 </configuration>
             </plugin>
             <!-- Surefire plugin for running tests -->
@@ -162,6 +176,13 @@
                 </configuration>
             </plugin>
 
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.3.4</version> <!-- Replace with your Spring Boot version -->
+            </plugin>
+
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -169,7 +190,7 @@
                 <!-- Default configuration for running -->
                 <!-- Usage: mvn javafx:run -->
                 <configuration>
-                    <mainClass>ui.HairdresserApp</mainClass>
+                    <mainClass>backend.BackendApplication</mainClass>
                 </configuration>
             </plugin>
      
