@@ -6,97 +6,90 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import json.internal.BookingSerializer;
-import json.internal.BookingDeserializer;
-
-@JsonSerialize(using = BookingSerializer.class)
-@JsonDeserialize(using = BookingDeserializer.class)
 
 public class TimeSlot {
-    @JsonProperty("startTime")
-    private LocalDateTime startTime;
 
-    @JsonProperty("endTime")
-    private LocalDateTime endTime;
+    @JsonProperty("start")
+    private LocalDateTime start;
 
-    @JsonProperty("isBooked")
-    private boolean isBooked;
+    @JsonProperty("booked")
+    private boolean booked;
 
-    
+    @JsonProperty("end")
+    private LocalDateTime end;
+
     public TimeSlot() {
     }
 
 
-    public TimeSlot(LocalDateTime startTime) throws IOException{
-        if (startTime.isBefore(LocalDateTime.now())) {
+    public TimeSlot(LocalDateTime start) throws IOException{
+        if (start.isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("Starttid må være i fremtiden");
         }
 
-        if (!(startTime.getMinute() == 0 && startTime.getSecond() == 0)) {
+        if (!(start.getMinute() == 0 && start.getSecond() == 0)) {
             throw new IllegalArgumentException("Starttid må være på et helt klokkeslett");
         }
 
-        if (startTime.toLocalTime().isBefore(LocalTime.of(8, 0)) || startTime.toLocalTime().isAfter(LocalTime.of(15, 0))) {
+        if (start.toLocalTime().isBefore(LocalTime.of(8, 0)) || start.toLocalTime().isAfter(LocalTime.of(15, 0))) {
             throw new IllegalArgumentException("Timer kan ikke starte før 8 eller slutte etter 16");
         }
         
 
-        this.startTime = startTime;
-        this.endTime = startTime.plusHours(1);
-        this.isBooked = false;
+        this.start = start;
+        this.end = start.plusHours(1);
+        this.booked = false;
     }
 
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public LocalDateTime getStart() {
+        return start;
     }
 
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
+    public void setStart(LocalDateTime start) {
+        this.start = start;
     }
 
 
-    public LocalDateTime getEndTime() {
-        return endTime;
+    public LocalDateTime getEnd() {
+        return end;
     }
 
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
+    public void setEnd(LocalDateTime end) {
+        this.end = end;
     }
 
 
     public boolean isBooked() {
-        return isBooked;
+        return booked;
     }
 
 
     public void setBooked(boolean isBooked) {
-        this.isBooked = isBooked;
+        this.booked = isBooked;
     }
 
     public void book() {
-        if (this.isBooked) {
+        if (this.booked) {
             throw new IllegalStateException("Timen er allerede booket");
         }
 
-        this.isBooked = true;
+        this.booked = true;
     }
 
     public void cancelBooking() {
-        if (Duration.between(LocalDateTime.now(), this.startTime).toHours() < 2) {
+        if (Duration.between(LocalDateTime.now(), this.start).toHours() < 2) {
             throw new IllegalStateException("Det er under to timer til timen, den kan ikke kanselleres");
         }
 
-        if (!this.isBooked) {
+        if (!this.booked) {
             throw new IllegalStateException("Timen er ikke booket");
         }
 
-        this.isBooked = false;
+        this.booked = false;
     }
 
     

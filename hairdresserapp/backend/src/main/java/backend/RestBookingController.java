@@ -25,9 +25,8 @@ public class RestBookingController {
     private final BookingService bookingService;
 
     @Autowired
-    public RestBookingController(BookingService bookingService) {
-        logger.info("Startet");
-        this.bookingService = bookingService;
+    public RestBookingController() {
+        this.bookingService = new BookingService();
     }
 
 

@@ -51,7 +51,7 @@ public class JsonFilehandlingTest {
         List<TimeSlot> timeslots = json.readFromFile();
 
 
-        assertEquals(timeslots.get(0).getStartTime(), ts.getStartTime());
+        assertEquals(timeslots.get(0).getStart(), ts.getStart());
 
         json.reset();
     }

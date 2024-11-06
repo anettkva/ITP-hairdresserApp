@@ -9,6 +9,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import core.TimeSlot;
 
@@ -20,6 +22,9 @@ public class FrontBookingService {
     public FrontBookingService() {
         this.httpClient = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
+        this.objectMapper.registerModule(new JavaTimeModule());
+        this.objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        
     }
 
     public List<TimeSlot> getBookedSlots() throws IOException, InterruptedException {
@@ -33,16 +38,12 @@ public class FrontBookingService {
 
     public void bookSlot(TimeSlot timeSlot) throws IOException, InterruptedException {
         String json = objectMapper.writeValueAsString(timeSlot);
+        System.out.println(json);
         HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(BACKEND_URL))
                     .header("Content-Type", "application/json")
-                    .header("Accept", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(json)).build();
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-        if (response.statusCode() != 200 && response.statusCode() != 201) {
-            throw new IOException("Feilet å booke slot, statuskode: " + response.statusCode());
-        }
+        httpClient.send(request, HttpResponse.BodyHandlers.discarding());
     }
     
 }

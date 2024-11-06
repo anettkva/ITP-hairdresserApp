@@ -65,7 +65,7 @@ public class BookingController {
 
         for (TimeSlot slot : allTimeSlots) {
             String status = slot.isBooked() ? "Booket" : "Ledig";
-            text.append(slot.getStartTime().format(DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy"))).append(" - ").append(status).append("\n");
+            text.append(slot.getStart().format(DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy"))).append(" - ").append(status).append("\n");
         }
 
         bookingTextArea.setText(text.toString());
@@ -74,10 +74,10 @@ public class BookingController {
     public void loadJsonFile() throws IOException, InterruptedException {
         List<TimeSlot> bookedSlots = frontBookingService.getBookedSlots();
         
-        if (!bookedSlots.isEmpty()) {
+        if (bookedSlots.size() != 0 && bookedSlots.stream().allMatch(obj -> obj instanceof TimeSlot)) {
             for (TimeSlot bookedSlot : bookedSlots) {
                 for (TimeSlot slot : allTimeSlots) {
-                    if (bookedSlot.getStartTime().equals(slot.getStartTime())) {
+                    if (bookedSlot.getStart().equals(slot.getStart())) {
                         slot.setBooked(true);
                     }
                 }
@@ -103,8 +103,8 @@ public class BookingController {
                 LocalDateTime slotTime = desiredStartTime.plusHours(i);
                 TimeSlot matchingTimeSlot = null;
 
-                for (TimeSlot slot: allTimeSlots) {
-                    if (slot.getStartTime().equals(slotTime) && !slot.isBooked()) {
+                for (TimeSlot slot: this.allTimeSlots) {
+                    if (slot.getStart().equals(slotTime) && !slot.isBooked()) {
                         matchingTimeSlot = slot;
                         break;
                     }
@@ -117,10 +117,12 @@ public class BookingController {
             }
 
             
-
-            for (TimeSlot slot : slotsToBook) {
-                frontBookingService.bookSlot(slot);
+            if (slotsToBook.size() != 0 && slotsToBook.stream().allMatch(obj -> obj instanceof TimeSlot)) {
+                for (TimeSlot slot : slotsToBook) {
+                    frontBookingService.bookSlot(slot);
+                }
             }
+            
             loadJsonFile();
 
             DateTimeFormatter outputFormatterHour = DateTimeFormatter.ofPattern("HH:mm ");
