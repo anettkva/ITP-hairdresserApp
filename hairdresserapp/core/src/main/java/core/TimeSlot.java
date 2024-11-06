@@ -25,7 +25,7 @@ public class TimeSlot {
     @JsonProperty("isBooked")
     private boolean isBooked;
 
-
+    
     public TimeSlot() {
     }
 

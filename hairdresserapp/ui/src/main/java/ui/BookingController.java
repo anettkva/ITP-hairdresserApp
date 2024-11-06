@@ -1,6 +1,5 @@
 package ui;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,17 +12,17 @@ import core.WeeklyTimeSlots;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import json.JsonFilehandling;
-import json.TreatmentFilehandling;
 
 
 public class BookingController {
 
-    private JsonFilehandling filehandling = new JsonFilehandling();
     private WeeklyTimeSlots weeklyTimeSlots;
     private List<TimeSlot> allTimeSlots;
     private List<Treatment> chosenTreatments;
-    private TreatmentFilehandling treatmentFilehandling = new TreatmentFilehandling();
+
+    private FrontBookingService frontBookingService;
+    private FrontTreatmentService frontTreatmentService;
+
 
     @FXML
     private TextField bookingTextField;
@@ -31,7 +30,7 @@ public class BookingController {
     @FXML
     private TextArea bookingTextArea;
 
-    public BookingController() throws IOException {
+    public BookingController() throws IOException, InterruptedException {
         try {
             weeklyTimeSlots = new WeeklyTimeSlots();
         } catch (Exception e) {
@@ -39,9 +38,11 @@ public class BookingController {
         }
 
         allTimeSlots = weeklyTimeSlots.getAllTimeSlots();
-        loadJsonFile();
 
-        this.chosenTreatments = treatmentFilehandling.readFromFile();
+        this.frontBookingService = new FrontBookingService();
+        this.frontTreatmentService = new FrontTreatmentService();
+        this.chosenTreatments = frontTreatmentService.getChosenTreatments();
+
     }
 
     public TextArea getarea() {
@@ -58,7 +59,8 @@ public class BookingController {
 
 
     @FXML
-    public void showAllTimeSlots() throws IOException {
+    public void showAllTimeSlots() throws IOException, InterruptedException {
+        loadJsonFile();
         StringBuilder text = new StringBuilder("Oversikt over timer: \n");
 
         for (TimeSlot slot : allTimeSlots) {
@@ -69,23 +71,19 @@ public class BookingController {
         bookingTextArea.setText(text.toString());
     }
 
-    public void loadJsonFile() throws IOException {
-        List<TimeSlot> bookedSlots;
-        File myFile = new File("../../hairdresserapp/core/src/main/java/json/TimeSlotOverview.json");
-        if (myFile.length() != 0) {
-            bookedSlots = filehandling.readFromFile();
-        }
-        else {
-           bookedSlots = new ArrayList<>(); 
+    public void loadJsonFile() throws IOException, InterruptedException {
+        List<TimeSlot> bookedSlots = frontBookingService.getBookedSlots();
+        
+        if (!bookedSlots.isEmpty()) {
+            for (TimeSlot bookedSlot : bookedSlots) {
+                for (TimeSlot slot : allTimeSlots) {
+                    if (bookedSlot.getStartTime().equals(slot.getStartTime())) {
+                        slot.setBooked(true);
+                    }
+                }
+            } 
         }
         
-        for (TimeSlot bookedSlot : bookedSlots) {
-            for (TimeSlot slot : allTimeSlots) {
-                if (bookedSlot.getStartTime().equals(slot.getStartTime())) {
-                    slot.setBooked(true);
-                }
-            }
-        }
     }
     
 
@@ -121,9 +119,9 @@ public class BookingController {
             
 
             for (TimeSlot slot : slotsToBook) {
-                slot.book();
-                updateJsonFile(slot);
+                frontBookingService.bookSlot(slot);
             }
+            loadJsonFile();
 
             DateTimeFormatter outputFormatterHour = DateTimeFormatter.ofPattern("HH:mm ");
             String formattedStartTime = desiredStartTime.format(outputFormatterHour);
@@ -143,12 +141,5 @@ public class BookingController {
         
     }
 
-    public void updateJsonFile(TimeSlot bookedSlot) {
-        try {
-            filehandling.writeToFile(bookedSlot);  
-        } catch (Exception e) {
-            bookingTextArea.setText("Feil ved oppdatering av filen: " + e.getMessage());
-        }
-    }
 }
 

@@ -4,7 +4,6 @@ package json;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import core.TimeSlot;
 import json.internal.BookingDeserializer;
+
 
 public class JsonFilehandling {
 

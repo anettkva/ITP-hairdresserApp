@@ -28,8 +28,8 @@ public class BookingDeserializer extends JsonDeserializer<List<TimeSlot>>{
         List<TimeSlot> list = new ArrayList<>();
         if (node.isArray()) {
             for (JsonNode n : node) {
-                String start = n.get("Start").asText();
-                Boolean booked = n.get("Booked").asBoolean();
+                String start = n.get("start").asText();
+                Boolean booked = n.get("booked").asBoolean();
 
                 //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm");
                 LocalDateTime startTime = LocalDateTime.parse(start);
