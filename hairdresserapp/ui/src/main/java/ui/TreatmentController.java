@@ -25,7 +25,7 @@ public class TreatmentController {
 
     private List<Treatment> chosenTreatments; 
 
-    private FrontService frontService;
+    private FrontTreatmentService frontService;
 
    
     @FXML
@@ -42,7 +42,7 @@ public class TreatmentController {
     TextArea overViewTextArea;
 
     public TreatmentController() {
-        this.frontService = new FrontService();
+        this.frontService = new FrontTreatmentService();
     }
 
     public TextField getfield() {

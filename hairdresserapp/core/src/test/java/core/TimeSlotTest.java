@@ -94,8 +94,8 @@ public class TimeSlotTest {
 
         assertDoesNotThrow(() -> {
             TimeSlot timeSlot = new TimeSlot(startTime);
-            assertEquals(startTime, timeSlot.getStartTime());
-            assertEquals(startTime.plusHours(1), timeSlot.getEndTime());
+            assertEquals(startTime, timeSlot.getStart());
+            assertEquals(startTime.plusHours(1), timeSlot.getEnd());
             assertFalse(timeSlot.isBooked());
         });
     }

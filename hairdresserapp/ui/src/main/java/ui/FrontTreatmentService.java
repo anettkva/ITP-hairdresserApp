@@ -12,12 +12,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import core.Treatment;
 
-public class FrontService {
+public class FrontTreatmentService {
     private static final String BACKEND_URL = "http://localhost:8080/api/treatments";
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
 
-    public FrontService() {
+    public FrontTreatmentService() {
         this.httpClient = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
     }

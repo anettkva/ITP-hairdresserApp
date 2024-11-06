@@ -34,7 +34,7 @@ public class WeeklyTimeSlotsTest {
         TimeSlot firstTimeSlot = timeSlots.get(0);
         LocalDateTime expectedFirstStartTime = LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(9, 0));
 
-        assertEquals(expectedFirstStartTime, firstTimeSlot.getStartTime(), "Første time skal starte kl.09.00 i morgen");
+        assertEquals(expectedFirstStartTime, firstTimeSlot.getStart(), "Første time skal starte kl.09.00 i morgen");
     }
 
     @Test
@@ -44,7 +44,7 @@ public class WeeklyTimeSlotsTest {
         TimeSlot lastTimeSlot = timeSlots.get(timeSlots.size()-1);
         LocalDateTime expectedLastStartTime = LocalDateTime.of(LocalDate.now().plusDays(7), LocalTime.of(15, 0));
 
-        assertEquals(expectedLastStartTime, lastTimeSlot.getStartTime(), "Siste time skal starte klokken 15:00 på den syvende dagen");
+        assertEquals(expectedLastStartTime, lastTimeSlot.getStart(), "Siste time skal starte klokken 15:00 på den syvende dagen");
     }
 
     @Test
@@ -52,7 +52,7 @@ public class WeeklyTimeSlotsTest {
         List<TimeSlot> timeSlots = weeklyTimeSlots.getAllTimeSlots();
 
         for (TimeSlot slot : timeSlots) {
-            assertTrue(slot.getStartTime().isAfter(LocalDateTime.now()), "Alle tidspunkter skal være i fremtiden.");
+            assertTrue(slot.getStart().isAfter(LocalDateTime.now()), "Alle tidspunkter skal være i fremtiden.");
         }
     }
 
@@ -64,7 +64,7 @@ public class WeeklyTimeSlotsTest {
             for (int hour = 0; hour < 7; hour++) {
                 TimeSlot slot = timeSlots.get(day * 7 + hour);
                 LocalTime expectedTime = LocalTime.of(9, 0).plusHours(hour);
-                assertEquals(expectedTime, slot.getStartTime().toLocalTime(), "Tidslottet skal stemme overens med timeintervallet.");
+                assertEquals(expectedTime, slot.getStart().toLocalTime(), "Tidslottet skal stemme overens med timeintervallet.");
             }
         }
     }

@@ -16,8 +16,8 @@ public class BookingSerializer extends JsonSerializer<TimeSlot>{
         // TODO Auto-generated method stub
         gen.writeStartObject();
 
-        gen.writeStringField("Start", String.valueOf(timeSlot.getStartTime()));
-        gen.writeBooleanField("Booked", timeSlot.isBooked());
+        gen.writeStringField("start", String.valueOf(timeSlot.getStart()));
+        gen.writeBooleanField("booked", timeSlot.isBooked());
         
 
         gen.writeEndObject();

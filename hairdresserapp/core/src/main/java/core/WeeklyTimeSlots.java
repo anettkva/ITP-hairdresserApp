@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeeklyTimeSlots {
-    private List<TimeSlot> AllTimeSlots;
+    private List<TimeSlot> allTimeSlots;
 
     public WeeklyTimeSlots() throws IOException{
-        this.AllTimeSlots = new ArrayList<>();
+        this.allTimeSlots = new ArrayList<>();
 
         LocalTime startTime = LocalTime.of(9, 0);
         LocalTime endTime = LocalTime.of(15,0);
@@ -21,14 +21,14 @@ public class WeeklyTimeSlots {
             LocalDate currentDay = today.plusDays(day);
 
             for (LocalTime time = startTime; !time.isAfter(endTime); time = time.plusHours(1)) {
-                AllTimeSlots.add(new TimeSlot(LocalDateTime.of(currentDay, time)));
+                allTimeSlots.add(new TimeSlot(LocalDateTime.of(currentDay, time)));
             }
         }
     }
 
 
     public List<TimeSlot> getAllTimeSlots() {
-        return AllTimeSlots;
+        return allTimeSlots;
     } 
 
     
