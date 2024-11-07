@@ -1,89 +1,58 @@
 @startuml
+actor User as "Bruker"
 
-package "Core" {
-  class Treatment {
-    - name: String
-    - price: double
-    - duration: int
-    + getName(): String
-    + getPrice(): double
-    + getDuration(): int
-  }
+participant "HairdresserApp" as App
+participant "TreatmentController" as TreatmentController
+participant "RestTreatmentController" as RestTreatmentController
+participant "TreatmentService" as TreatmentService
+participant "JsonTreatmentRepository" as Repository
+participant "BookingController" as BookingController
+participant "RestBookingController" as RestBookingController
+participant "BookingService" as BookingService
+participant "WeeklyTimeSlots" as TimeSlots
 
-  class PriceCalculator {
-    + calculateTotalPrice(treatments: List<Treatment>): double
-  }
+note over User: Start booking process
 
-  class TimeSlot {
-    - startTime: LocalDateTime
-    - booked: boolean
-    + book(): void
-    + isBooked(): boolean
-    + getStartTime(): LocalDateTime
-  }
+User -> App: Start Application
+App -> TreatmentController: Initialize UI Components
 
-  class WeeklyTimeSlots {
-    - timeSlots: List<TimeSlot>
-    + getAllTimeSlots(): List<TimeSlot>
-    + bookSlot(startTime: LocalDateTime): void
-  }
-}
+note over User, RestTreatmentController: Brukeren velger behandlinger i UI
 
-package "Backend" {
-  class BookingService {
-    - weeklyTimeSlots: WeeklyTimeSlots
-    + bookAppointment(startTime: LocalDateTime): boolean
-  }
+User -> TreatmentController: Select Treatments (UI Interaction)
+TreatmentController -> RestTreatmentController: GET /treatments
+RestTreatmentController -> TreatmentService: getAllTreatments()
+TreatmentService -> Repository: Retrieve treatments from storage
+Repository --> TreatmentService: Return List<Treatment>
+TreatmentService --> RestTreatmentController: Return List<Treatment>
+RestTreatmentController --> TreatmentController: Return List<Treatment>
+TreatmentController -> App: Update UI with Treatment Info
 
-  class TreatmentService {
-    - repository: TreatmentRepository
-    + getAllTreatments(): List<Treatment>
-  }
+note over User, BookingController: Brukeren bekrefter behandlinger og skriver inn ønsket tidspunkt
 
-  class TreatmentRepository {
-    {abstract} + getAllTreatments(): List<Treatment>
-  }
+User -> BookingController: Enter desired booking time (e.g., 2024-10-08 12:00)
+BookingController -> TimeSlots: Check availability for selected times
 
-  class RestBookingController {
-    + bookTimeSlot(startTime: String): Response
-  }
+alt Enough consecutive time slots are available
+    TimeSlots --> BookingController: Availability Confirmed
+    BookingController -> RestBookingController: POST /bookings (treatments + time slots)
+    RestBookingController -> BookingService: createBooking(selectedTreatments, start time)
+    BookingService -> TimeSlots: Book consecutive time slots for each treatment
 
-  class RestTreatmentController {
-    + getTreatments(): Response
-  }
-}
+    loop For each treatment
+        BookingService -> TimeSlots: Book timeslot from start time
+        TimeSlots --> BookingService: Confirm timeslot booked
+        BookingService -> BookingController: Update start time for next treatment
+    end
 
-package "UI" {
-  class HairdresserApp {
-    + main(args: String[]): void
-  }
+    BookingService -> Repository: Store booking details
+    Repository --> BookingService: Confirm booking details stored
 
-  class BookingController {
-    - bookingService: FrontBookingService
-    + bookAppointment(): void
-  }
-
-  class TreatmentController {
-    - treatmentService: FrontTreatmentService
-    + initialize(): void
-    + handleBookingButton(): void
-  }
-}
-
-BookingService -> WeeklyTimeSlots : "uses"
-BookingService -> TimeSlot : "uses"
-TreatmentService -> TreatmentRepository : "uses"
-TreatmentService -> Treatment : "uses"
-
-PriceCalculator -> Treatment : "uses"
-WeeklyTimeSlots -> TimeSlot : "contains"
-RestBookingController -> BookingService : "uses"
-RestTreatmentController -> TreatmentService : "uses"
-
-BookingController -> BookingService : "uses"
-TreatmentController -> TreatmentService : "uses"
-
-HairdresserApp -> BookingController
-HairdresserApp -> TreatmentController
+    BookingService --> RestBookingController: Return booking confirmation
+    RestBookingController --> BookingController: Return booking status
+    BookingController -> App: Show booking confirmation in UI
+else Not enough slots available
+    TimeSlots --> BookingController: Availability Denied
+    BookingController -> App: Show availability error to user
+end
 
 @enduml
