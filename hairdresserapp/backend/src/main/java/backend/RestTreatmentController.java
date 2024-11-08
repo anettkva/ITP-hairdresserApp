@@ -2,6 +2,8 @@ package backend;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 
 import org.slf4j.LoggerFactory;
@@ -32,22 +34,22 @@ public class RestTreatmentController {
     }
 
     @GetMapping
-    public List<Treatment> getChosenTreatments() {
+    public List<Treatment> getChosenTreatments() throws IOException {
         logger.info("GET request received for chosen treatments" );
         return treatmentService.getAllTreatments();
         
     }
 
     @PostMapping
-    public void addTreatment(@RequestBody Treatment treatment) {
+    public void addTreatment(@RequestBody Treatment treatment) throws IOException {
         treatmentService.addTreatment(treatment);
         logger.info("POST request received for added treatment");
     }
     
 
     @DeleteMapping("/{name}")
-    public ResponseEntity<?> deleteTreatment(@PathVariable("name") String name){
-        Treatment treatment = treatmentService.findByName(name);
+    public ResponseEntity<?> deleteTreatment(@PathVariable("name") String name) throws IOException{
+        Optional<Treatment> treatment = treatmentService.findByName(name);
         logger.info("DELETE request received for delete treatment from chosen for api/treatments/name");
         if (treatment != null){
             treatmentService.deleteTreatment(name);

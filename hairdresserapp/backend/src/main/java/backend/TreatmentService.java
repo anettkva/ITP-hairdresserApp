@@ -1,69 +1,65 @@
 package backend;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import core.PriceCalculator;
 import core.Treatment;
+import json.TreatmentFilehandling;
 
 
 @Service
 public class TreatmentService {
     
-    @Autowired
-    private final TreatmentRepository treatmentRepository;
+
+    private TreatmentFilehandling filehandling;
 
     @Autowired
     public TreatmentService() {
-        this.treatmentRepository = new JsonTreatmentRepository();
+        this.filehandling = new TreatmentFilehandling();
     }
 
 
-    public List<Treatment> getAllTreatments() {
-        try {
-            return treatmentRepository.findAll();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
+    public List<Treatment> getAllTreatments() throws IOException {
+        return filehandling.readFromFile();
     }
 
-    public Treatment findByName(String name) {
-        try {
-            return treatmentRepository.findByName(name).orElse(null);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
+    public Optional<Treatment> findByName(String name) throws IOException {
+        List<Treatment> treatments = getAllTreatments();
+        Optional<Treatment> treatment= treatments.stream().filter(t -> t.getName().equals(name)).findFirst();
+        return treatment;
     }
 
     
-    public void addTreatment(Treatment treatment) {
-        try {
-            treatmentRepository.save(treatment);
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
+    public void addTreatment(Treatment treatment) throws IOException {
+        filehandling.writeToFile(treatment);
     }
 
 
-    public void deleteTreatment(String name) {
-        try{
-            treatmentRepository.deleteByName(name);
+    public void deleteTreatment(String name) throws IOException {
+        List<Treatment> treatments = getAllTreatments();
+        List<Treatment> list = new ArrayList<>();
+        for (Treatment t : treatments) {
+            if(!t.getName().equals(name)) {
+                list.add(t);
+            }
         }
-        catch (IOException e) {
-            e.printStackTrace();
+    
+        filehandling.reset();
+        for (Treatment t : list) {
+            addTreatment(t);
         }
+
     }
+    
 
     public double calculateTotalPrice() throws IOException {
-        List<Treatment> treatments = treatmentRepository.findAll();
+        List<Treatment> treatments = getAllTreatments();
         PriceCalculator pc = new PriceCalculator();
         return pc.CalculateTotalPrice(treatments);
     }
