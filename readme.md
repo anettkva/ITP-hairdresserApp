@@ -46,11 +46,12 @@ Merk at `mvn clean install` må kjøres på alle modulene før appen kjøres (fr
 # Funksjonalitet Implementert i Del 3
 
 - **Valg av behandlinger:** Når brukeren trykker på en ønsket behandling, vises pris og oversikt over valgte behandlinger automatisk når checkboxen hukes av. Prisfelt og oversikt tilbakestilles også automatisk dersom checkboxen uncheckes.
-- **Lagring til json-fil:** Treatments som velges lagres nå til fil med json, og blir i denne fila helt til appen lukkes.
+- **Lagring til json-fil:** Treatments som velges lagres til fil med json, og blir i denne fila helt til appen lukkes.
 - **Booking av flere behandlinger:** De to sidene med valg av behandlinger og booking har ikke tildigere vært avhengig av hverandre. Nå har vi lagt til funksjonalitet som gjør at det bookes et antall TimeSlots i forhold til antall behandlinger valgt. Hvis flere timer bookes samtidig, står disse timene som booket i oversikten etterpå.
 - **Format på booking-felt:** Vi har gjort formatet på dato og tid som skal skrives av bruker inne i appen mer realistisk.
-- **Testing:**
-- **Velkommen-side:**
+- **Velkommen-side:** En velkommen-side, som er den som åpnes når appen kjøres. Denne har tekst, som sier litt om salongen, og to knapper; en som tar brukeren til en tilbakemeldings-side, og en som tar brukeren til valg av behandlinger.
+- **Tilbakemeldings-side:** En side der brukeren kan skrive tilbakemeldinger til salongen, og se tilbakemeldinger som er skrevet fra før.
+- - **Testing:**
 
 ---
 
@@ -117,22 +118,38 @@ Ui-modul:
 - **`FrontBookingService.java`:**  
   Klasse som er ansvarlig for sending av HTTP-forespørsler angående booking til **backend**-modul. Disse forespørslene håndteres av **backend** fra RestBookingController.java
 
+- **`ReviewController.java`:**  
+  Kontrollerklassen som hånterer skriving av reviews, og å vise alle reviews. Kommuniserer med **backend**-modulen via FrontReviewService.java.
+
+
+- **`FrontReviewService.java`:**  
+  Klasse som er ansvarlig for sending av HTTP-forespørsler angående reviews til **backend**-modul. Disse forespørslene håndteres av **backend** fra RestReviewController.java
+
+- **`WelcomeController.java`:**  
+  Kontrollerklassen som håndterer visning av velkommen-siden, og håndterer trykking av knapper for å komme til booking og reviews.
+
 - **FXML-filer:**  
   Brukt for å definere layout og GUI-elementer i appen.
 
 Backend-modul:
 
 - **`RestBookingController.java`:**  
-  Kontrollerklassen som tar imot HTTP-forspørsler, og bruker BookingService.java for å håndtere disse forespørslene.
+  Kontrollerklasse som tar imot HTTP-forspørsler, og bruker BookingService.java for å håndtere disse forespørslene.
 
 - **`BookingService.java`:**  
   Klasse som håndterer skriving og lesing av TimeSlot-objekter til og fra fil, og derfmed også selve bookingen av TimeSlot-objektene i TimeSlot.java.
 
 - **`RestTreatmentController.java`:**  
-  Kontrollerklassen som tar imot HTTP-forspørsler angående behandlinger som er valgt, og bruker TreatmentService.java for å håndtere disse forespørslene.
+  Kontrollerklasse som tar imot HTTP-forspørsler angående behandlinger som er valgt, og bruker TreatmentService.java for å håndtere disse forespørslene.
 
 - **`TreatmentService.java`:**  
   Klasse som håndterer skriving og lesing av Treatment-objekter til og fra fil med TreatmentFilehandling.java, og beregner pris på de ulike valgte behandlingene ved hjelp av PriceCalculator.java.
+
+- **`RestReviewController.java`:**  
+  Kontrollerklasse som tar imot HTTP-forspørsler angående reviews, og bruker ReviewService.java for å håndtere disse forespørslene.
+
+- **`ReviewService.java`:**  
+  Klasse som håndterer skriving av reviews til fil og lesing av reviews fra fil med ReviewFilehandling.java.
 
 ---
 
