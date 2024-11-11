@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import core.Treatment;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,17 +22,18 @@ import javafx.stage.Stage;
 
 
 
-
+@Controller
 public class TreatmentController {
 
 
     private List<Treatment> chosenTreatments; 
 
+    @Autowired
     private FrontTreatmentService frontService;
 
    
     @FXML
-    private CheckBox shortHairCut, longHairCut, stripes, color, styling, wash;
+    public CheckBox shortHairCut, longHairCut, stripes, color, styling, wash;
 
     private Map<CheckBox, Treatment> treatmentMap;
 
@@ -41,17 +45,11 @@ public class TreatmentController {
     @FXML 
     TextArea overViewTextArea;
 
+    
     public TreatmentController() {
-        this.frontService = new FrontTreatmentService();
+       this.frontService = new FrontTreatmentService();
     }
 
-    public TextField getfield() {
-        return this.totalPriceField;
-    }
-
-    public TextArea getarea() {
-        return this.overViewTextArea;
-    }
 
     public List<Treatment> getChosenTreatments() {
         return chosenTreatments;
@@ -80,7 +78,7 @@ public class TreatmentController {
         for (CheckBox checkBox : treatmentMap.keySet()){
             checkBox.setOnAction(event -> {
                 try {
-                    handleChecBoxAction(checkBox);
+                    handleCheckBoxAction(checkBox);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -92,7 +90,7 @@ public class TreatmentController {
     }
 
 
-    private void handleChecBoxAction(CheckBox checkBox) throws IOException, InterruptedException{
+    public void handleCheckBoxAction(CheckBox checkBox) throws IOException, InterruptedException{
         Treatment treatment = treatmentMap.get(checkBox);
         if (checkBox.isSelected()) {
             addTreatment(treatment);
@@ -106,14 +104,14 @@ public class TreatmentController {
     }
 
 
-    private void addTreatment(Treatment treatment) throws IOException, InterruptedException { 
+    public void addTreatment(Treatment treatment) throws IOException, InterruptedException { 
         frontService.addTreatment(treatment);
         handleCalculatePrice();
         handleShowOverview();
     
     }
 
-    private void deleteTreatment(Treatment treatment) throws IOException, InterruptedException {
+    public void deleteTreatment(Treatment treatment) throws IOException, InterruptedException {
         frontService.deleteTreatment(treatment.getName());
         handleCalculatePrice();
         handleShowOverview();

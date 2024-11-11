@@ -1,115 +1,175 @@
 package ui;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.framework.junit5.ApplicationTest;
 
+
+import org.springframework.boot.test.context.SpringBootTest;
+
+
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+
+
+import backend.BackendApplication;
+
 import core.Treatment;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
+
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
+
+@ExtendWith(MockitoExtension.class)
 public class TreatmentControllerTest extends ApplicationTest{
 
+    @InjectMocks
     private TreatmentController treatmentController;
+
+    @Mock
+    private FrontTreatmentService frontService;
+
+    @Mock
+    private CheckBox shortHairCut;
+
+    @Mock
+    private CheckBox longHairCut;
+
+    @Mock
+    private CheckBox stripes;
+
+    @Mock
+    private CheckBox color;
+
+    @Mock
+    private CheckBox styling;
+
+    @Mock
+    private CheckBox wash;
+
+    @Mock
     private TextField totalPriceField;
+
+    @Mock
     private TextArea overViewTextArea;
-    private CheckBox shortHairCut, longHairCut, stripes, color, styling, wash;
-
-    @Override
-    public void start(final Stage stage) throws IOException {
-        final FXMLLoader loader = new FXMLLoader(getClass().getResource("HairdresserApp.fxml"));
-        final Parent root = loader.load();
-        this.treatmentController = loader.getController();
-        this.totalPriceField = treatmentController.getTotalPriceField();
-        this.overViewTextArea = treatmentController.getOverViewTextArea();
-
-        this.shortHairCut = (CheckBox) root.lookup("#shortHairCut");
-        this.longHairCut = (CheckBox) root.lookup("#longHairCut");
-        this.stripes = (CheckBox) root.lookup("#stripes");
-        this.color = (CheckBox) root.lookup("#color");
-        this.styling = (CheckBox) root.lookup("#styling");
-        this.wash = (CheckBox) root.lookup("#wash");
-
-        stage.setScene(new Scene(root));
-        stage.show();
-    } 
-
-
 
     @BeforeEach
-    public void setUp() {
-        if (treatmentController != null) {
-            treatmentController.initialize();
-        } else {
-            throw new IllegalStateException("TreatmentController ble ikke initilialisert riktig");
-        } 
+    public void setUp() throws Exception {
+         // Initialiser ekte CheckBox-instans
+         shortHairCut = new CheckBox();
+         longHairCut = new CheckBox();
+         stripes = new CheckBox();
+         color = new CheckBox();
+         styling = new CheckBox();
+         wash = new CheckBox();
+ 
+         // Sett de ekte CheckBox-instansene i kontrolløren
+         treatmentController.shortHairCut = shortHairCut;
+         treatmentController.longHairCut = longHairCut;
+         treatmentController.stripes = stripes;
+         treatmentController.color = color;
+         treatmentController.styling = styling;
+         treatmentController.wash = wash;
+         treatmentController.totalPriceField = totalPriceField;
+         treatmentController.overViewTextArea = overViewTextArea;
+ 
+         // Kall initialize-metoden manuelt
+         treatmentController.initialize();
     }
 
+    @BeforeAll
+    public static void initJFX() {
+        JavaFxTestInitializer.initializeJavaFX();
+    }
 
     @Test
-    public void testRemoveTreatment() {
+    public void testAddTreatmentWhenCheckBoxSelected() throws IOException, InterruptedException {
+        // Arrange
+        shortHairCut.setSelected(true);
+        Treatment treatment = new Treatment("shortcut", 300);
+        when(frontService.calculateTotalPrice()).thenReturn(300.0);
+        when(frontService.getChosenTreatments()).thenReturn(Arrays.asList(treatment));
 
-        assertNotNull(longHairCut, "longHaircut checkbox should be properly loaded from FXML");
+        // Act
+        treatmentController.handleCheckBoxAction(shortHairCut);
 
-        longHairCut.setSelected(true);
-        longHairCut.fire();
+        // Assert
+        verify(frontService).addTreatment(treatment);
+        verify(frontService).calculateTotalPrice();
+        verify(frontService).getChosenTreatments();
+        verify(totalPriceField).setText("300.0");
+        verify(overViewTextArea).setText("");
+        verify(overViewTextArea).appendText("shortcut: 300 kr, Varighet (min): " + treatment.getduration() + "\n");
+
+
+    }
+
+    @Test
+    public void testDeleteTreatmentWhenCheckBoxDeselected() throws IOException, InterruptedException {
+        // Arrange
         longHairCut.setSelected(false);
-        longHairCut.fire();
+        Treatment treatment = new Treatment("longcut", 500);
+        when(frontService.calculateTotalPrice()).thenReturn(0.0);
+        when(frontService.getChosenTreatments()).thenReturn(Arrays.asList());
 
-        List<Treatment> chosenTreatments = treatmentController.getChosenTreatments();
-        assertFalse(chosenTreatments.contains(new Treatment("Long hair cut", 500)), "Long hair cut should not be in the list after removal.");
-    } 
+        // Act
+        treatmentController.handleCheckBoxAction(longHairCut);
 
-    @Test 
-    public void testCalculatePrice() throws IOException, InterruptedException {
-
-        assertNotNull(shortHairCut, "shortHairCut checkbox should be properly loaded from FXML");
-
-        clickOn("#shortHairCut");
-        treatmentController.handleCalculatePrice();
-
-        assertEquals("300.0", totalPriceField.getText());
-
-        clickOn("#wash");
-        treatmentController.handleCalculatePrice();
-
-        assertEquals("800.0", totalPriceField.getText());
-
-        clickOn("#wash");
-
-        clickOn("#shortHairCut");
-        
+        // Assert
+        verify(frontService).deleteTreatment("longcut");
+        verify(frontService).calculateTotalPrice();
+        verify(frontService).getChosenTreatments();
+        verify(totalPriceField).setText("0.0");
+        verify(overViewTextArea).setText("");
     }
 
     @Test
-    public void testShowOverview() throws IOException, InterruptedException {
-        clickOn("#styling");
-        clickOn("#stripes");
+    public void testHandleCalculatePrice() throws IOException, InterruptedException {
+        // Arrange
+        when(frontService.calculateTotalPrice()).thenReturn(2000.0);
 
+        // Act
+        treatmentController.handleCalculatePrice();
+
+        // Assert
+        verify(frontService).calculateTotalPrice();
+        verify(totalPriceField).setText("2000.0");
+    }
+
+    @Test
+    public void testHandleShowOverview() throws IOException, InterruptedException {
+        // Arrange
+        Treatment treatment1 = new Treatment("color", 2000);
+        Treatment treatment2 = new Treatment("wash", 500);
+        List<Treatment> treatments = Arrays.asList(treatment1, treatment2);
+        when(frontService.getChosenTreatments()).thenReturn(treatments);
+
+        // Act
         treatmentController.handleShowOverview();
 
-        String stylingPrice = "500";
-        String stylingDuration = "60";
-        String stripesPrice = "1500";
-        String stripesDuration = "60";
-
-        String expectedText =   " Styling" + ": " + stylingPrice + " kr, Varighet (min): " + stylingDuration + "\n" +
-                                "Stripes" + ": " + stripesPrice + " kr, Varighet (min): " + stripesDuration + "\n";
-    
-        assertEquals(expectedText, overViewTextArea.getText());
-
-        clickOn("#styling");
-        clickOn("#stripes");
+        // Assert
+        verify(overViewTextArea).setText("");
+        verify(overViewTextArea).appendText("color: 2000 kr, Varighet (min): " + treatment1.getduration() + "\n");
+        verify(overViewTextArea).appendText("wash: 500 kr, Varighet (min): " + treatment2.getduration() + "\n");
     }
-
 }
+
+    
+

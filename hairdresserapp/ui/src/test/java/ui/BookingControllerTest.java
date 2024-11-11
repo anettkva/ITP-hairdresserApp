@@ -58,14 +58,14 @@ public class BookingControllerTest extends ApplicationTest{
 
         List<TimeSlot> list = this.filehandling.readFromFile();
 
-        assertEquals(startTime, list.get(0).getStartTime()); 
-        assertEquals(startTime2, list.get(1).getStartTime());
+        assertEquals(startTime, list.get(0).getStart()); 
+        assertEquals(startTime2, list.get(1).getStart());
 
         List<TimeSlot> allSlots = this.bookingController.getAllTimeSlots();
 
         for (TimeSlot bookedSlot : list) {
             for (TimeSlot slot : allSlots) {
-                if (bookedSlot.getStartTime().equals(slot.getStartTime())) {
+                if (bookedSlot.getStart().equals(slot.getStart())) {
                     assertTrue(slot.isBooked());
                 }
             }
@@ -77,7 +77,7 @@ public class BookingControllerTest extends ApplicationTest{
     }
 
     @Test
-    public void testShowAllTimeSlots() throws IOException{
+    public void testShowAllTimeSlots() throws IOException, InterruptedException{
         this.bookingController.showAllTimeSlots();
 
         assertFalse(this.area.getText() == "");
@@ -90,7 +90,54 @@ public class BookingControllerTest extends ApplicationTest{
         this.bookingController.bookTimeSlot();
 
         assertEquals("Ugyldig starttid: Velg en tilgjengelig tid fra listen", this.area.getText());
-    }
+    } 
 */
-    
+    // import static org.junit.jupiter.api.Assertions.*;
+
+// import core.TimeSlot;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Test;
+// import org.mockito.Mockito;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.test.context.SpringBootTest;
+// import org.springframework.boot.test.mock.mockito.MockBean;
+// import org.springframework.test.context.ContextConfiguration;
+// import org.testfx.framework.junit5.ApplicationTest;
+
+// import java.time.LocalDateTime;
+// import java.time.format.DateTimeFormatter;
+// import java.util.Arrays;
+// import java.util.List;
+
+// @SpringBootTest
+// @ContextConfiguration(classes = {BookingController.class, FrontBookingService.class})
+// public class BookingControllerTest extends ApplicationTest {
+
+//     @Autowired
+//     private BookingController bookingController;
+
+//     @MockBean
+//     private FrontBookingService frontBookingService;
+
+   
+
+//     @Test
+//     public void testShowAllTimeSlots() throws Exception {
+//         TimeSlot slot1 = new TimeSlot(LocalDateTime.now().plusDays(1).withHour(10).withMinute(0));
+//         slot1.setBooked(true);
+//         TimeSlot slot2 = new TimeSlot(LocalDateTime.now().plusDays(1).withHour(11).withMinute(0));
+//         slot2.setBooked(false);
+//         List<TimeSlot> bookedSlots = Arrays.asList(slot1, slot2);
+
+//         Mockito.when(frontBookingService.getBookedSlots()).thenReturn(bookedSlots);
+
+//         bookingController.showAllTimeSlots();
+
+//         String expectedText = "Oversikt over timer: \n" +
+//                 slot1.getStart().format(DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy")) + " - Booket\n" +
+//                 slot2.getStart().format(DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy")) + " - Ledig\n";
+
+//         assertEquals(expectedText, bookingController.getarea().getText());
+//     }
+// }
 }

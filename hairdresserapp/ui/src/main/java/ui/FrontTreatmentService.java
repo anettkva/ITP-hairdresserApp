@@ -7,19 +7,27 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import core.Treatment;
-
+@Service
 public class FrontTreatmentService {
     private static final String BACKEND_URL = "http://localhost:8080/api/treatments";
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
 
-    public FrontTreatmentService() {
-        this.httpClient = HttpClient.newHttpClient();
+    // Injekt HttpClient via konstruktør
+    public FrontTreatmentService(HttpClient httpClient) {
+        this.httpClient = httpClient;
         this.objectMapper = new ObjectMapper();
+    }
+
+    // Standard konstruktør for produksjon (uten injeksjon)
+    public FrontTreatmentService() {
+        this(HttpClient.newHttpClient());
     }
 
  

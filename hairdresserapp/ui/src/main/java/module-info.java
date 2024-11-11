@@ -6,7 +6,13 @@ module ui {
     requires java.net.http;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.datatype.jsr310;
+    requires backend;
+    requires spring.beans;
+    requires spring.context;
+    requires spring.core;
+   
+  
     
-    opens ui to javafx.graphics, javafx.fxml;
+    opens ui to javafx.graphics, javafx.fxml, spring.beans, spring.context, spring.core;
 
 }
