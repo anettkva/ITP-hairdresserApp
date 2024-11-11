@@ -20,6 +20,13 @@ components:
       env:
         - name: MAVEN_OPTS
           value: "-Dmaven.repo.local=/home/user/.m2"
+      volumes:
+        - name: dev-packages
+          containerPath: /usr/share/
+      install:
+        commands:
+          - apt-get update
+          - apt-get install -y libgl1
 
   - name: nodejs
     container:
@@ -30,6 +37,13 @@ components:
       args: ["-f", "/dev/null"]
 
 commands:
+  - id: start-xvfb
+    exec:
+      component: maven
+      commandLine: "Xvfb :99 -screen 0 1024x768x16 & export DISPLAY=:99"
+      group:
+        kind: init
+        
   - id: build-backend
     exec:
       component: maven
