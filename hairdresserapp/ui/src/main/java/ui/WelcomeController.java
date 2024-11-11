@@ -18,4 +18,13 @@ public class WelcomeController {
         stage.setScene(new Scene(parent));
         stage.show();
     }
+
+    @FXML
+    void handleReviewButton() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("Reviews.fxml"));
+        Parent parent = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(parent));
+        stage.show();
+    }
 }
