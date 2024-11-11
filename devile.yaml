@@ -1,34 +1,100 @@
-schemaVersion: 2.1.0
+schemaVersion: 2.2.0
 metadata:
-  name: javafx-template
+  name: hairdresserapp-dev-environment
+  version: 1.0.0
+  description: Devfile for Hairdresser App utviklingsmiljø
+
 components:
-  - name: javafx-template
+  - name: maven
     container:
-      image: adrianstoica/it1901:latest
-      memoryLimit: 3Gi
+      image: maven:3.8.5-jdk-11
+      memoryLimit: 1Gi
+      mountSources: true
+      command: ["tail"]
+      args: ["-f", "/dev/null"]
       endpoints:
-        - exposure: public
-          name: 6080-tcp-desktop-ui
-          protocol: https
-          targetPort: 6080
-        - exposure: public
-          name: 3000-tcp
-          protocol: http
-          targetPort: 3000
-        - exposure: public
-          name: 5900-tcp
-          protocol: http
-          targetPort: 5900
-        - exposure: public
-          name: 5901-tcp
-          protocol: http
-          targetPort: 5901
-        - exposure: public
-          name: 8080-tcp
-          protocol: http
+        - name: backend
           targetPort: 8080
-        - exposure: public
-          name: 5500-tcp
-          protocol: http
-          targetPort: 5500
+        - name: ui
+          targetPort: 8081
+      env:
+        - name: MAVEN_OPTS
+          value: "-Dmaven.repo.local=/home/user/.m2"
+      volumes:
+        - name: dev-packages
+          containerPath: /usr/share/
+      install:
+        commands:
+          - apt-get update
+          - apt-get install -y libgl1
+
+  - name: nodejs
+    container:
+      image: node:14
+      memoryLimit: 512Mi
+      mountSources: true
+      command: ["tail"]
+      args: ["-f", "/dev/null"]
+
+commands:
+  - id: start-xvfb
+    exec:
+      component: maven
+      commandLine: "Xvfb :99 -screen 0 1024x768x16 & export DISPLAY=:99"
+      group:
+        kind: init
+        
+  - id: build-backend
+    exec:
+      component: maven
+      commandLine: "mvn clean install -f backend/pom.xml"
+      workingDir: "/projects/hairdresserapp"
+      group:
+        kind: build
+        isDefault: true
+
+  - id: build-core
+    exec:
+      component: maven
+      commandLine: "mvn clean install -f core/pom.xml"
+      workingDir: "/projects/hairdresserapp"
+      group:
+        kind: build
+
+  - id: build-ui
+    exec:
+      component: maven
+      commandLine: "mvn clean install -f ui/pom.xml"
+      workingDir: "/projects/hairdresserapp"
+      group:
+        kind: build
+
+  - id: run-backend
+    exec:
+      component: maven
+      commandLine: "mvn spring-boot:run -f backend/pom.xml"
+      workingDir: "/projects/hairdresserapp/backend"
+      group:
+        kind: run
+        isDefault: true
+
+  - id: run-ui
+    exec:
+      component: maven
+      commandLine: "java -jar ui/target/ui.jar"
+      workingDir: "/projects/hairdresserapp/ui"
+      group:
+        kind: run
+
+events:
+  postStart:
+    - build-backend
+    - build-core
+    - build-ui
+
+attributes:
+  projectType: java
+  language: java
+  version: 11
+
 
