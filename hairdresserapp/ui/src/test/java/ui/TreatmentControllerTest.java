@@ -2,6 +2,7 @@ package ui;
 
 
 
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -20,14 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.framework.junit5.ApplicationTest;
 
 
-import org.springframework.boot.test.context.SpringBootTest;
 
-
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-
-
-import backend.BackendApplication;
 
 import core.Treatment;
 
@@ -38,7 +32,7 @@ import javafx.scene.control.TextField;
 
 
 @ExtendWith(MockitoExtension.class)
-public class TreatmentControllerTest extends ApplicationTest{
+public class TreatmentControllerTest {
 
     @InjectMocks
     private TreatmentController treatmentController;
@@ -111,7 +105,10 @@ public class TreatmentControllerTest extends ApplicationTest{
         treatmentController.handleCheckBoxAction(shortHairCut);
 
         // Assert
-        verify(frontService).addTreatment(treatment);
+        // verify(frontService).addTreatment(treatment);
+        verify(frontService).addTreatment(argThat(t -> 
+        t.getName().equals("shortcut") && t.getPrice() == 300.0
+        ));
         verify(frontService).calculateTotalPrice();
         verify(frontService).getChosenTreatments();
         verify(totalPriceField).setText("300.0");
