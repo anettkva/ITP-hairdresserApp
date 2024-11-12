@@ -86,9 +86,12 @@
       </menus>
     </MenuBar>
 
-    <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Booking System" />
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="640.0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333; -fx-background-color: #b6e7eb;" text="Booking System">
+         <font>
+            <Font size="36.0" />
+         </font></Label>
 
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #b6e7eb;" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: #b6e7eb;" VBox.vgrow="ALWAYS">
          <children>
             <TextField fx:id="bookingTextField" layoutX="68.0" layoutY="193.0" promptText="HH:mm dd-MM-yyyy" style="-fx-border-color: #348ceb;" />
             <TextArea fx:id="bookingTextArea" layoutX="322.0" layoutY="87.0" opacity="0.8" prefHeight="196.0" prefWidth="300.0" style="-fx-border-color: #348ceb; -fx-background-color: #ffffff;" />
