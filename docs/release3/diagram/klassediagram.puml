@@ -27,6 +27,11 @@ package "Core" {
     + getAllTimeSlots(): List<TimeSlot>
     + bookSlot(startTime: LocalDateTime): void
   }
+  
+  class ReviewFilehandling {
+    + readFromFile(): String
+    + writeToFile(review: String): void
+  }
 }
 
 package "Backend" {
@@ -51,6 +56,19 @@ package "Backend" {
   class RestTreatmentController {
     + getTreatments(): Response
   }
+
+  class ReviewService {
+    - filehandling: ReviewFilehandling
+    + getReviews(): String
+    + addReview(review: String): void
+  }
+
+  class RestReviewController {
+    - logger: Logger
+    - reviewService: ReviewService
+    + getReviews(): String
+    + addReview(review: String): void
+  }
 }
 
 package "UI" {
@@ -68,6 +86,24 @@ package "UI" {
     + initialize(): void
     + handleBookingButton(): void
   }
+  
+  class WelcomeController {
+    + handleButton(): void
+    + handleReviewButton(): void
+  }
+
+  class ReviewController {
+    - frontReviewService: FrontReviewService
+    + initialize(): void
+    + handleAddReview(): void
+  }
+
+  class FrontReviewService {
+    + getReviews(): String
+    + addReview(review: String): void
+  }
+
+  artifact "Welcome.fxml" as FXML_Welcome
 }
 
 BookingService -> WeeklyTimeSlots : "uses"
@@ -80,10 +116,19 @@ WeeklyTimeSlots -> TimeSlot : "contains"
 RestBookingController -> BookingService : "uses"
 RestTreatmentController -> TreatmentService : "uses"
 
+ReviewService -> ReviewFilehandling : "uses"
+RestReviewController -> ReviewService : "uses"
+RestReviewController -> Logger : "logs"
+
 BookingController -> BookingService : "uses"
 TreatmentController -> TreatmentService : "uses"
+WelcomeController -> HairdresserApp : "opens"
+WelcomeController --> FXML_Welcome : "loads GUI from"
+ReviewController -> FrontReviewService : "uses"
+FrontReviewService -> ReviewService : "uses"
 
 HairdresserApp -> BookingController
 HairdresserApp -> TreatmentController
+HairdresserApp -> WelcomeController
 
 @enduml

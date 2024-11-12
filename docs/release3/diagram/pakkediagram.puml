@@ -1,4 +1,5 @@
 @startuml pakkediagram
+
 package "backend" {
     class BackendApplication
     class BookingService
@@ -7,6 +8,8 @@ package "backend" {
     class RestTreatmentController
     class TreatmentService
     class TreatmentRepository
+    class RestReviewController
+    class ReviewService
 }
 
 package "core" {
@@ -22,6 +25,7 @@ package "core" {
     class Treatment
     class TimeSlot
     class WeeklyTimeSlots
+    class ReviewFilehandling
 }
 
 package "ui" {
@@ -30,6 +34,9 @@ package "ui" {
     class TreatmentController
     class FrontBookingService
     class FrontTreatmentService
+    class WelcomeController
+    class ReviewController
+    class FrontReviewService
 }
 
 backend ..> core : uses

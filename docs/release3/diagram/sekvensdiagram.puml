@@ -2,6 +2,12 @@
 actor User as "Bruker"
 
 participant "HairdresserApp" as App
+participant "WelcomeController" as WelcomeController
+participant "ReviewController" as ReviewController
+participant "FrontReviewService" as FrontReviewService
+participant "RestReviewController" as RestReviewController
+participant "ReviewService" as ReviewService
+participant "ReviewFilehandling" as FileHandler
 participant "TreatmentController" as TreatmentController
 participant "RestTreatmentController" as RestTreatmentController
 participant "TreatmentService" as TreatmentService
@@ -11,12 +17,40 @@ participant "RestBookingController" as RestBookingController
 participant "BookingService" as BookingService
 participant "WeeklyTimeSlots" as TimeSlots
 
-note over User: Start booking process
+note over User: Start application
 
 User -> App: Start Application
-App -> TreatmentController: Initialize UI Components
+App -> WelcomeController: Initialize Welcome Screen
 
-note over User, RestTreatmentController: Brukeren velger behandlinger i UI
+note over User, WelcomeController: Brukeren navigerer til anmeldelser
+
+User -> WelcomeController: Navigate to Reviews
+WelcomeController -> ReviewController: Open Reviews Screen
+ReviewController -> FrontReviewService: Retrieve reviews
+
+FrontReviewService -> RestReviewController: GET /api/reviews
+RestReviewController -> ReviewService: getReviews()
+ReviewService -> FileHandler: Read reviews from file
+FileHandler --> ReviewService: Return reviews
+ReviewService --> RestReviewController: Return reviews
+RestReviewController --> FrontReviewService: Return reviews
+FrontReviewService --> ReviewController: Return reviews
+ReviewController -> App: Update UI with Reviews
+
+note over User, ReviewController: Brukeren legger til en ny anmeldelse
+
+User -> ReviewController: Add Review (text)
+ReviewController -> FrontReviewService: Add review
+FrontReviewService -> RestReviewController: POST /api/reviews (review text)
+RestReviewController -> ReviewService: addReview(text)
+ReviewService -> FileHandler: Write review to file
+FileHandler --> ReviewService: Confirm review saved
+ReviewService --> RestReviewController: Confirm review added
+RestReviewController --> FrontReviewService: Confirm review added
+FrontReviewService --> ReviewController: Confirm review added
+ReviewController -> App: Show review submission success
+
+note over User, TreatmentController: Brukeren velger behandlinger i UI
 
 User -> TreatmentController: Select Treatments (UI Interaction)
 TreatmentController -> RestTreatmentController: GET /treatments
