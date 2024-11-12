@@ -1,0 +1,134 @@
+@startuml klassediagram
+
+package "Core" {
+  class Treatment {
+    - name: String
+    - price: double
+    - duration: int
+    + getName(): String
+    + getPrice(): double
+    + getDuration(): int
+  }
+
+  class PriceCalculator {
+    + calculateTotalPrice(treatments: List<Treatment>): double
+  }
+
+  class TimeSlot {
+    - startTime: LocalDateTime
+    - booked: boolean
+    + book(): void
+    + isBooked(): boolean
+    + getStartTime(): LocalDateTime
+  }
+
+  class WeeklyTimeSlots {
+    - timeSlots: List<TimeSlot>
+    + getAllTimeSlots(): List<TimeSlot>
+    + bookSlot(startTime: LocalDateTime): void
+  }
+  
+  class ReviewFilehandling {
+    + readFromFile(): String
+    + writeToFile(review: String): void
+  }
+}
+
+package "Backend" {
+  class BookingService {
+    - weeklyTimeSlots: WeeklyTimeSlots
+    + bookAppointment(startTime: LocalDateTime): boolean
+  }
+
+  class TreatmentService {
+    - repository: TreatmentRepository
+    + getAllTreatments(): List<Treatment>
+  }
+
+  class TreatmentRepository {
+    {abstract} + getAllTreatments(): List<Treatment>
+  }
+
+  class RestBookingController {
+    + bookTimeSlot(startTime: String): Response
+  }
+
+  class RestTreatmentController {
+    + getTreatments(): Response
+  }
+
+  class ReviewService {
+    - filehandling: ReviewFilehandling
+    + getReviews(): String
+    + addReview(review: String): void
+  }
+
+  class RestReviewController {
+    - logger: Logger
+    - reviewService: ReviewService
+    + getReviews(): String
+    + addReview(review: String): void
+  }
+}
+
+package "UI" {
+  class HairdresserApp {
+    + main(args: String[]): void
+  }
+
+  class BookingController {
+    - bookingService: FrontBookingService
+    + bookAppointment(): void
+  }
+
+  class TreatmentController {
+    - treatmentService: FrontTreatmentService
+    + initialize(): void
+    + handleBookingButton(): void
+  }
+  
+  class WelcomeController {
+    + handleButton(): void
+    + handleReviewButton(): void
+  }
+
+  class ReviewController {
+    - frontReviewService: FrontReviewService
+    + initialize(): void
+    + handleAddReview(): void
+  }
+
+  class FrontReviewService {
+    + getReviews(): String
+    + addReview(review: String): void
+  }
+
+  artifact "Welcome.fxml" as FXML_Welcome
+}
+
+BookingService -> WeeklyTimeSlots : "uses"
+BookingService -> TimeSlot : "uses"
+TreatmentService -> TreatmentRepository : "uses"
+TreatmentService -> Treatment : "uses"
+
+PriceCalculator -> Treatment : "uses"
+WeeklyTimeSlots -> TimeSlot : "contains"
+RestBookingController -> BookingService : "uses"
+RestTreatmentController -> TreatmentService : "uses"
+
+ReviewService -> ReviewFilehandling : "uses"
+RestReviewController -> ReviewService : "uses"
+RestReviewController -> Logger : "logs"
+
+BookingController -> BookingService : "uses"
+TreatmentController -> TreatmentService : "uses"
+WelcomeController -> HairdresserApp : "opens"
+WelcomeController --> FXML_Welcome : "loads GUI from"
+ReviewController -> FrontReviewService : "uses"
+FrontReviewService -> ReviewService : "uses"
+
+HairdresserApp -> BookingController
+HairdresserApp -> TreatmentController
+HairdresserApp -> WelcomeController
+
+@enduml
