@@ -58,7 +58,7 @@ public class BookingController {
         StringBuilder text = new StringBuilder("Oversikt over timer: \n");
 
         for (TimeSlot slot : allTimeSlots) {
-            String status = slot.isBooked() ? "Booket" : "Ledig";
+            String status = slot.isBooked() ? "Booked" : "Availible";
             text.append(slot.getStart().format(DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy"))).append(" - ").append(status).append("\n");
         }
 
