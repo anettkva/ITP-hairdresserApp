@@ -1,4 +1,4 @@
-@startuml
+@startuml pakkediagram
 package "backend" {
     class BackendApplication
     class BookingService
