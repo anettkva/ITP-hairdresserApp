@@ -86,7 +86,7 @@
       </menus>
     </MenuBar>
 
-    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="640.0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333; -fx-background-color: #b6e7eb;" text="Booking System">
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="640.0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333; -fx-background-color: #ADD8E6; -fx-border-color: #348ceb;" text="Booking System">
          <font>
             <Font size="36.0" />
          </font></Label>
@@ -95,12 +95,12 @@
          <children>
             <TextField fx:id="bookingTextField" layoutX="68.0" layoutY="193.0" promptText="HH:mm dd-MM-yyyy" style="-fx-border-color: #348ceb;" />
             <TextArea fx:id="bookingTextArea" layoutX="322.0" layoutY="87.0" opacity="0.8" prefHeight="196.0" prefWidth="300.0" style="-fx-border-color: #348ceb; -fx-background-color: #ffffff;" />
-            <Button layoutX="122.0" layoutY="229.0" mnemonicParsing="false" onAction="#bookTimeSlot" text="Book">
+            <Button layoutX="122.0" layoutY="230.0" mnemonicParsing="false" onAction="#bookTimeSlot" style="-fx-background-color: #ADD8E6; -fx-border-color: #348ceb; " text="Book">
                <font>
                   <Font name="Arial Black" size="13.0" />
                </font>
             </Button>
-            <Button layoutX="322.0" layoutY="58.0" mnemonicParsing="false" onAction="#showAllTimeSlots" text="Show bookingslots">
+            <Button layoutX="322.0" layoutY="51.0" mnemonicParsing="false" onAction="#showAllTimeSlots" prefHeight="29.0" prefWidth="300.0" style="-fx-background-color: #ADD8E6; -fx-border-color: #348ceb;" text="Show bookingslots">
               <font>
                  <Font name="Arial Black" size="13.0" />
               </font>
