@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -90,6 +91,23 @@ public class TimeSlot {
         }
 
         this.booked = false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TimeSlot timeSlot = (TimeSlot) o;
+
+        return booked == timeSlot.booked &&
+               Objects.equals(start, timeSlot.start) &&
+               Objects.equals(end, timeSlot.end);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(start, booked, end);
     }
 
     
