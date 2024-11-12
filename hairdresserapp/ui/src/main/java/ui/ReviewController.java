@@ -5,20 +5,32 @@ import javafx.scene.control.TextArea;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+
+@Controller
 public class ReviewController {
+
+    @Autowired
     private FrontReviewService reviewService;
 
     @FXML
-    TextArea overveiwArea;
+    TextArea overviewArea;
 
     @FXML
     TextArea textField;
 
     @FXML
     public void initialize() throws IOException, InterruptedException {
-        this.reviewService = new FrontReviewService();
+        if (this.reviewService == null) {
+            this.reviewService = new FrontReviewService();
+        }
         loadReviews();
+    }
+
+    public void setReviewService(FrontReviewService reviewService) {
+        this.reviewService = reviewService;
     }
 
     @FXML
@@ -30,8 +42,8 @@ public class ReviewController {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        this.overveiwArea.setText("");
-        this.overveiwArea.setText(text);
+        this.overviewArea.setText("");
+        this.overviewArea.setText(text);
     }
 
     @FXML

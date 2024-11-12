@@ -97,7 +97,7 @@
                   <Font name="Arial" size="16.0" />
                </font>
             </Text>
-            <TextArea fx:id="overveiwArea" layoutX="243.0" layoutY="82.0" prefHeight="257.0" prefWidth="392.0" />
+            <TextArea fx:id="overviewArea" layoutX="243.0" layoutY="82.0" prefHeight="257.0" prefWidth="392.0" />
             <Button layoutX="106.0" layoutY="255.0" mnemonicParsing="false" onAction="#sendReview" text="Send">
                <font>
                   <Font name="Arial Black" size="13.0" />
