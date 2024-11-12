@@ -1,0 +1,92 @@
+@startuml sekvensdiagram
+actor User as "Bruker"
+
+participant "HairdresserApp" as App
+participant "WelcomeController" as WelcomeController
+participant "ReviewController" as ReviewController
+participant "FrontReviewService" as FrontReviewService
+participant "RestReviewController" as RestReviewController
+participant "ReviewService" as ReviewService
+participant "ReviewFilehandling" as FileHandler
+participant "TreatmentController" as TreatmentController
+participant "RestTreatmentController" as RestTreatmentController
+participant "TreatmentService" as TreatmentService
+participant "JsonTreatmentRepository" as Repository
+participant "BookingController" as BookingController
+participant "RestBookingController" as RestBookingController
+participant "BookingService" as BookingService
+participant "WeeklyTimeSlots" as TimeSlots
+
+note over User: Start application
+
+User -> App: Start Application
+App -> WelcomeController: Initialize Welcome Screen
+
+note over User, WelcomeController: Brukeren navigerer til anmeldelser
+
+User -> WelcomeController: Navigate to Reviews
+WelcomeController -> ReviewController: Open Reviews Screen
+ReviewController -> FrontReviewService: Retrieve reviews
+
+FrontReviewService -> RestReviewController: GET /api/reviews
+RestReviewController -> ReviewService: getReviews()
+ReviewService -> FileHandler: Read reviews from file
+FileHandler --> ReviewService: Return reviews
+ReviewService --> RestReviewController: Return reviews
+RestReviewController --> FrontReviewService: Return reviews
+FrontReviewService --> ReviewController: Return reviews
+ReviewController -> App: Update UI with Reviews
+
+note over User, ReviewController: Brukeren legger til en ny anmeldelse
+
+User -> ReviewController: Add Review (text)
+ReviewController -> FrontReviewService: Add review
+FrontReviewService -> RestReviewController: POST /api/reviews (review text)
+RestReviewController -> ReviewService: addReview(text)
+ReviewService -> FileHandler: Write review to file
+FileHandler --> ReviewService: Confirm review saved
+ReviewService --> RestReviewController: Confirm review added
+RestReviewController --> FrontReviewService: Confirm review added
+FrontReviewService --> ReviewController: Confirm review added
+ReviewController -> App: Show review submission success
+
+note over User, TreatmentController: Brukeren velger behandlinger i UI
+
+User -> TreatmentController: Select Treatments (UI Interaction)
+TreatmentController -> RestTreatmentController: GET /treatments
+RestTreatmentController -> TreatmentService: getAllTreatments()
+TreatmentService -> Repository: Retrieve treatments from storage
+Repository --> TreatmentService: Return List<Treatment>
+TreatmentService --> RestTreatmentController: Return List<Treatment>
+RestTreatmentController --> TreatmentController: Return List<Treatment>
+TreatmentController -> App: Update UI with Treatment Info
+
+note over User, BookingController: Brukeren bekrefter behandlinger og skriver inn ønsket tidspunkt
+
+User -> BookingController: Enter desired booking time (e.g., 2024-10-08 12:00)
+BookingController -> TimeSlots: Check availability for selected times
+
+alt Enough consecutive time slots are available
+    TimeSlots --> BookingController: Availability Confirmed
+    BookingController -> RestBookingController: POST /bookings (treatments + time slots)
+    RestBookingController -> BookingService: createBooking(selectedTreatments, start time)
+    BookingService -> TimeSlots: Book consecutive time slots for each treatment
+
+    loop For each treatment
+        BookingService -> TimeSlots: Book timeslot from start time
+        TimeSlots --> BookingService: Confirm timeslot booked
+        BookingService -> BookingController: Update start time for next treatment
+    end
+
+    BookingService -> Repository: Store booking details
+    Repository --> BookingService: Confirm booking details stored
+
+    BookingService --> RestBookingController: Return booking confirmation
+    RestBookingController --> BookingController: Return booking status
+    BookingController -> App: Show booking confirmation in UI
+else Not enough slots available
+    TimeSlots --> BookingController: Availability Denied
+    BookingController -> App: Show availability error to user
+end
+
+@enduml

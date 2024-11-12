@@ -27,6 +27,15 @@ public class FrontBookingService {
         
     }
 
+    public List<TimeSlot> getAllTimeSlots() throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BACKEND_URL + "/allTimeSlots")).GET().build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        List<TimeSlot> list = objectMapper.readValue(response.body(), new TypeReference<List<TimeSlot>>() {});
+        
+        return list;
+    }
+
     public List<TimeSlot> getBookedSlots() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BACKEND_URL)).GET().build();
 

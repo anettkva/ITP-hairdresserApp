@@ -1,0 +1,46 @@
+@startuml pakkediagram
+
+package "backend" {
+    class BackendApplication
+    class BookingService
+    class JsonTreatmentRepository
+    class RestBookingController
+    class RestTreatmentController
+    class TreatmentService
+    class TreatmentRepository
+    class RestReviewController
+    class ReviewService
+}
+
+package "core" {
+    package "json" {
+        class JsonFilehandling
+        class TimeSlotOverview
+        package "internal" {
+            class BookingDeserializer
+            class BookingSerializer
+        }
+    }
+    class PriceCalculator
+    class Treatment
+    class TimeSlot
+    class WeeklyTimeSlots
+    class ReviewFilehandling
+}
+
+package "ui" {
+    class HairdresserApp
+    class BookingController
+    class TreatmentController
+    class FrontBookingService
+    class FrontTreatmentService
+    class WelcomeController
+    class ReviewController
+    class FrontReviewService
+}
+
+backend ..> core : uses
+ui ..> backend : uses
+ui ..> core : uses
+
+@enduml
