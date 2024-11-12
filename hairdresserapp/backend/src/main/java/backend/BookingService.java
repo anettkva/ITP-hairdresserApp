@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import core.TimeSlot;
+import core.WeeklyTimeSlots;
 import json.JsonFilehandling;
 
 @Service
@@ -18,11 +19,17 @@ public class BookingService {
     private static final Logger logger = LoggerFactory.getLogger(RestBookingController.class);
 
     private JsonFilehandling filehandling;
+    private WeeklyTimeSlots weeklyTimeSlots;
 
 
     @Autowired
-    public BookingService() {
+    public BookingService() throws IOException {
         this.filehandling = new JsonFilehandling();
+        this.weeklyTimeSlots = new WeeklyTimeSlots();
+    }
+
+    public List<TimeSlot> getAllTimeSlots() {
+        return this.weeklyTimeSlots.getAllTimeSlots();
     }
     
     public List<TimeSlot> getBookedSlots() throws IOException {

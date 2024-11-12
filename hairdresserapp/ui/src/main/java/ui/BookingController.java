@@ -8,7 +8,6 @@ import java.util.List;
 
 import core.TimeSlot;
 import core.Treatment;
-import core.WeeklyTimeSlots;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -16,7 +15,6 @@ import javafx.scene.control.TextField;
 
 public class BookingController {
 
-    private WeeklyTimeSlots weeklyTimeSlots;
     private List<TimeSlot> allTimeSlots;
     private List<Treatment> chosenTreatments;
 
@@ -31,18 +29,10 @@ public class BookingController {
     private TextArea bookingTextArea;
 
     public BookingController() throws IOException, InterruptedException {
-        try {
-            weeklyTimeSlots = new WeeklyTimeSlots();
-        } catch (Exception e) {
-            e.printStackTrace();;
-        }
-
-        allTimeSlots = weeklyTimeSlots.getAllTimeSlots();
-
         this.frontBookingService = new FrontBookingService();
         this.frontTreatmentService = new FrontTreatmentService();
         this.chosenTreatments = frontTreatmentService.getChosenTreatments();
-
+        allTimeSlots = frontBookingService.getAllTimeSlots();
     }
 
     public TextArea getarea() {

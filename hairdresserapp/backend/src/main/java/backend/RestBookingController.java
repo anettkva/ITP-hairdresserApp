@@ -25,10 +25,16 @@ public class RestBookingController {
     private final BookingService bookingService;
 
     @Autowired
-    public RestBookingController() {
+    public RestBookingController() throws IOException {
         this.bookingService = new BookingService();
     }
 
+    @GetMapping("/allTimeSlots")
+    public List<TimeSlot> getAllTimeSlots() throws IOException {
+        logger.info("GET request received for all time slots" );
+        return bookingService.getAllTimeSlots();
+        
+    }
 
     @GetMapping
     public List<TimeSlot> getBookedSlots() throws IOException {
