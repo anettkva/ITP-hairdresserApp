@@ -11,7 +11,6 @@ import java.net.http.HttpResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 class FrontReviewServiceTest {
 
@@ -34,7 +33,7 @@ class FrontReviewServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         // Initialiser FrontReviewService med mock HttpClient og ObjectMapper
-        frontReviewService = new FrontReviewService(mockHttpClient, new ObjectMapper());
+        frontReviewService = new FrontReviewService(mockHttpClient);
     }
 
     @Test
