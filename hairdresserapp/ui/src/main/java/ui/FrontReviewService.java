@@ -14,10 +14,17 @@ public class FrontReviewService {
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
 
-    public FrontReviewService() {
-        this.httpClient = HttpClient.newHttpClient();
-        this.objectMapper = new ObjectMapper();
+    
+    public FrontReviewService(HttpClient httpClient, ObjectMapper objectMapper) {
+        this.httpClient = httpClient;
+        this.objectMapper = objectMapper;
     }
+
+    
+    public FrontReviewService() {
+        this(HttpClient.newHttpClient(), new ObjectMapper());
+    }
+
 
     public String getReviews() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BACKEND_URL)).GET().build();
