@@ -1,4 +1,4 @@
-@startuml
+@startuml sekvensdiagram
 actor User as "Bruker"
 
 participant "HairdresserApp" as App
