@@ -77,7 +77,7 @@ public class FrontTreatmentServiceTest {
     public void testAddTreatment() throws IOException, InterruptedException {
         // Arrange
         Treatment treatment = new Treatment("wash", 500);
-        String jsonRequest = objectMapper.writeValueAsString(treatment);
+        
 
         when(mockHttpClient.send(any(HttpRequest.class), eq(HttpResponse.BodyHandlers.discarding())))
                 .thenReturn(mockVoidResponse);
