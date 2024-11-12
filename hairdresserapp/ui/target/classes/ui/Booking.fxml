@@ -97,7 +97,7 @@
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="32.0" layoutY="111.0" text="Use this format: 'HH:mm dd-MM-yyyy'">
+            <Label layoutX="32.0" layoutY="111.0" text="Please write a date and time to book an appointment \n You can view the availble slots to the right by pushing the 'Show bookingslots' button \n You can only select a whole hour, and use this format: HH:mm dd-MM-yyyy">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
@@ -107,7 +107,7 @@
                   <Font name="Arial Black" size="13.0" />
                </font>
             </Button>
-            <Button layoutX="250.0" layoutY="58.0" mnemonicParsing="false" onAction="#showAllTimeSlots" text="Show possible booking times">
+            <Button layoutX="250.0" layoutY="58.0" mnemonicParsing="false" onAction="#showAllTimeSlots" text="Show bookingslots">
               <font>
                  <Font name="Arial Black" size="13.0" />
               </font>
