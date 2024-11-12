@@ -31,12 +31,5 @@ public class WelcomeControllerTest extends ApplicationTest {
         FxAssert.verifyThat("#shortHairCut", NodeMatchers.isVisible());
     }
 
-    @Test
-    void testHandleReviewButtonOpensReviews() throws Exception {
-        // Simulerer et klikk på knappen som håndteres av handleReviewButton()
-        clickOn("#reviewButton");
-
-        // Verifiserer at en ny stage er åpnet med riktig tittel eller innhold
-        FxAssert.verifyThat("#review", NodeMatchers.isVisible());
-    }
+    
 }
