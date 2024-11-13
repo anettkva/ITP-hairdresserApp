@@ -23,6 +23,13 @@ For å kjøre appen med spring-boot, gå inn i **backend**-modulen ved å skrive
 
 Merk at `mvn clean install` må kjøres på alle modulene før appen kjøres (fra hairdresserapp), for å ta hensyn til avhengighetene mellom dem.
 
+# fremgangsmåte - vise diagrammene
+
+For å kunne få opp diagrammene i VScode må du ha installeret to exstentions: Graphviz Interactive Preview og PlantUML Preview.
+Du må så trykke deg inn i fila med koden for diagrammet.
+så høyreklikker du og trykker på 'preview current UML code' og da vil diagrammet lastes opp i et preview-vindu.
+Om dette ikke funker er det bilde av alle diagrammene i release.3 i mappen kalt for diagrams inne i picture-mappen.
+
 # Funksjonalitet Implementert i Del 1
 
 - **Behandlingsvalg:** Brukerne kan velge én eller flere behandlinger fra en liste av frisørtjenester.
