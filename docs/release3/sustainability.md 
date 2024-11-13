@@ -1,34 +1,36 @@
 Bærekraftaspektet ved HairdresserApp
-Bærekraft er et viktig tema innafor teknologiverden på mange måter. Ved å ha utviklet en digital løsning som HairdresseApp, kan dette
-bidra til å redusere både indirekte og direkte aspekter på miljø og samfunn.
 
-Redusert energiforbruk og ressurser:
-Et viktig aspekt ved vurdering av bærekraft er reduksjon av ressursforbruk. Ved å digitale bookingsprossesen til en frisørsalong, 
-reduserer dette behovet for papir og den fysiske administrative arbeidet i bedriften. Manuelle systemer, som papir, som for eksempel 
-en skrivebok for notering av avtaler, genererer avfall og krever ressurskrevende distribusjon. HairdresserApp effektiviserer denne 
-prosessen og gir frisører og kunder en digital løsning uten papirbruk.
-Videre kan en digital løsning som HairdresserApp redusere behovet for t ansatte må bruke tid på å ta telefoner for å booke timer. Dette 
-frigjør tid for frisørene som de kan bruke på andre oppgaver som kundebehandling og tjenester. Dette gir da en mer effektiv drift.
+Bærekraft er et viktig tema i teknologiverdenen, og SUSAD-modellen (Sosial, Økonomisk, Økologisk og Digital bærekraft)
+gir et helhetlig perspektiv på hvordan en digital løsning som HairdresserApp kan fremme bærekraft.
 
-Redusert transportbehov:
-HairdresserApp gir kundene mulighet til å booke timer digitalt. Dette bidrar til å redusere behovet for å møte opp fysisk i salongen for
-å kunne sjekke timebestillinger og booke timer. Denne digitaliseringen reduserer antall unødvendige turer til og fra salongen og reduserer
-dermed eventuelle klimautslipp som karbondioksid. Dette er da gunstig for miljøet.
-Langsiktig drift og digital transformasjon
-Bærekraftige løsninger kan bidra til å sikre langsiktig drift for virksomheter. HairdresserApp kan gjøre salongen mer konkurransedyktig
-ved å øke kundetilfredshet og bedre salongenes evne til å trekke til seg kunder. En frisørsalong som er digitalisert, kan også raskere 
-tilpasse seg endringer i markedet, tilby bedre kundeservice og til og med redusere kostnader knyttet til manuell timehåndtering. Denne 
-typen digital transformasjon er avgjørende for å sikre fremtidige bærekraft i tjenestesektoren, ettersom at dette har blitt en svært 
-teknologisk arena.
-Videre utvikling utvikling kan også inkludere funksjonalitet for å sette opp behandlinger med ulik varighet, noe som kan bidra til å 
-optimalisere ressursbruken enda mer ved å unngå unødvendig død tid.
+Sosial bærekraft:
+HairdresserApp bidrar til sosial bærekraft ved å tilby en digital løsning som gjør bookingprosessen mer tilgjengelig og brukervennlig for kundene. 
+Dette reduserer stresset både for kunder og ansatte, da man slipper ventetid på telefon eller fysisk oppmøte for å booke timer. Denne løsningen
+skaper en smidigere arbeidsdag for frisørene, som kan fokusere mer på kundeservice og mindre på administrative oppgaver. Dette fører til økt kundetilfredshet
+og bedre arbeidsforhold for de ansatte, som bidrar positivt til et godt arbeidsmiljø.
 
-Bærekraftig bruk av teknologi:
-HairdresserApp er utviklet ved bruk av moderne og energieffektive rammeverk som JAVA og REST-API. Ved å fokusere energieffektive metoder
-for utvikling og hosting kan den digitale plattformen bidra til å holde karbonavtrykket lavt. Plattformen kan også kjøres på skybasert 
-infrastrukturer som er optimalisert for å bruke minst mulig energi, med funksjoner som skalerer opp eller ned avhengig av behov.
+Økonomisk bærekraft:
+Ved å digitalisere bookingsystemet til frisørsalongen reduseres behovet for papir og fysisk administrasjon, noe som minsker kostnader og avfall. 
+HairdresserApp effektiviserer arbeidsflyten, frigjør tid og ressurser som tidligere gikk med til manuelle oppgaver som telefonsamtaler og notater. 
+Dette gjør det også mulig å redusere utgifter til papir og annet kontorutstyr. Den økte effektiviteten kan dessuten føre til økt omsetning, siden frisørene kan 
+fokusere på flere kunder og tjenester i løpet av arbeidsdagen.
+
+Økologisk bærekraft
+Digitalisering gjennom HairdresserApp reduserer det økologiske fotavtrykket ved å minimere papirforbruk og redusere antall unødvendige reiser til salongen. Kundene
+kan booke time digitalt, noe som gjør det mulig å kutte ned på klimagassutslipp som følger av transport. Dette er spesielt viktig i en tid der klimapåvirkning er en
+sentral bekymring, og løsningen hjelper med å redusere karbonavtrykket både for kundene og frisørsalongen.
+
+Digital bærekraft:
+HairdresserApp er utviklet med moderne og energieffektive teknologier som JAVA og REST-API. Ved å bruke energieffektive metoder for utvikling og hosting, kan plattformen
+bidra til å holde karbonavtrykket lavt. Den skybaserte infrastrukturen muliggjør også effektiv ressursbruk, ettersom skalerbarheten gjør at ressursene kan tilpasses etter
+ behov. Plattformen kan dermed skaleres uten å kaste bort energi, og opprettholder et lavt energiforbruk gjennom hele sin levetid.
+
+Langsiktig bærekraft og digital transformasjon:
+En bærekraftig digital løsning som HairdresserApp gjør det mulig for frisørsalongen å sikre langsiktig drift og tilpasning i en teknologisk verden. Dette gir salongen 
+konkurransefordeler, samtidig som kundetilfredsheten øker. Ved å kunne tilpasse seg markedet raskere, levere bedre kundeservice og optimalisere driften, kan salongen 
+sikre en bærekraftig fremtid. Videre utvikling av HairdresserApp kan inkludere mer presis timebooking, noe som ytterligere kan redusere sløsing av tid og ressurser.
 
 Konklusjon:
-HairdresserApp gir flere fordeler sett fra et bærekraftperspektiv, ved å redusere papirbruk, kutte ned på unødvendig transport, 
-optimalisere bruken av ressurser, og bidra til digital transformasjon av frisørsalongen. Alt dette gir mer effektive tjenester for 
-både kunder og frisører, samtidig som det minimerer miljøbelastninger og fremmer en mer bærekraftig praksis.
+HairdresserApp fremmer bærekraft ved å støtte de sosiale, økonomiske, økologiske og digitale aspektene i SUSAD-modellen. Reduksjonen i papirbruk, kutt i transportbehov, 
+ressursoptimalisering og overgang til en digitalisert virksomhet gir fordeler både for kunder, ansatte og miljøet. HairdresserApp hjelper frisørsalonger med å omfavne en
+mer bærekraftig praksis, samtidig som den gir mer effektive og miljøvennlige tjenester.
