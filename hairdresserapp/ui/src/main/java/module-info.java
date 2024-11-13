@@ -48,6 +48,5 @@ module ui {
     
     opens ui to javafx.graphics, javafx.fxml, spring.beans, spring.context, spring.core;
 
-    opens ui to javafx.graphics, javafx.fxml, spring.beans, spring.context, spring.core;
 }
 

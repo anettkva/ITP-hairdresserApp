@@ -13,6 +13,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 
+/**
+ * Controller class for handling booking functionality in the user interface.
+ * This class manages the display of available time slots, booking of time slots,
+ * and updating of booking statuses.
+ */
 public class BookingController {
 
     private List<TimeSlot> allTimeSlots;
@@ -26,12 +31,24 @@ public class BookingController {
 
     @FXML TextArea bookingTextArea;
 
-    // Default constructor for produksjon
+    /**
+     * Default constructor for production.
+     *
+     * @throws IOException if an I/O error occurs.
+     * @throws InterruptedException if the thread is interrupted.
+     */
     public BookingController() throws IOException, InterruptedException {
         this(new FrontBookingService(), new FrontTreatmentService());
     }
 
-    // Konstruktør for testing med injiserte avhengigheter
+    /**
+     * Constructor for testing with injected dependencies.
+     *
+     * @param frontBookingService   Service for booking-related operations.
+     * @param frontTreatmentService Service for treatment-related operations.
+     * @throws IOException if an I/O error occurs.
+     * @throws InterruptedException if the thread is interrupted.
+     */
     public BookingController(FrontBookingService frontBookingService, FrontTreatmentService frontTreatmentService) throws IOException, InterruptedException {
         this.frontBookingService = frontBookingService;
         this.frontTreatmentService = frontTreatmentService;
@@ -39,19 +56,40 @@ public class BookingController {
         this.allTimeSlots = frontBookingService.getAllTimeSlots();
     }
 
+    /**
+     * Retrieves the text area used for displaying booking information.
+     *
+     * @return TextArea for booking information.
+     */
     public TextArea getarea() {
         return this.bookingTextArea;
     }
 
+    /**
+     * Retrieves the text field used for entering booking time.
+     *
+     * @return TextField for booking time.
+     */
     public TextField getfield() {
         return this.bookingTextField;
     }
 
+    /**
+     * Retrieves all available time slots.
+     *
+     * @return List of all TimeSlot objects.
+     */
     public List<TimeSlot> getAllTimeSlots() {
         return this.allTimeSlots;
     }
 
 
+    /**
+     * Displays all available and booked time slots in the text area.
+     *
+     * @throws IOException if an I/O error occurs.
+     * @throws InterruptedException if the thread is interrupted.
+     */
     @FXML
     public void showAllTimeSlots() throws IOException, InterruptedException {
         loadJsonFile();
@@ -65,6 +103,12 @@ public class BookingController {
         bookingTextArea.setText(text.toString());
     }
 
+    /**
+     * Loads the JSON file and updates the booking status for the time slots.
+     *
+     * @throws IOException if an I/O error occurs.
+     * @throws InterruptedException if the thread is interrupted.
+     */
     public void loadJsonFile() throws IOException, InterruptedException {
         List<TimeSlot> bookedSlots = frontBookingService.getBookedSlots();
         
@@ -81,6 +125,10 @@ public class BookingController {
     }
     
 
+    /**
+     * Books a time slot based on the user's entered time and selected treatments.
+     * Updates the text area with the result of the booking process.
+     */
     @FXML
     public void bookTimeSlot() {
 

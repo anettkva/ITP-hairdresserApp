@@ -11,7 +11,7 @@ public class JavaFxTestInitializer {
         if (!initialized) {
             final CountDownLatch latch = new CountDownLatch(1);
             Platform.startup(() -> {
-                // No need to do anything here
+                
                 latch.countDown();
             });
             try {

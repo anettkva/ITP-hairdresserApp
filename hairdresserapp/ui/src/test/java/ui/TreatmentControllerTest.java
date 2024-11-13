@@ -95,17 +95,16 @@ public class TreatmentControllerTest {
 
     @Test
     public void testAddTreatmentWhenCheckBoxSelected() throws IOException, InterruptedException {
-        // Arrange
+        
         shortHairCut.setSelected(true);
         Treatment treatment = new Treatment("shortcut", 300);
         when(frontService.calculateTotalPrice()).thenReturn(300.0);
         when(frontService.getChosenTreatments()).thenReturn(Arrays.asList(treatment));
 
-        // Act
+        
         treatmentController.handleCheckBoxAction(shortHairCut);
 
-        // Assert
-        // verify(frontService).addTreatment(treatment);
+        
         verify(frontService).addTreatment(argThat(t -> 
         t.getName().equals("shortcut") && t.getPrice() == 300.0
         ));
@@ -120,16 +119,16 @@ public class TreatmentControllerTest {
 
     @Test
     public void testDeleteTreatmentWhenCheckBoxDeselected() throws IOException, InterruptedException {
-        // Arrange
+        
         longHairCut.setSelected(false);
         Treatment treatment = new Treatment("longcut", 500);
         when(frontService.calculateTotalPrice()).thenReturn(0.0);
         when(frontService.getChosenTreatments()).thenReturn(Arrays.asList());
 
-        // Act
+        
         treatmentController.handleCheckBoxAction(longHairCut);
 
-        // Assert
+        
         verify(frontService).deleteTreatment("longcut");
         verify(frontService).calculateTotalPrice();
         verify(frontService).getChosenTreatments();
@@ -139,29 +138,29 @@ public class TreatmentControllerTest {
 
     @Test
     public void testHandleCalculatePrice() throws IOException, InterruptedException {
-        // Arrange
+        
         when(frontService.calculateTotalPrice()).thenReturn(2000.0);
 
-        // Act
+        
         treatmentController.handleCalculatePrice();
 
-        // Assert
+       
         verify(frontService).calculateTotalPrice();
         verify(totalPriceField).setText("2000.0");
     }
 
     @Test
     public void testHandleShowOverview() throws IOException, InterruptedException {
-        // Arrange
+        
         Treatment treatment1 = new Treatment("color", 2000);
         Treatment treatment2 = new Treatment("wash", 500);
         List<Treatment> treatments = Arrays.asList(treatment1, treatment2);
         when(frontService.getChosenTreatments()).thenReturn(treatments);
 
-        // Act
+        
         treatmentController.handleShowOverview();
 
-        // Assert
+        
         verify(overViewTextArea).setText("");
         verify(overViewTextArea).appendText("color: 2000 kr, Varighet (min): " + treatment1.getduration() + "\n");
         verify(overViewTextArea).appendText("wash: 500 kr, Varighet (min): " + treatment2.getduration() + "\n");

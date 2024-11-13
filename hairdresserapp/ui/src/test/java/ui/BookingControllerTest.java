@@ -126,10 +126,10 @@ class BookingControllerTest {
         // Mocket at ingen tidsluker er booket (beregnet i setUp)
         when(frontBookingService.getBookedSlots()).thenReturn(Arrays.asList());
 
-        // Act
+        
         bookingController.bookTimeSlot();
 
-        // Assert
+        
         // Verifiser at bookSlot ble kalt for hver tidsluke
         verify(frontBookingService, times(2)).bookSlot(any(TimeSlot.class));
 

@@ -56,14 +56,14 @@ class ReviewControllerTest {
 
     @Test
     void testLoadReviews_Success() throws IOException, InterruptedException {
-        // Arrange
+        
         String mockReviews = "Review 1: Great service!\nReview 2: Good job!";
         when(reviewService.getReviews()).thenReturn(mockReviews);
 
-        // Act
+        
         reviewController.loadReviews();
 
-        // Assert
+        
         verify(reviewService, times(2)).getReviews();
         verify(overviewArea, times(2)).setText("");
         verify(overviewArea, times(1)).setText(mockReviews);
@@ -73,16 +73,16 @@ class ReviewControllerTest {
 
     @Test
     void testSendReview_Success() throws IOException, InterruptedException {
-        // Arrange
+        
         String reviewText = "Excellent service!";
         when(textField.getText()).thenReturn(reviewText);
         doNothing().when(reviewService).addReview(reviewText);
         when(reviewService.getReviews()).thenReturn("Review 1: Excellent service!");
 
-        // Act
+        
         reviewController.sendReview();
 
-        // Assert
+        
         verify(textField, times(1)).getText();
         verify(reviewService, times(1)).addReview(reviewText);
         verify(reviewService, times(2)).getReviews();

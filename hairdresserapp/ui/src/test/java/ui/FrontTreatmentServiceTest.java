@@ -44,7 +44,7 @@ public class FrontTreatmentServiceTest {
 
     @Test
     public void testGetChosenTreatments() throws IOException, InterruptedException {
-        // Arrange
+        
         List<Treatment> mockTreatments = Arrays.asList(
                 new Treatment("shortcut", 300),
                 new Treatment("color", 2000)
@@ -55,10 +55,10 @@ public class FrontTreatmentServiceTest {
                 .thenReturn(mockHttpResponse);
         when(mockHttpResponse.body()).thenReturn(jsonResponse);
 
-        // Act
+        
         List<Treatment> result = frontTreatmentService.getChosenTreatments();
 
-        // Assert
+        
         assertEquals(2, result.size());
         assertEquals("shortcut", result.get(0).getName());
         assertEquals(300, result.get(0).getPrice());
@@ -75,17 +75,17 @@ public class FrontTreatmentServiceTest {
 
     @Test
     public void testAddTreatment() throws IOException, InterruptedException {
-        // Arrange
+        
         Treatment treatment = new Treatment("wash", 500);
         
 
         when(mockHttpClient.send(any(HttpRequest.class), eq(HttpResponse.BodyHandlers.discarding())))
                 .thenReturn(mockVoidResponse);
 
-        // Act
+        
         frontTreatmentService.addTreatment(treatment);
 
-        // Assert
+        
         ArgumentCaptor<HttpRequest> requestCaptor = ArgumentCaptor.forClass(HttpRequest.class);
         verify(mockHttpClient).send(requestCaptor.capture(), eq(HttpResponse.BodyHandlers.discarding()));
         HttpRequest capturedRequest = requestCaptor.getValue();
@@ -97,15 +97,15 @@ public class FrontTreatmentServiceTest {
 
     @Test
     public void testDeleteTreatment() throws IOException, InterruptedException {
-        // Arrange
+        
         String treatmentName = "color";
         when(mockHttpClient.send(any(HttpRequest.class), eq(HttpResponse.BodyHandlers.discarding())))
                 .thenReturn(mockVoidResponse);
 
-        // Act
+        
         frontTreatmentService.deleteTreatment(treatmentName);
 
-        // Assert
+        
         ArgumentCaptor<HttpRequest> requestCaptor = ArgumentCaptor.forClass(HttpRequest.class);
         verify(mockHttpClient).send(requestCaptor.capture(), eq(HttpResponse.BodyHandlers.discarding()));
         HttpRequest capturedRequest = requestCaptor.getValue();
@@ -115,17 +115,17 @@ public class FrontTreatmentServiceTest {
 
     @Test
     public void testCalculateTotalPrice() throws IOException, InterruptedException {
-        // Arrange
+        
         String mockPrice = "2500.0";
 
         when(mockHttpClient.send(any(HttpRequest.class), eq(HttpResponse.BodyHandlers.ofString())))
                 .thenReturn(mockHttpResponse);
         when(mockHttpResponse.body()).thenReturn(mockPrice);
 
-        // Act
+        
         double totalPrice = frontTreatmentService.calculateTotalPrice();
 
-        // Assert
+        
         assertEquals(2500.0, totalPrice);
 
         // Verifiser at riktig forespørsel ble sendt
@@ -136,5 +136,5 @@ public class FrontTreatmentServiceTest {
         assertEquals("POST", capturedRequest.method());
     }
 
-    // Flere tester kan legges til for å dekke feilhåndtering, ulike responser osv.
+    
 }

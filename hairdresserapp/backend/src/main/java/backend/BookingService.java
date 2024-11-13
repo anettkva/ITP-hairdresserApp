@@ -12,31 +12,67 @@ import core.TimeSlot;
 import core.WeeklyTimeSlots;
 import json.JsonFilehandling;
 
+/**
+ * Backend service class for handling booking operations.
+ * This class manages available time slots, retrieves booked time slots,
+ * and handles booking of new time slots by communicating with the filesystem.
+ */
 @Service
 public class BookingService {
 
-    
+    /**
+     * Logger for BookingService class.
+     */
     private static final Logger logger = LoggerFactory.getLogger(RestBookingController.class);
 
+    /**
+     * Helper class for handling JSON file operations.
+     */
     private JsonFilehandling filehandling;
+
+    /**
+     * Class that produces possible timeslots one week ahead in time.
+     */
     private WeeklyTimeSlots weeklyTimeSlots;
 
 
+    /**
+     * Default constructor that initializes JsonFilehandling and WeeklyTimeSlots.
+     *
+     * @throws IOException If an I/O error occurs during initialization.
+     */
     @Autowired
     public BookingService() throws IOException {
         this.filehandling = new JsonFilehandling();
         this.weeklyTimeSlots = new WeeklyTimeSlots();
     }
 
+    /**
+     * Retrieves all available time slots.
+     *
+     * @return A list of all available {@link TimeSlot} objects.
+     */
     public List<TimeSlot> getAllTimeSlots() {
         return this.weeklyTimeSlots.getAllTimeSlots();
     }
-    
+
+    /**
+     * Retrieves all already booked time slots.
+     *
+     * @return A list of all booked {@link TimeSlot} objects.
+     * @throws IOException If an I/O error occurs during reading from the file.
+     */
     public List<TimeSlot> getBookedSlots() throws IOException {
         return filehandling.readFromFile();
         
     }
 
+    /**
+     * Books a specific time slot by updating its status and writing it to the file.
+     *
+     * @param timeSlot The time slot to be booked.
+     * @throws IOException If an I/O error occurs during writing to the file.
+     */
     public void bookSlot(TimeSlot timeSlot) throws IOException {
         logger.info("Prøver å booke TimeSlot: {}", timeSlot);
         timeSlot.book();
