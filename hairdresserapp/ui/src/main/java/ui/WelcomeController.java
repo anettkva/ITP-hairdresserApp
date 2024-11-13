@@ -8,8 +8,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Controller class for the Welcome view.
+ * 
+ * This class handles user interactions from the Welcome screen,
+ * such as navigating to the Hairdresser application or the Reviews section.
+ */
 public class WelcomeController {
 
+    /**
+     * Handles the action when the primary button is clicked.
+     * 
+     * This method loads the "HairdresserApp.fxml" layout, creates a new stage,
+     * sets the scene, and displays the new window.
+     *
+     * @throws IOException if the FXML file cannot be loaded
+     */
     @FXML
     void handleButton() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("HairdresserApp.fxml"));
@@ -19,6 +33,14 @@ public class WelcomeController {
         stage.show();
     }
 
+    /**
+     * Handles the action when the review button is clicked.
+     * 
+     * This method loads the "Reviews.fxml" layout, creates a new stage,
+     * sets the scene, and displays the new window.
+     *
+     * @throws IOException if the FXML file cannot be loaded
+     */
     @FXML
     void handleReviewButton() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("Reviews.fxml"));

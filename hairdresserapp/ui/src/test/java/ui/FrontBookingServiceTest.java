@@ -75,7 +75,7 @@ class FrontBookingServiceTest {
     @SuppressWarnings("unchecked")
     @Test
     void testGetBookedSlots_Success() throws IOException, InterruptedException {
-         // Arrange
+        
         String jsonResponse = "[" +
         "{\"start\":\"2024-12-31T10:00\",\"end\":\"2024-12-31T11:00\",\"booked\":false}," +
         "{\"start\":\"2024-12-31T12:00\",\"end\":\"2024-12-31T13:00\",\"booked\":false}" +
@@ -93,10 +93,10 @@ class FrontBookingServiceTest {
         when(mockObjectMapper.readValue(eq(jsonResponse), any(TypeReference.class)))
             .thenReturn(expectedTimeSlots);
 
-        // Act
+        
         List<TimeSlot> actualTimeSlots = bookingService.getBookedSlots();
 
-        // Assert
+        
         assertNotNull(actualTimeSlots);
         assertEquals(2, actualTimeSlots.size());
         assertEquals(expectedTimeSlots, actualTimeSlots);
@@ -108,18 +108,18 @@ class FrontBookingServiceTest {
 
     @Test
     void testGetBookedSlots_HttpClientThrowsIOException() throws IOException, InterruptedException {
-        // Arrange
+        
         when(mockHttpClient.send(any(HttpRequest.class), eq(HttpResponse.BodyHandlers.ofString())))
             .thenThrow(new IOException("Network error"));
 
-        // Act & Assert
+        
         IOException exception = assertThrows(IOException.class, () -> {
             bookingService.getBookedSlots();
         });
 
         assertEquals("Network error", exception.getMessage());
 
-        // Verifiserer at send ble kalt, og readValue ikke ble kalt
+        
         verify(mockHttpClient).send(any(HttpRequest.class), eq(HttpResponse.BodyHandlers.ofString()));
         
     }
@@ -127,7 +127,7 @@ class FrontBookingServiceTest {
     @SuppressWarnings("unchecked")
     @Test
     void testGetBookedSlots_ObjectMapperThrowsJsonProcessingException() throws IOException, InterruptedException {
-        // Arrange
+        
         String jsonResponse = "Invalid JSON";
         when(mockHttpClient.send(any(HttpRequest.class), eq(HttpResponse.BodyHandlers.ofString())))
             .thenReturn(mockHttpResponse);
@@ -135,7 +135,7 @@ class FrontBookingServiceTest {
         when(mockObjectMapper.readValue(eq(jsonResponse), any(TypeReference.class)))
             .thenThrow(new JsonProcessingException("JSON parsing error") {});
 
-        // Act & Assert
+        
         JsonProcessingException exception = assertThrows(JsonProcessingException.class, () -> {
             bookingService.getBookedSlots();
         });
@@ -150,7 +150,7 @@ class FrontBookingServiceTest {
     @SuppressWarnings("unchecked")
     @Test
     void testBookSlot_Success() throws IOException, InterruptedException {
-        // Arrange
+        
         TimeSlot timeSlot = createValidTimeSlot(24); // 24 timer frem
         timeSlot.setBooked(false);
         String jsonRequest = "{\"start\":\"" + timeSlot.getStart() + "\"," +
@@ -161,10 +161,10 @@ class FrontBookingServiceTest {
         when(mockHttpClient.send(any(HttpRequest.class), eq(HttpResponse.BodyHandlers.discarding())))
                 .thenReturn(mock(HttpResponse.class)); // send() returnerer HttpResponse<Void>, men vi kan returnere mockHttpResponse
 
-        // Act
+        
         bookingService.bookSlot(timeSlot);
 
-        // Assert
+        
         // Verifiserer at writeValueAsString ble kalt med riktig objekt
         verify(mockObjectMapper).writeValueAsString(timeSlot);
 
