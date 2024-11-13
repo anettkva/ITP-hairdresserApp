@@ -23,7 +23,7 @@ Linea blir kjempefornøyd med resultatet, og ønsker å skrive en tilbakemelding
 # Illustrerende skjermbilde
 
 Illustrerende bilder:
-![Velkommen-side](docs/release3/pictures/image.png)
-![Behandlingsvalg-side](docs/release3/pictures/image-1.png)
-![Booking-side](docs/release3/pictures/image-2.png)
-![Reveiws-side](docs/release3/pictures/image-3.png)
+![Velkommen-side](docs/release3/pictures/welcome.png)
+![Behandlingsvalg-side](docs/release3/pictures/itreatments.png)
+![Booking-side](docs/release3/pictures/booking.png)
+![Reveiws-side](docs/release3/pictures/reviews.png)
