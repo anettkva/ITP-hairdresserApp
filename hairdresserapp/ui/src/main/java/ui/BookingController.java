@@ -22,17 +22,21 @@ public class BookingController {
     private FrontTreatmentService frontTreatmentService;
 
 
-    @FXML
-    private TextField bookingTextField;
+    @FXML TextField bookingTextField;
 
-    @FXML
-    private TextArea bookingTextArea;
+    @FXML TextArea bookingTextArea;
 
+    // Default constructor for produksjon
     public BookingController() throws IOException, InterruptedException {
-        this.frontBookingService = new FrontBookingService();
-        this.frontTreatmentService = new FrontTreatmentService();
+        this(new FrontBookingService(), new FrontTreatmentService());
+    }
+
+    // Konstruktør for testing med injiserte avhengigheter
+    public BookingController(FrontBookingService frontBookingService, FrontTreatmentService frontTreatmentService) throws IOException, InterruptedException {
+        this.frontBookingService = frontBookingService;
+        this.frontTreatmentService = frontTreatmentService;
         this.chosenTreatments = frontTreatmentService.getChosenTreatments();
-        allTimeSlots = frontBookingService.getAllTimeSlots();
+        this.allTimeSlots = frontBookingService.getAllTimeSlots();
     }
 
     public TextArea getarea() {
@@ -54,7 +58,7 @@ public class BookingController {
         StringBuilder text = new StringBuilder("Oversikt over timer: \n");
 
         for (TimeSlot slot : allTimeSlots) {
-            String status = slot.isBooked() ? "Booket" : "Ledig";
+            String status = slot.isBooked() ? "Booked" : "Availible";
             text.append(slot.getStart().format(DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy"))).append(" - ").append(status).append("\n");
         }
 

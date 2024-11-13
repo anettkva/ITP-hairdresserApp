@@ -20,12 +20,16 @@ public class FrontBookingService {
     private final ObjectMapper objectMapper;
 
     public FrontBookingService() {
-        this.httpClient = HttpClient.newHttpClient();
-        this.objectMapper = new ObjectMapper();
+        this(HttpClient.newHttpClient(), new ObjectMapper());
+    }
+
+    public FrontBookingService(HttpClient httpClient, ObjectMapper objectMapper) {
+        this.httpClient = httpClient;
+        this.objectMapper = objectMapper;
         this.objectMapper.registerModule(new JavaTimeModule());
         this.objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        
     }
+    
 
     public List<TimeSlot> getAllTimeSlots() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BACKEND_URL + "/allTimeSlots")).GET().build();

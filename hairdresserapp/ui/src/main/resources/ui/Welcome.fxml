@@ -95,12 +95,12 @@
                   <Font name="Arial Black" size="31.0" />
                </font>
             </Text>
-            <Button layoutX="220.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleButton" text="Get your dream hair">
+            <Button fx:id="hairdresserButton" layoutX="220.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleButton" text="Get your dream hair">
                <font>
                   <Font name="Arial Black" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="254.0" layoutY="311.0" mnemonicParsing="false" onAction="#handleReviewButton" text="See reviews">
+            <Button fx:id="reviewButton" layoutX="254.0" layoutY="311.0" mnemonicParsing="false" onAction="#handleReviewButton" text="See reviews">
                <font>
                   <Font name="Arial Black" size="16.0" />
                </font>
