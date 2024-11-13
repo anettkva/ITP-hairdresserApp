@@ -23,7 +23,13 @@ Linea blir kjempefornøyd med resultatet, og ønsker å skrive en tilbakemelding
 # Illustrerende skjermbilde
 
 Illustrerende bilder:
-![Velkommen-side](docs/release3/pictures/welcome.png)
-![Behandlingsvalg-side](docs/release3/pictures/itreatments.png)
+<!-- ![Velkommen-side](docs/release3/pictures/welcome.png)
+![Behandlingsvalg-side](docs/release3/pictures/treatments.png)
 ![Booking-side](docs/release3/pictures/booking.png)
-![Reveiws-side](docs/release3/pictures/reviews.png)
+![Reveiws-side](docs/release3/pictures/reviews.png) -->
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <img src="docs/release3/pictures/welcome.png" alt="Velkommen-side" width="300"/>
+  <img src="docs/release3/pictures/treatments.png" alt="Behandlingsvalg-side" width="300"/>
+  <img src="docs/release3/pictures/booking.png" alt="Booking-side" width="300"/>
+  <img src="docs/release3/pictures/reviews.png" alt="Reviews-side" width="300"/>
+</div>
