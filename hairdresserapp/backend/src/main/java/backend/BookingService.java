@@ -52,7 +52,7 @@ public class BookingService {
      * @param filehandling    The JsonFilehandling instance.
      * @param weeklyTimeSlots The WeeklyTimeSlots instance.
      */
-    @Autowired
+    
     public BookingService(JsonFilehandling filehandling, WeeklyTimeSlots weeklyTimeSlots) {
         this.filehandling = filehandling;
         this.weeklyTimeSlots = weeklyTimeSlots;

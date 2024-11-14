@@ -52,7 +52,6 @@ public class TreatmentService {
      * @param filehandling    The {@link TreatmentFilehandling} instance.
      * @param priceCalculator The {@link PriceCalculator} instance.
      */
-    @Autowired
     public TreatmentService(TreatmentFilehandling filehandling, PriceCalculator priceCalculator) {
         this.filehandling = filehandling;
         this.priceCalculator = priceCalculator;
