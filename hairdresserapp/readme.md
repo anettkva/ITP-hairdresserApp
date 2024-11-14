@@ -25,7 +25,7 @@ Linea blir kjempefornøyd med resultatet, og ønsker å skrive en tilbakemelding
 Illustrerende bilder av sidene i appen:
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
   <img src="docs/release3/pictures/welcome.png" alt="Velkommen-side" width="300"/>
-  <img src="docs/release3/pictures/Treatments.png" alt="Behandlingsvalg-side" width="300"/>
+  <img src="docs/release3/pictures/treatments.png" alt="Behandlingsvalg-side" width="300"/>
   <img src="docs/release3/pictures/booking.png" alt="Booking-side" width="300"/>
   <img src="docs/release3/pictures/reviews.png" alt="Reviews-side" width="300"/>
 </div>
