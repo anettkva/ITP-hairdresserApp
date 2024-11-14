@@ -50,7 +50,7 @@ class FrontBookingServiceTest {
         bookingService = new FrontBookingService(mockHttpClient, mockObjectMapper);
     }
 
-    public static TimeSlot createValidTimeSlot(int hoursAhead) throws IOException {
+     public static TimeSlot createValidTimeSlot(int hoursAhead) throws IOException {
         LocalDateTime now = LocalDateTime.now().plusHours(hoursAhead).truncatedTo(ChronoUnit.HOURS);
         
         // Juster tiden til innenfor 08:00 til 15:00

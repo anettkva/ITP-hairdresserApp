@@ -181,7 +181,7 @@ Backend-modul:
 
 # Diagram - arkitektur
 
-![Klassediagram](../docs/release3/pictures/diagrams/klassediagram.png)
+![Klassediagram](../docs/release3/pictures/diagrams/Klassediagram.png)
 
 ---
 

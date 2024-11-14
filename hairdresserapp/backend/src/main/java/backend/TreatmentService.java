@@ -29,11 +29,6 @@ public class TreatmentService {
     private TreatmentFilehandling filehandling;
 
     /**
-     * Price calculator for treatments.
-     */
-    private final PriceCalculator priceCalculator;
-
-    /**
      * Constructs a new {@link TreatmentService} instance and initializes the
      * {@link TreatmentFilehandling}.
      * 
@@ -134,6 +129,7 @@ public class TreatmentService {
      */
     public double calculateTotalPrice() throws IOException {
         List<Treatment> treatments = getAllTreatments();
+        PriceCalculator priceCalculator = new PriceCalculator();
         return priceCalculator.CalculateTotalPrice(treatments);
     }
 }
