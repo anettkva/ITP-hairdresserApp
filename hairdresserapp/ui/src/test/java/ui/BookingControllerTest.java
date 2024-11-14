@@ -104,8 +104,8 @@ class BookingControllerTest {
         LocalTime startTime = now.toLocalTime();
         if (startTime.isBefore(LocalTime.of(8, 0))) {
             startTime = LocalTime.of(8, 0);
-        } else if (startTime.isAfter(LocalTime.of(15, 0))) {
-            startTime = LocalTime.of(13, 0);
+        } else if (startTime.isAfter(LocalTime.of(14, 0))) {
+            startTime = LocalTime.of(14, 0);
         }
 
         LocalDateTime validStart = now.withHour(startTime.getHour()).withMinute(0).withSecond(0).withNano(0);
