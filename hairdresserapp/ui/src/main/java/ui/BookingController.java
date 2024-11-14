@@ -180,7 +180,7 @@ public class BookingController {
             catch (IllegalArgumentException e) {
                 bookingTextArea.setText("Not valid starttime: " + e.getMessage());
             } catch (Exception e) {
-                bookingTextArea.setText("An error occured: " + e.getMessage());
+                bookingTextArea.setText("An error occured: Not a valid format" );
             }
         
     }

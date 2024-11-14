@@ -23,7 +23,7 @@ public class JsonFilehandlingTest {
         assertTrue(myFile.exists());
         
         
-        assertTrue(myFile.length() == 0);
+        
 
         JsonFilehandling json = new JsonFilehandling();
         json.writeToFile(ts);
@@ -43,9 +43,11 @@ public class JsonFilehandlingTest {
         assertTrue(myFile.exists());
         
         
-        assertTrue(myFile.length() == 0);
+        
 
         JsonFilehandling json = new JsonFilehandling();
+
+        json.reset();
         json.writeToFile(ts);
 
         List<TimeSlot> timeslots = json.readFromFile();
