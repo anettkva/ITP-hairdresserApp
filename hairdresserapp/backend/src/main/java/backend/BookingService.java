@@ -43,19 +43,8 @@ public class BookingService {
      */
     @Autowired
     public BookingService() throws IOException {
-        this(new JsonFilehandling(), new WeeklyTimeSlots());
-    }
-
-    /**
-     * Constructor that initializes JsonFilehandling and WeeklyTimeSlots.
-     *
-     * @param filehandling    The JsonFilehandling instance.
-     * @param weeklyTimeSlots The WeeklyTimeSlots instance.
-     */
-    
-    public BookingService(JsonFilehandling filehandling, WeeklyTimeSlots weeklyTimeSlots) {
-        this.filehandling = filehandling;
-        this.weeklyTimeSlots = weeklyTimeSlots;
+        this.filehandling = new JsonFilehandling();
+        this.weeklyTimeSlots = new WeeklyTimeSlots();
     }
 
     /**
