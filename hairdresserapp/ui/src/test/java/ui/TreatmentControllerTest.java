@@ -112,7 +112,7 @@ public class TreatmentControllerTest {
         verify(frontService).getChosenTreatments();
         verify(totalPriceField).setText("300.0");
         verify(overViewTextArea).setText("");
-        verify(overViewTextArea).appendText("shortcut: 300 kr, Varighet (min): " + treatment.getduration() + "\n");
+        verify(overViewTextArea).appendText("shortcut: 300 kr, Duration (min): " + treatment.getduration() + "\n");
 
 
     }
@@ -162,8 +162,8 @@ public class TreatmentControllerTest {
 
         
         verify(overViewTextArea).setText("");
-        verify(overViewTextArea).appendText("color: 2000 kr, Varighet (min): " + treatment1.getduration() + "\n");
-        verify(overViewTextArea).appendText("wash: 500 kr, Varighet (min): " + treatment2.getduration() + "\n");
+        verify(overViewTextArea).appendText("color: 2000 kr, Duration (min): " + treatment1.getduration() + "\n");
+        verify(overViewTextArea).appendText("wash: 500 kr, Duration (min): " + treatment2.getduration() + "\n");
     }
 }
 

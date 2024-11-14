@@ -137,9 +137,9 @@ class BookingControllerTest {
         verify(frontBookingService, times(1)).getBookedSlots();
 
         // Verifiser at bookingTextArea ble oppdatert med suksessmelding
-        String expectedMessage = "Timen fra " + desiredStartTime.format(DateTimeFormatter.ofPattern("HH:mm  ")) +
-                "til " + desiredStartTime.plusHours(mockChosenTreatments.size()).format(DateTimeFormatter.ofPattern("HH:mm 'den' dd-MM-yyyy")) +
-                " er booket for " + mockChosenTreatments.size() + " behandling(er) :)";
+        String expectedMessage = "The appointment from " + desiredStartTime.format(DateTimeFormatter.ofPattern("HH:mm")) +
+                " to " + desiredStartTime.plusHours(mockChosenTreatments.size()).format(DateTimeFormatter.ofPattern("HH:mm 'on' dd-MM-yyyy")) +
+                " is booked for " + mockChosenTreatments.size() + " treatment(s) :)\nThank you for your booking! We are looking forward to see you!";
 
         verify(bookingTextArea).setText(expectedMessage);
     }
