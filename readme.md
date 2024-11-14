@@ -77,7 +77,7 @@ Om dette ikke funker er det bilde av alle diagrammene i release.3 i mappen kalt 
 - **Format på booking-felt:** Vi har gjort formatet på dato og tid som skal skrives av bruker inne i appen mer realistisk.
 - **Velkommen-side:** En velkommen-side, som er den som åpnes når appen kjøres. Denne har tekst, som sier litt om salongen, og to knapper; en som tar brukeren til en tilbakemeldings-side, og en som tar brukeren til valg av behandlinger.
 - **Tilbakemeldings-side:** En side der brukeren kan skrive tilbakemeldinger til salongen, og se tilbakemeldinger som er skrevet fra før.
-- **Testing:** Det er oppdatert tester ut fra ny funksjonalitet og REST-api. Tester for alle klasser i core og json, samt alle kontrollerene, untatt welcomeController.java, i ui testes til en viss grad
+- **Testing:** Det er oppdatert tester ut fra ny funksjonalitet og REST-api. Tester for alle klasser i core og json, samt alle kontrollerene, untatt welcomeController.java, i ui testes til en viss grad. I backend tester vi service-klassene. 
 - **Brukervennlighet:** Vi har gjort appen mer brukervennlig ved å legge inn mer feedback når brukeren klikker seg rundt. I tillegg har vi lagt til en mer detaljert beskrivelse av hvordan man skal booke en time.
 
 ---

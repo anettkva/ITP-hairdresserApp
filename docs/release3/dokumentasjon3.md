@@ -92,5 +92,10 @@ Vi har i tillegg til å endre en del på tester vi hadde fra før, laget nye tes
 - TreatmentController
 - FrontBookingService
 - BookingController
+- ReviewFilehandlingTest
+- BookingServiceTest
+- TreatmentServiceTest
+- ReviewServiceTest
   
 Vi har også en klasse, JavaFxTestInitializer som hjelper med å lage javafx-felter, slik at man kan mocke disse.
+I backend har vi prioritert å teste service-klassene, fordi det er disse som inneholder mesteparten av logikken. Restkontrollerene ser vi at fungerer ved at vi får opp de ulike forespørslene som sendes i backend-terminalen.

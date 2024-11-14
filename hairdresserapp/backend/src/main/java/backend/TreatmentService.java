@@ -38,7 +38,18 @@ public class TreatmentService {
      */
     @Autowired
     public TreatmentService() {
-        this.filehandling = new TreatmentFilehandling();
+        this(new TreatmentFilehandling(), new PriceCalculator());
+    }
+
+    /**
+     * Constructs a new {@link TreatmentService} instance with injected dependencies.
+     * 
+     * @param filehandling    The {@link TreatmentFilehandling} instance.
+     * @param priceCalculator The {@link PriceCalculator} instance.
+     */
+    public TreatmentService(TreatmentFilehandling filehandling, PriceCalculator priceCalculator) {
+        this.filehandling = filehandling;
+        this.priceCalculator = priceCalculator;
     }
 
     /**

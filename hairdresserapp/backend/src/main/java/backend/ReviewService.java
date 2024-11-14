@@ -22,6 +22,10 @@ public class ReviewService {
      */
     private ReviewFilehandling filehandling;
 
+    public ReviewService(ReviewFilehandling filehandling) {
+        this.filehandling = filehandling;
+    }
+
     /**
      * Constructs a new {@link ReviewService} instance and initializes the
      * {@link ReviewFilehandling}.
