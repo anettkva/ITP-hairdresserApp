@@ -1,0 +1,1 @@
+Vi har brukt KI-verktøyet ChatGPT. Vi har brukt dette verktøyet mest for feilsøking og når vi har stått fast lenge på et problem. 
