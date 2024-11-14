@@ -98,7 +98,7 @@ public class ReviewController {
         String text = this.textField.getText();
         this.reviewService.addReview(text);
         loadReviews();
-        this.textField.setText("");
+        this.textField.setText("Thank you for your review!");
     }
 }
 

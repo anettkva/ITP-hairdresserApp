@@ -93,10 +93,10 @@ public class BookingController {
     @FXML
     public void showAllTimeSlots() throws IOException, InterruptedException {
         loadJsonFile();
-        StringBuilder text = new StringBuilder("Oversikt over timer: \n");
+        StringBuilder text = new StringBuilder("Overview of possible appointments: \n");
 
         for (TimeSlot slot : allTimeSlots) {
-            String status = slot.isBooked() ? "Booked" : "Availible";
+            String status = slot.isBooked() ? "Booked" : "Available";
             text.append(slot.getStart().format(DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy"))).append(" - ").append(status).append("\n");
         }
 
@@ -153,7 +153,7 @@ public class BookingController {
                 }
 
                 if (matchingTimeSlot == null) {
-                    throw new IllegalArgumentException("Tidsintervallet er ikke tilgjengelig du må ha " + requiredSlots + " ledige timer på f.o.m valgt tidspunkt");
+                    throw new IllegalArgumentException("The time interval is not available for " + requiredSlots + " hours on the chosen appontment-time.");
                 }
                 slotsToBook.add(matchingTimeSlot);
             }
@@ -167,20 +167,20 @@ public class BookingController {
             
             loadJsonFile();
 
-            DateTimeFormatter outputFormatterHour = DateTimeFormatter.ofPattern("HH:mm ");
+            DateTimeFormatter outputFormatterHour = DateTimeFormatter.ofPattern("HH:mm");
             String formattedStartTime = desiredStartTime.format(outputFormatterHour);
 
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm 'den' dd-MM-yyyy");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm 'on' dd-MM-yyyy");
             String formattedEndTime = desiredStartTime.plusHours(requiredSlots).format(outputFormatter);
 
-            bookingTextArea.setText("Timen fra " + formattedStartTime + " til " + formattedEndTime + " er booket for " + requiredSlots + " behandling(er) :)");
+            bookingTextArea.setText("The appointment from " + formattedStartTime + " to " + formattedEndTime + " is booked for " + requiredSlots + " treatment(s) :)" + "\n" + "Thank you for your booking! We are looking forward to see you!");
 
         }
 
             catch (IllegalArgumentException e) {
-                bookingTextArea.setText("Ugyldig starttid: " + e.getMessage());
+                bookingTextArea.setText("Not valid starttime: " + e.getMessage());
             } catch (Exception e) {
-                bookingTextArea.setText("En feil oppstod: " + e.getMessage());
+                bookingTextArea.setText("An error occured: " + e.getMessage());
             }
         
     }

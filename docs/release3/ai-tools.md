@@ -1,0 +1,1 @@
+Vi har brukt KI-verktøyet ChatGPT. Vi har brukt dette verktøyet mest for feilsøking og når vi har stått fast lenge på et problem. I denne øvingen brukte vi også dette verktøyet en del for å forstå hva et rest-api er, da vi hadde behov for litt starthjelp.

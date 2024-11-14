@@ -94,7 +94,7 @@
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: #b6e7eb;" VBox.vgrow="ALWAYS">
          <children>
             <TextField fx:id="bookingTextField" layoutX="68.0" layoutY="193.0" promptText="HH:mm dd-MM-yyyy" style="-fx-border-color: #348ceb;" />
-            <TextArea fx:id="bookingTextArea" layoutX="322.0" layoutY="87.0" opacity="0.8" prefHeight="196.0" prefWidth="300.0" style="-fx-border-color: #348ceb; -fx-background-color: #ffffff;" />
+            <TextArea fx:id="bookingTextArea" editable="false" layoutX="322.0" layoutY="87.0" opacity="0.8" prefHeight="196.0" prefWidth="300.0" style="-fx-border-color: #348ceb; -fx-background-color: #ffffff;" />
             <Button layoutX="122.0" layoutY="230.0" mnemonicParsing="false" onAction="#bookTimeSlot" style="-fx-background-color: #ADD8E6; -fx-border-color: #348ceb; " text="Book">
                <font>
                   <Font name="Arial Black" size="13.0" />

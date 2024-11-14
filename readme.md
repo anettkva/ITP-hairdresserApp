@@ -3,13 +3,14 @@
 
   [Link til eclipse](https://che.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2024/gr2415/gr2415)
 
-Dette prosjektet er en bookingside for en frisørsalong, hvor brukere kan velge én eller flere behandlinger, få et anslag på pris, se tilgjengelige timer og booke en eller flere timer basert på behandlingen som er valgt. Appen vil hjelpe salongen med å digitalisere bookingprosessen og gi kundene en enkel måte å velge tjenester og planlegge sine frisørbesøk på.
+Dette prosjektet er en bookingside for en frisørsalong, hvor brukere kan velge én eller flere behandlinger, få et anslag på pris, se tilgjengelige timer og booke en eller flere timer basert på behandlingen som er valgt. Brukeren kan også skrive tilbakemeldinger til salongen, samt se tilbakemeldinger som er skrevet av andre kunder.Appen vil hjelpe salongen med å digitalisere bookingprosessen og gi kundene en enkel måte å velge tjenester og planlegge sine frisørbesøk på.
 
 # Mål med prosjektet
 
 - **Effektiv booking:** Brukerne skal kunne se ledige timer og booke frisørbehandlinger direkte fra appen.
 - **Prisoversikt:** Systemet skal kalkulere totalpris basert på valgte behandlinger.
 - **Lagring:** Data om behandlinger, priser og bookinger skal lagres og være lett tilgjengelig for både salongen og kundene.
+- **Tilbakemeldinger:** Brukerne skal kunne se tilbakemeldinger som er skrevet for appen, og også skrive tilbakemeldinger selv.
 
 ---
 
@@ -23,7 +24,25 @@ For å kjøre appen med spring-boot, gå inn i **backend**-modulen ved å skrive
 
 Merk at `mvn clean install` må kjøres på alle modulene før appen kjøres (fra hairdresserapp), for å ta hensyn til avhengighetene mellom dem.
 
-# fremgangsmåte - vise diagrammene
+# Framgangsmåte - laste ned app på pc (shippable product)
+
+Naviger til **hairdresserapp**-mappa ved å skrive `cd hairdresserapp`. Kjør kommandoen `mvn clean install`i terminalen for å kompilere prosjektet og ta hensyn til alle moduler. Kjør deretter `mvn clean package` i terminalen. Dette vil validere prosjektet med tanke på struktur, kompilere prosjektet, kjøre tester, og pakke den kompilerte koden i en distribuerbar form, som en JAR i vårt prosjekt. Deretter kjører du følgende kommando i terminalen:
+
+jpackage --input ui/target \
+          --dest ui/target/installer \
+          --name HairdresserApp \
+          --main-class ui.HairdresserApp \
+          --main-jar modules-ui-0.0.1-SNAPSHOT.jar \
+          --type dmg \
+          --icon HairdresserApp.icns \
+          --module-path ui/target/lib \
+          --add-modules javafx.controls,javafx.fxml,java.net.http
+
+**Merk:** Hvis du kjører på noe annet enn MacBook, må du endre på "type dmg" til å stemme overens med din type maskin. Vanlige typer for windows er: exe, msi. For linux er valinge typer: deb, rpm.
+
+Når du har skrevet inn riktig kommando, vil du få lastet ned og åpnet appen på din maskin. For at appen skal fungere må du ha en terminal inne i vscode med backend kjørende, altså skrive `mvn spring-boot:run` i backend. Da kan du åpne appen fra din pc og alle funksjoner inne i appen vil fungere.
+
+# Fremgangsmåte - vise diagrammene
 
 For å kunne få opp diagrammene i VScode må du ha installeret to exstentions: Graphviz Interactive Preview og PlantUML Preview.
 Du må så trykke deg inn i fila med koden for diagrammet.
@@ -58,7 +77,8 @@ Om dette ikke funker er det bilde av alle diagrammene i release.3 i mappen kalt 
 - **Format på booking-felt:** Vi har gjort formatet på dato og tid som skal skrives av bruker inne i appen mer realistisk.
 - **Velkommen-side:** En velkommen-side, som er den som åpnes når appen kjøres. Denne har tekst, som sier litt om salongen, og to knapper; en som tar brukeren til en tilbakemeldings-side, og en som tar brukeren til valg av behandlinger.
 - **Tilbakemeldings-side:** En side der brukeren kan skrive tilbakemeldinger til salongen, og se tilbakemeldinger som er skrevet fra før.
-- - **Testing:** Det er oppdatert tester ut fra ny funksjonalitet og REST-api. Tester for alle klasser i core og json, samt alle kontrollerene, untatt welcomeController.java, i ui testes til en viss grad
+- **Testing:** Det er oppdatert tester ut fra ny funksjonalitet og REST-api. Tester for alle klasser i core og json, samt alle kontrollerene, untatt welcomeController.java, i ui testes til en viss grad
+- **Brukervennlighet:** Vi har gjort appen mer brukervennlig ved å legge inn mer feedback når brukeren klikker seg rundt. I tillegg har vi lagt til en mer detaljert beskrivelse av hvordan man skal booke en time.
 
 ---
 
@@ -128,7 +148,6 @@ Ui-modul:
 - **`ReviewController.java`:**  
   Kontrollerklassen som hånterer skriving av reviews, og å vise alle reviews. Kommuniserer med **backend**-modulen via FrontReviewService.java.
 
-
 - **`FrontReviewService.java`:**  
   Klasse som er ansvarlig for sending av HTTP-forespørsler angående reviews til **backend**-modul. Disse forespørslene håndteres av **backend** fra RestReviewController.java
 
@@ -162,7 +181,7 @@ Backend-modul:
 
 # Diagram - arkitektur
 
-![Diagram](../docs/release2/diagram/diagram.png)
+![Klassediagram](../docs/release3/pictures/diagrams/klassediagram.png)
 
 ---
 

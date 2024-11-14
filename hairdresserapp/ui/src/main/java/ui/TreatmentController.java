@@ -146,7 +146,7 @@ public class TreatmentController {
             deleteTreatment(treatment);
         }
         else {
-            System.err.println("Fant ikke treatment for " + checkBox.getText());
+            System.err.println("Did not find treatment for " + checkBox.getText());
         }
     }
 
@@ -201,7 +201,7 @@ public class TreatmentController {
         overViewTextArea.setText("");
         List<Treatment> fileTreatments = frontService.getChosenTreatments();
         for (Treatment t : fileTreatments) {
-            overViewTextArea.appendText(t.getName() + ": " + t.getPrice() + " kr, Varighet (min): " + t.getduration() + "\n" );
+            overViewTextArea.appendText(t.getName() + ": " + t.getPrice() + " kr, Duration (min): " + t.getduration() + "\n" );
         }
     }
     

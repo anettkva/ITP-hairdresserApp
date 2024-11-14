@@ -88,8 +88,8 @@ Vi har i tillegg til å endre en del på tester vi hadde fra før, laget nye tes
 
 - FrontReviewService
 - FrontTreatmentService
-- ReviewControllerTest
-- TreatmentControllerTest
+- ReviewController
+- TreatmentController
 - FrontBookingService
 - BookingController
   
