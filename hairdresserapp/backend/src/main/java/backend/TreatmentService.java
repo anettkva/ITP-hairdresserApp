@@ -29,6 +29,11 @@ public class TreatmentService {
     private TreatmentFilehandling filehandling;
 
     /**
+     * Price calculator for treatments.
+     */
+    private final PriceCalculator priceCalculator;
+
+    /**
      * Constructs a new {@link TreatmentService} instance and initializes the
      * {@link TreatmentFilehandling}.
      * 
@@ -38,7 +43,18 @@ public class TreatmentService {
      */
     @Autowired
     public TreatmentService() {
-        this.filehandling = new TreatmentFilehandling();
+        this(new TreatmentFilehandling(), new PriceCalculator());
+    }
+
+    /**
+     * Constructs a new {@link TreatmentService} instance with injected dependencies.
+     * 
+     * @param filehandling    The {@link TreatmentFilehandling} instance.
+     * @param priceCalculator The {@link PriceCalculator} instance.
+     */
+    public TreatmentService(TreatmentFilehandling filehandling, PriceCalculator priceCalculator) {
+        this.filehandling = filehandling;
+        this.priceCalculator = priceCalculator;
     }
 
     /**
@@ -118,7 +134,6 @@ public class TreatmentService {
      */
     public double calculateTotalPrice() throws IOException {
         List<Treatment> treatments = getAllTreatments();
-        PriceCalculator priceCalculator = new PriceCalculator();
         return priceCalculator.CalculateTotalPrice(treatments);
     }
 }
