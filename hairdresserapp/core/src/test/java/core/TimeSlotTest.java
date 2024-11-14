@@ -35,7 +35,7 @@ public class TimeSlotTest {
 
 
 
-    //må se på etterpå
+
     @Test
     void startTimeBeforOpeningHoursThrowsException() {
         LocalDateTime startTime = LocalDateTime.now().plusDays(1).withHour(7).withMinute(0).withSecond(0).withNano(0);
@@ -69,7 +69,6 @@ public class TimeSlotTest {
     @Test
     void EndTimeBeforeStartTimeThrowsExceptionTest() {
         LocalDateTime startTime = LocalDateTime.now().plusHours(1);
-        LocalDateTime endTime = startTime.minusMinutes(30);
 
         assertThrows(IllegalArgumentException.class, 
             () -> extracted(startTime),
@@ -80,7 +79,6 @@ public class TimeSlotTest {
     @Test
     void testDurationLessThan30MinutesThrowsException() {
         LocalDateTime startTime = LocalDateTime.now().plusHours(1);
-        LocalDateTime endTime = startTime.plusMinutes(20);
 
         assertThrows(IllegalArgumentException.class, 
             () -> extracted(startTime),
