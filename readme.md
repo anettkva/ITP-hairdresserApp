@@ -18,14 +18,16 @@ HairdresserApp er en app som er utviklet i faget 'Informatikk i prosjektarbeid 1
 # Hvordan kjøre applikasjonen
 Kjøring via terminal (utviklingsmodus)
   1. **Kompilering**:
+     '''
      cd hairdresserapp
      mvn clean install
+     '''
 
-  2. **Start backend (Spring Boot) i en ny terminal:
+  3. **Start backend (Spring Boot) i en ny terminal:
      cd backend
      mvn spring-boot:run
 
-  3. Start frontend (JavaFX):
+  4. Start frontend (JavaFX):
      cd ../ui
      mvn javafx:run
 
