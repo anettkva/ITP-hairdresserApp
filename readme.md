@@ -3,9 +3,10 @@
 
   [Link til eclipse](https://che.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2024/gr2415/gr2415)
 
-Dette prosjektet er en bookingside for en frisørsalong, hvor brukere kan velge én eller flere behandlinger, få et anslag på pris, se tilgjengelige timer og booke en eller flere timer basert på behandlingen som er valgt. Brukeren kan også skrive tilbakemeldinger til salongen, samt se tilbakemeldinger som er skrevet av andre kunder.Appen vil hjelpe salongen med å digitalisere bookingprosessen og gi kundene en enkel måte å velge tjenester og planlegge sine frisørbesøk på.
+HairdresserApp er en app som er utviklet i faget 'Informatikk i prosjektarbeid 1' ved NTNU. Produktet er en bookingside hos en fiktiv frisørsalong. Hovedfokuset har blitt lagt i funksjonalitet og testing, der ulike krav for prosjektet har blitt gitt iterasjonsvis. Appen lar brukere velge ønskende behandlinger, gir et prisoverslag i sanntid, viser ledige timer og booke time. I tillegg kan brukerne skrive og lese anmeldelser. Appen skal hjelpe frisørsalongen med digitalisering, og sikre en mer flytende brukeropplevelse for kunder.
 
-# Mål med prosjektet
+
+# Mål med applikasjonen
 
 - **Effektiv booking:** Brukerne skal kunne se ledige timer og booke frisørbehandlinger direkte fra appen.
 - **Prisoversikt:** Systemet skal kalkulere totalpris basert på valgte behandlinger.
@@ -14,40 +15,55 @@ Dette prosjektet er en bookingside for en frisørsalong, hvor brukere kan velge 
 
 ---
 
-# Framgangsmåte - kjøring av app
+# Hvordan kjøre applikasjonen
+Kjøring via terminal (utviklingsmodus)
+  1. **Kompilering**:
+     cd hairdresserapp
+     mvn clean install
 
-Prosjektet bruker maven til bygging og kjøring.
+  2. **Start backend (Spring Boot) i en ny terminal:
+     cd backend
+     mvn spring-boot:run
 
-For å bygge, kjør `mvn install` eller `mvn clean install` fra **hairdresserapp**-mappa. Man må altså gå inn i hairdresserapp ved å skrive `cd hairdresserapp` før man kjører `mvn clean install`. Dette vil kjøre alle tester og kvalitetssjekker.
+  3. Start frontend (JavaFX):
+     cd ../ui
+     mvn javafx:run
 
-For å kjøre appen med spring-boot, gå inn i **backend**-modulen ved å skrive `cd hairdresserapp/backend` i en terminal. Kjør kommandoen `mvn spring-boot:run` i denne terminalen. Da vil spring-boot applikasjonen starte opp. Deretter, for å kjøre og åpne den faktiske applikasjonen, åpne en ny terminal, og gå inn i **ui**-modulen ved å skrive `cd hairdresserapp/ui`. Herfra kjør kommandoen `mvn javafx:run`.
+**Merk** Backend må kjøre samtidig som frontend for full funksjonalitet
 
-Merk at `mvn clean install` må kjøres på alle modulene før appen kjøres (fra hairdresserapp), for å ta hensyn til avhengighetene mellom dem.
 
-# Framgangsmåte - laste ned app på pc (shippable product)
+# FHvordan bygge og distibruere appen (shippable product)
 
-Naviger til **hairdresserapp**-mappa ved å skrive `cd hairdresserapp`. Kjør kommandoen `mvn clean install`i terminalen for å kompilere prosjektet og ta hensyn til alle moduler. Kjør deretter `mvn clean package` i terminalen. Dette vil validere prosjektet med tanke på struktur, kompilere prosjektet, kjøre tester, og pakke den kompilerte koden i en distribuerbar form, som en JAR i vårt prosjekt. Deretter kjører du følgende kommando i terminalen:
+Kjør følgende kommandoer i terminalen:
 
-jpackage --input ui/target \
-          --dest ui/target/installer \
-          --name HairdresserApp \
-          --main-class ui.HairdresserApp \
-          --main-jar modules-ui-0.0.1-SNAPSHOT.jar \
-          --type dmg \
-          --icon HairdresserApp.icns \
-          --module-path ui/target/lib \
-          --add-modules javafx.controls,javafx.fxml,java.net.http
+  cd hairdresserapp
+  mvn clean install
+  mvn clean package
 
-**Merk:** Hvis du kjører på noe annet enn MacBook, må du endre på "type dmg" til å stemme overens med din type maskin. Vanlige typer for windows er: exe, msi. For linux er valinge typer: deb, rpm.
+  jpackage --input ui/target \
+            --dest ui/target/installer \
+            --name HairdresserApp \
+            --main-class ui.HairdresserApp \
+            --main-jar modules-ui-0.0.1-SNAPSHOT.jar \
+            --type dmg \
+            --icon HairdresserApp.icns \
+            --module-path ui/target/lib \
+            --add-modules javafx.controls,javafx.fxml,java.net.http
 
-Når du har skrevet inn riktig kommando, vil du få lastet ned og åpnet appen på din maskin. For at appen skal fungere må du ha en terminal inne i vscode med backend kjørende, altså skrive `mvn spring-boot:run` i backend. Da kan du åpne appen fra din pc og alle funksjoner inne i appen vil fungere.
+**Merk:** Tilpass parameteren --type basert på ditt operativsystem (dmg for Mac, exe eller msi for Windows, og deb eller rpm for Linux).
 
-# Fremgangsmåte - vise diagrammene
+For å kjøre den distibruerte versjonen må backend kjøre parallelt:
 
-For å kunne få opp diagrammene i VScode må du ha installeret to exstentions: Graphviz Interactive Preview og PlantUML Preview.
-Du må så trykke deg inn i fila med koden for diagrammet.
-så høyreklikker du og trykker på 'preview current UML code' og da vil diagrammet lastes opp i et preview-vindu.
-Om dette ikke funker er det bilde av alle diagrammene i release.3 i mappen kalt for diagrams inne i picture-mappen.
+  cd backend
+  mvn spring-boot:run 
+
+# Hvordan vise diagrammer i VSCode:
+
+  - Installer utvidelsen **Graphviz Interactive Preview** og **PlantUML Preview**
+  - Åpne UML-fil, høyreklikk og velg **Preview current UML code**
+  - Alternativt ligger diagrammene som bilder i mappen pictured/diagrams under realease.3
+
+
 
 # Funksjonalitet Implementert i Del 1
 
@@ -84,14 +100,22 @@ Om dette ikke funker er det bilde av alle diagrammene i release.3 i mappen kalt 
 
 # Forutsetninger
 
-Før du kjører applikasjonen, må du sørge for at følgende er installert:
+Følgende programvare må være installert for å kjøre prosjektet:
 
 - Java 8 eller nyere
-- Maven eller Gradle (avhengig av byggeverktøy)
-- IDE som støtter Java og FXML, f.eks. IntelliJ IDEA eller Eclipse
+- Maven
+- IDE: IntelliJ IDEA, Eclipse eller lignende som støtter Java og FXML
 
 ---
 
+# Teknologier og rammeverk brukt
+- **JavaFX og FXML** for brukergrensesnitt
+- **Spring Boot** for backend og REST API
+- **Maven** for bygge- og pakkesystem
+- **JSON** for persistent lagring
+- **JUnit** for testing
+
+---
 # Struktur
 
 Prosjektet er organisert med følgende viktige klasser:
