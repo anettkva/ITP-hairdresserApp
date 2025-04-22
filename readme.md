@@ -18,26 +18,30 @@ HairdresserApp er en app som er utviklet i faget 'Informatikk i prosjektarbeid 1
 # Hvordan kjøre applikasjonen
 Kjøring via terminal (utviklingsmodus)
   1. **Kompilering**:
-     '''
+     ```
      cd hairdresserapp
      mvn clean install
-     '''
+     ```
 
-  3. **Start backend (Spring Boot) i en ny terminal:
+  2. **Start backend** (Spring Boot) i en ny terminal:
+     ```
      cd backend
      mvn spring-boot:run
+     ```
 
-  4. Start frontend (JavaFX):
+  3. **Start frontend** (JavaFX):
+     ```
      cd ../ui
      mvn javafx:run
+     ```
 
 **Merk** Backend må kjøre samtidig som frontend for full funksjonalitet
 
 
-# FHvordan bygge og distibruere appen (shippable product)
+# Hvordan bygge og distibruere appen (shippable product)
 
 Kjør følgende kommandoer i terminalen:
-
+  ```
   cd hairdresserapp
   mvn clean install
   mvn clean package
@@ -51,13 +55,14 @@ Kjør følgende kommandoer i terminalen:
             --icon HairdresserApp.icns \
             --module-path ui/target/lib \
             --add-modules javafx.controls,javafx.fxml,java.net.http
-
+  ```
 **Merk:** Tilpass parameteren --type basert på ditt operativsystem (dmg for Mac, exe eller msi for Windows, og deb eller rpm for Linux).
 
 For å kjøre den distibruerte versjonen må backend kjøre parallelt:
-
+```
   cd backend
-  mvn spring-boot:run 
+  mvn spring-boot:run
+```
 
 # Hvordan vise diagrammer i VSCode:
 
